@@ -1,0 +1,32 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:tkctrl="clr-namespace:WPFToolkit.Controls">
+
+    <Style x:Key="StyleHotkey" TargetType="{x:Type tkctrl:Hotkey}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="Black"/>
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="BorderBrush" Value="Silver"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type tkctrl:Hotkey}">
+
+                    <Grid>
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}"/>
+                        <TextBlock x:Name="PART_HotkeyText" Text="{TemplateBinding HotkeyText}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" TextOptions.TextFormattingMode="Display"/>
+                    </Grid>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

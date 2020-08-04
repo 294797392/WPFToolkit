@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WPFToolkit.MarkupExtensions;
+using WPFToolkit.Attributes;
 
 namespace WPFClient
 {

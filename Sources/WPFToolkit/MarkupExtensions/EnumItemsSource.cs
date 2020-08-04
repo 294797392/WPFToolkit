@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Windows.Data;
 using System.Windows.Markup;
 using WPFToolkit.MVVM;
+using WPFToolkit.Attributes;
 
 namespace WPFToolkit.MarkupExtensions
 {
@@ -83,25 +84,6 @@ namespace WPFToolkit.MarkupExtensions
         public override string ToString()
         {
             return this.Name;
-        }
-    }
-
-    public class EnumMemberAttribute : Attribute
-    {
-        public string Name { get; set; }
-
-        public EnumMemberAttribute(string name)
-        {
-            this.Name = name;
-        }
-
-        public EnumMember ToEnumMember(int value)
-        {
-            return new EnumMember()
-            {
-                Name = this.Name,
-                Value = value
-            };
         }
     }
 }

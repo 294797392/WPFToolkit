@@ -48,6 +48,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\EnumMemberAttribute.cs" />
+    <Compile Include="Controls\Hotkey.cs" />
     <Compile Include="MarkupExtensions\EnumItemsSource.cs" />
     <Compile Include="MVVM\Attributes\NotifiableAttribute.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
@@ -72,6 +74,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+    <ItemGroup>
+    <Page Include="Controls\ResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
