@@ -239,6 +239,8 @@ namespace WPFToolkit.Controls
             {
                 (oldValue as INotifyCollectionChanged).CollectionChanged -= this.Hotkeys_CollectionChanged;
             }
+
+            this.UpdateHotkeyText();
         }
 
         /// <summary>
