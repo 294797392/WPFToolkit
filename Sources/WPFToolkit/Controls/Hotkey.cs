@@ -64,6 +64,11 @@ namespace WPFToolkit.Controls
         /// </summary>
         private KeyTypes previouseKeyType = KeyTypes.None;
 
+        /// <summary>
+        /// 标识下一次按键的时候是否需要重置
+        /// </summary>
+        private bool reset;
+
         #endregion
 
         #region 依赖属性
@@ -108,7 +113,6 @@ namespace WPFToolkit.Controls
 
         public Hotkey()
         {
-            this.Hotkeys = new List<Key>();
         }
 
         #endregion
@@ -130,6 +134,12 @@ namespace WPFToolkit.Controls
             if (!this.IsKeySupported(pressedKey))
             {
                 return;
+            }
+
+            if(this.reset)
+            {
+                this.Reset();
+                this.reset = false;
             }
 
             // 解决会多次触发KeyDown事件的问题
@@ -186,7 +196,7 @@ namespace WPFToolkit.Controls
             if (this.IsControlKey(this.GetPressedKey(e)))
             {
                 // 设置完了
-                this.Reset();
+                this.reset = true;
             }
         }
 
