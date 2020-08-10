@@ -31,6 +31,8 @@ namespace WPFToolkit.MarkupExtensions
                 return null;
             }
 
+            // TODO：反射信息缓存
+
             ObservableCollection<EnumMember> result = new ObservableCollection<EnumMember>();
 
             FieldInfo[] fields = this.EnumType.GetFields();

@@ -12,6 +12,23 @@ using System.Windows.Input;
 namespace WPFToolkit.Controls
 {
     /// <summary>
+    /// 快捷键的策略
+    /// 注意，快捷键都使用字符键结尾，如果按了字符键后，继续按控制键，那么会进行重置操作
+    /// </summary>
+    public enum HotKeyStrategy
+    {
+        /// <summary>
+        /// 微信的快捷键方式..
+        /// </summary>
+        WeChat,
+
+        /// <summary>
+        /// 以控制键开头的快捷键，控制键后可以有多个字符按键组合
+        /// </summary>
+        StartWithControlKey
+    }
+
+    /// <summary>
     /// 快捷键控件
     /// 快捷键设置规则：快捷键要使用控制按键开头，或者是一个单独的英文字母。英文字母后面不能出现控制按键
     /// 快捷键设置完毕判断策略：当输入英文字母的时候，就算设置完毕
@@ -46,6 +63,11 @@ namespace WPFToolkit.Controls
         /// 最多有两个组合键
         /// </summary>
         public const int MAXIMUM_COMBINATION_KEYS = 3;
+
+        /// <summary>
+        /// 默认的快捷键策略
+        /// </summary>
+        public const HotKeyStrategy DefaultStrategy = HotKeyStrategy.WeChat;
 
         #region 实例变量
 
@@ -86,7 +108,6 @@ namespace WPFToolkit.Controls
         public static readonly DependencyProperty MaximumCombinationsProperty =
             DependencyProperty.Register("MaximumCombinations", typeof(int), typeof(Hotkey), new PropertyMetadata(MAXIMUM_COMBINATION_KEYS));
 
-
         public string HotkeyText
         {
             get { return (string)GetValue(HotkeyTextProperty); }
@@ -105,7 +126,17 @@ namespace WPFToolkit.Controls
 
         // Using a DependencyProperty as the backing store for Hotkeys.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HotkeysProperty =
-            DependencyProperty.Register("Hotkeys", typeof(IEnumerable<Key>), typeof(Hotkey), new PropertyMetadata(null, OnHotkeysPropertyChangedCallback));
+            DependencyProperty.Register("Hotkeys", typeof(IEnumerable<Key>), typeof(Hotkey), new PropertyMetadata(new List<Key>(), OnHotkeysPropertyChangedCallback));
+
+        public HotKeyStrategy Strategy
+        {
+            get { return (HotKeyStrategy)GetValue(StrategyProperty); }
+            set { SetValue(StrategyProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Strategy.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty StrategyProperty =
+            DependencyProperty.Register("Strategy", typeof(HotKeyStrategy), typeof(Hotkey), new PropertyMetadata(DefaultStrategy));
 
         #endregion
 
@@ -151,37 +182,29 @@ namespace WPFToolkit.Controls
             this.previouseKey = pressedKey;
             this.previouseKeyState = e.KeyStates;
 
-            // 按下的是Control，Alt，Shift其中的一个按键
-            if (this.IsControlKey(pressedKey))
+            switch (this.Strategy)
             {
-                // 超过了组合键个数
-                if (this.Hotkeys.Count == this.MaximumCombinations)
-                {
+                case HotKeyStrategy.StartWithControlKey:
+                    {
+                        if (!this.StartWithControlKeyProcess(pressedKey))
+                        {
+                            return;
+                        }
+                        break;
+                    }
+
+                case HotKeyStrategy.WeChat:
+                    {
+                        if (!this.WeChatProcess(pressedKey))
+                        {
+                            return;
+                        }
+                        break;
+                    }
+
+                default:
                     return;
-                }
-
-                // 上次按的是字符按键，重新设置
-                if (this.previouseKeyType == KeyTypes.CharacterKey)
-                {
-                    this.Reset();
-                }
-
-                this.previouseKeyType = KeyTypes.ControlKey;
             }
-
-            // 按下的是26个英文字母其中的一个
-            if (this.IsCharacterKey(pressedKey))
-            {
-                if (this.previouseKeyType == KeyTypes.CharacterKey)
-                {
-                    // 如果上一个按键是英文字母，那么把英文字母替换掉
-                    this.Hotkeys.RemoveAt(this.Hotkeys.Count - 1);
-                }
-
-                this.previouseKeyType = KeyTypes.CharacterKey;
-            }
-
-            //Console.WriteLine("添加Key = {0}", e.SystemKey);
 
             this.Hotkeys.Add(pressedKey);
 
@@ -264,6 +287,103 @@ namespace WPFToolkit.Controls
         }
 
         /// <summary>
+        /// 处理当策略是StartWithControlKey的时候的按键逻辑
+        /// </summary>
+        private bool StartWithControlKeyProcess(Key pressedKey)
+        {
+            // 按下的是Control，Alt，Shift其中的一个按键
+            if (this.IsControlKey(pressedKey))
+            {
+                // 超过了组合键个数
+                if (this.Hotkeys.Count == this.MaximumCombinations)
+                {
+                    if (this.Hotkeys.All(k => this.IsCharacterKey(k)))
+                    {
+                        // 如果快捷键都是英文字母，那么重置
+                        this.Hotkeys.Clear();
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+
+                // 上次按的是字符按键，重新设置
+                if (this.previouseKeyType == KeyTypes.CharacterKey)
+                {
+                    this.Reset();
+                }
+
+                this.previouseKeyType = KeyTypes.ControlKey;
+            }
+
+            // 按下的是26个英文字母其中的一个
+            if (this.IsCharacterKey(pressedKey))
+            {
+                if (this.Hotkeys.Count == 0)
+                {
+                    // 第一个快捷键不允许是字母
+                    return false;
+                }
+
+                // 超过了组合键个数
+                if (this.Hotkeys.Count == this.MaximumCombinations)
+                {
+                    if (this.previouseKeyType == KeyTypes.CharacterKey)
+                    {
+                        // 如果上一个按键是英文字母，那么把最后一个字母替换掉
+                        this.Hotkeys.RemoveAt(this.Hotkeys.Count - 1);
+                    }
+                }
+
+                this.previouseKeyType = KeyTypes.CharacterKey;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// 处理当策略是Free的时候的按键逻辑
+        /// </summary>
+        /// <param name="pressedKey"></param>
+        /// <returns></returns>
+        private bool WeChatProcess(Key pressedKey)
+        {
+            // 按下的是Control，Alt，Shift其中的一个按键
+            if (this.IsControlKey(pressedKey))
+            {
+                // 超过了组合键个数
+                if (this.Hotkeys.Count == this.MaximumCombinations)
+                {
+                    return false;
+                }
+
+                // 上次按的是字符按键，重新设置
+                if (this.previouseKeyType == KeyTypes.CharacterKey)
+                {
+                    //this.Reset();
+                    this.Hotkeys.Clear();
+                }
+
+                this.previouseKeyType = KeyTypes.ControlKey;
+            }
+
+            // 按下的是26个英文字母其中的一个
+            if (this.IsCharacterKey(pressedKey))
+            {
+                if (this.previouseKeyType == KeyTypes.CharacterKey)
+                {
+                    // 如果上一个按键是英文字母，那么把英文字母替换掉
+                    this.Hotkeys.RemoveAt(this.Hotkeys.Count - 1);
+                }
+
+                this.previouseKeyType = KeyTypes.CharacterKey;
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// 更新快捷键文本
         /// </summary>
         /// <param name="hotKeys"></param>
@@ -338,7 +458,17 @@ namespace WPFToolkit.Controls
         /// <returns></returns>
         private Key GetPressedKey(KeyEventArgs e)
         {
-            return e.Key == Key.System ? e.SystemKey : e.Key;
+            if (e.Key == Key.System)
+            {
+                return e.SystemKey;
+            }
+
+            if (e.Key == Key.ImeProcessed)
+            {
+                return e.ImeProcessedKey;
+            }
+
+            return e.Key;
         }
     }
 }

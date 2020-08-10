@@ -50,8 +50,13 @@
   <ItemGroup>
     <Compile Include="Attributes\EnumMemberAttribute.cs" />
     <Compile Include="Controls\Hotkey.cs" />
+    <Compile Include="Converters\Boolean2VisiblityConverter.cs" />
     <Compile Include="MarkupExtensions\EnumItemsSource.cs" />
     <Compile Include="MVVM\Attributes\NotifiableAttribute.cs" />
+    <Compile Include="MVVM\Interactivity\Behavior.cs" />
+    <Compile Include="MVVM\Interactivity\Behaviors\EventActionBehavior.cs" />
+    <Compile Include="MVVM\Interactivity\Interaction.cs" />
+    <Compile Include="MVVM\Interactivity\Service.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -75,11 +80,18 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-    <ItemGroup>
-    <Page Include="Controls\ResourceDictionary.xaml">
+  <ItemGroup>
+    <Page Include="Controls\ControlStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Gray.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="QuickControls\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

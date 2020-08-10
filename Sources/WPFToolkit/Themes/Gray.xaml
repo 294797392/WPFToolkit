@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WPFToolkit.Themes">
+
+    <SolidColorBrush x:Key="BrushBackground1" Color="Silver" Opacity="1"/>
+    <SolidColorBrush x:Key="BrushBackground2" Color="Silver" Opacity="0.8"/>
+    <SolidColorBrush x:Key="BrushBackground3" Color="Silver" Opacity="0.5"/>
+
+    <SolidColorBrush x:Key="BrushBorder" Color="Black"/>
+    <SolidColorBrush x:Key="BrushBorder1" Color="Black" Opacity="0.8"/>
+    <SolidColorBrush x:Key="BrushBorder2" Color="Black" Opacity="0.5"/>
+
+</ResourceDictionary>
