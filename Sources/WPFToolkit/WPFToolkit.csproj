@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -49,14 +50,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\EnumMemberAttribute.cs" />
-    <Compile Include="Controls\Hotkey.cs" />
+    <Compile Include="Controls\TKHotkey.cs" />
+    <Compile Include="Controls\TKSlider.cs" />
     <Compile Include="Converters\Boolean2VisiblityConverter.cs" />
     <Compile Include="MarkupExtensions\EnumItemsSource.cs" />
+    <Compile Include="MarkupExtensions\ImageURI.cs" />
     <Compile Include="MVVM\Attributes\NotifiableAttribute.cs" />
     <Compile Include="MVVM\Interactivity\Behavior.cs" />
     <Compile Include="MVVM\Interactivity\Behaviors\EventActionBehavior.cs" />
     <Compile Include="MVVM\Interactivity\Interaction.cs" />
     <Compile Include="MVVM\Interactivity\Service.cs" />
+    <Compile Include="MVVM\Interactivity\Services\IBackgroundTaskService.cs" />
+    <Compile Include="MVVM\Interactivity\Services\IDialogService.cs" />
+    <Compile Include="MVVM\Interactivity\Services\IDispatcherService.cs" />
+    <Compile Include="MVVM\Interactivity\Services\IMessageBoxService.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -71,6 +78,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Utility\ImageUtility.cs" />
+    <Compile Include="Utility\SelectionUtility.cs" />
+    <Compile Include="Utility\VisualTreeExtentons.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
