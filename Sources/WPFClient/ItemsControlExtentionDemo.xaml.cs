@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,41 +12,33 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using WPFToolkit.Utility;
 
 namespace WPFClient
 {
     /// <summary>
-    /// VisualTreeExtentonsDemo.xaml 的交互逻辑
+    /// ItemsControlExtentionDemo.xaml 的交互逻辑
     /// </summary>
-    public partial class VisualTreeExtentionsDemo : Window
+    public partial class ItemsControlExtentionDemo : Window
     {
-        #region 字段
-
-        #endregion
-
-        #region 属性
-
-        #endregion
-
-        #region 构造
-
         /// <summary>
         /// 构造方法
         /// </summary>
-        public VisualTreeExtentionsDemo()
+        public ItemsControlExtentionDemo()
         {
             this.InitializeComponent();
+
+            List<string> items = new List<string>();
+            for (int i = 0; i < 50000; i++)
+            {
+                items.Add(Guid.NewGuid().ToString());
+            }
+
+            ListBox.ItemsSource = items;
         }
 
-        #endregion
-
-        #region 方法
-
-        #endregion
-
-        private void ButtonVisualTree_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void StackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+
         }
     }
 }

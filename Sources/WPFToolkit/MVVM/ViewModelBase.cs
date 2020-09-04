@@ -18,6 +18,11 @@ namespace WPFToolkit.MVVM
         private string name;
 
         /// <summary>
+        /// 冗余属性，字符串格式的ID
+        /// </summary>
+        private object id;
+
+        /// <summary>
         /// 冗余Description属性
         /// </summary>
         private string description;
@@ -42,6 +47,16 @@ namespace WPFToolkit.MVVM
             {
                 this.description = value;
                 this.NotifyPropertyChanged("Description");
+            }
+        }
+
+        public object ID
+        {
+            get { return this.id; }
+            set
+            {
+                this.id = value;
+                this.NotifyPropertyChanged("ID");
             }
         }
 
