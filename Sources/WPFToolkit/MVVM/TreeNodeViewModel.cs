@@ -10,7 +10,7 @@ namespace WPFToolkit.MVVM
     /// <summary>
     /// 通用属性列表每个列表项的ViewModel
     /// </summary>
-    public class TreeNodeViewModel : ListItemViewModel
+    public class TreeNodeViewModel : ItemViewModel
     {
         #region 属性
 

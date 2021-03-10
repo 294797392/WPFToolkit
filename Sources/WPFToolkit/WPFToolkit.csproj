@@ -32,6 +32,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotNEToolkit">
+      <HintPath>..\..\Dependence\DotNEToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\Dependence\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\Dependence\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -50,6 +59,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\EnumMemberAttribute.cs" />
+    <Compile Include="QuickControls\IQuickMainMenuHook.cs" />
+    <Compile Include="QuickControls\QuickMainMenu.cs" />
+    <Compile Include="Controls\PanAndZoomViewer.cs" />
     <Compile Include="Controls\TKHotkey.cs" />
     <Compile Include="Controls\TKSlider.cs" />
     <Compile Include="Converters\NullableVisiblityConverter.cs" />
@@ -69,8 +81,8 @@
     <Compile Include="MVVM\Interactivity\Services\IDialogService.cs" />
     <Compile Include="MVVM\Interactivity\Services\IDispatcherService.cs" />
     <Compile Include="MVVM\Interactivity\Services\IMessageBoxService.cs" />
-    <Compile Include="MVVM\ListItemViewModel.cs" />
-    <Compile Include="MVVM\ListViewModel.cs" />
+    <Compile Include="MVVM\ItemViewModel.cs" />
+    <Compile Include="MVVM\ItemsViewModel.cs" />
     <Compile Include="MVVM\ISelectableViewModel.cs" />
     <Compile Include="MVVM\TreeViewModelContext.cs" />
     <Compile Include="MVVM\TreeNodeViewModel.cs" />
@@ -89,21 +101,30 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="QuickControls\QBrowserableViewModel.cs" />
-    <Compile Include="QuickControls\QViewModelBase.cs" />
+    <Compile Include="QuickControls\QuickMainMenuItemVM.cs" />
+    <Compile Include="QuickControls\QuickMainMenuVM.cs" />
     <Compile Include="Utility\ImageUtility.cs" />
     <Compile Include="Extentions\VisualTreeExtentons.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Controls\MainMenu.json" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="QuickControls\QuickMenu.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="QuickControls\readme.md" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\ControlStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ControlStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

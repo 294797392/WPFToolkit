@@ -10,12 +10,12 @@ namespace WPFToolkit.MVVM
     /// <summary>
     /// 适用于所有ItemsControl的ViewModel
     /// </summary>
-    public class ListViewModel : ViewModelBase
+    public class ItemsViewModel<T> : ViewModelBase where T : ItemViewModel
     {
         #region 实例变量
 
-        private ListItemViewModel selectedItem;
-        private ObservableCollection<ListItemViewModel> selectedItems;
+        private T selectedItem;
+        private ObservableCollection<T> selectedItems;
 
         #endregion
 
@@ -24,7 +24,7 @@ namespace WPFToolkit.MVVM
         /// <summary>
         /// 当前选中的项
         /// </summary>
-        public ListItemViewModel SelectedItem
+        public T SelectedItem
         {
             get { return this.selectedItem; }
             set
@@ -34,7 +34,10 @@ namespace WPFToolkit.MVVM
             }
         }
 
-        public ObservableCollection<ListItemViewModel> SelectedItems
+        /// <summary>
+        /// 当前选中的项集合
+        /// </summary>
+        public ObservableCollection<T> SelectedItems
         {
             get { return this.selectedItems; }
             set
@@ -44,13 +47,19 @@ namespace WPFToolkit.MVVM
             }
         }
 
+        /// <summary>
+        /// 所有的项集合
+        /// </summary>
+        public ObservableCollection<T> Items { get; private set; }
+
         #endregion
 
         #region 构造方法
 
-        public ListViewModel()
+        public ItemsViewModel()
         {
-            this.SelectedItems = new ObservableCollection<ListItemViewModel>();
+            this.SelectedItems = new ObservableCollection<T>();
+            this.Items = new ObservableCollection<T>();
         }
 
         #endregion

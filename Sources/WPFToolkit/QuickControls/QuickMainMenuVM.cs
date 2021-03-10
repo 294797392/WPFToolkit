@@ -1,15 +1,13 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPFToolkit.MVVM;
 
 namespace WPFToolkit.QuickControls
 {
-    /// <summary>
-    /// 专门为QuickControl准备的ViewModel
-    /// </summary>
-    public class QViewModelBase
+    public class QuickMainMenuVM : ItemsViewModel<QuickMainMenuItemVM>
     {
     }
 }

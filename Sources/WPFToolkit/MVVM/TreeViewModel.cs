@@ -11,7 +11,7 @@ namespace WPFToolkit.MVVM
     /// 通用树形列表ViewModel
     /// 项目在开发的时候可以继承这个ViewModel，也可以直接使用该ViewModel
     /// </summary>
-    public class TreeViewModel : ListViewModel
+    public class TreeViewModel : ItemsViewModel<TreeNodeViewModel>
     {
         #region 实例变量
 

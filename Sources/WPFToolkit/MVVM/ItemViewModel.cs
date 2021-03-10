@@ -9,7 +9,7 @@ namespace WPFToolkit.MVVM
     /// <summary>
     /// 列表项通用ViewModel
     /// </summary>
-    public class ListItemViewModel : ViewModelBase, ISelectableViewModel, IExpandableViewModel
+    public class ItemViewModel : ViewModelBase, ISelectableViewModel, IExpandableViewModel
     {
         #region 实例变量
 
