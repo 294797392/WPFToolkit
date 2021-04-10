@@ -1,9 +1,13 @@
+using DotNEToolkit;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPFToolkit.Attributes;
+using WPFToolkit.MVVM.Internals;
 
 namespace WPFToolkit.MVVM
 {
@@ -60,6 +64,78 @@ namespace WPFToolkit.MVVM
 
             // 设置IsExpanded会对父节点进行递归展开
             vm.IsExpanded = true;
+        }
+
+        #endregion
+
+
+
+        #region 静态方法
+
+        private static void LoadChildNodes(TreeNodeViewModel parentNode, List<TreeNodeJSON> childNodes)
+        {
+            foreach (TreeNodeJSON nodeJson in childNodes)
+            {
+                TreeNodeViewModel vm = new TreeNodeViewModel(parentNode.Context, parentNode) 
+                {
+                    ID = nodeJson.ID,
+                    Name = nodeJson.Name,
+                    IconURI = nodeJson.Icon
+                };
+
+                parentNode.Children.Add(vm);
+
+                LoadChildNodes(vm, nodeJson.Children);
+            }
+        }
+
+        /// <summary>
+        /// 从数据源创建TreeViewModel
+        /// </summary>
+        /// <param name="sourceType"></param>
+        /// <param name="sourceURI"></param>
+        /// <returns></returns>
+        public static TreeViewModel Create(ItemsSourceType sourceType, string sourceURI)
+        {
+            TreeViewJSON tv = null;
+
+            switch (sourceType)
+            {
+                case ItemsSourceType.JsonFile:
+                    {
+                        if (!File.Exists(sourceURI))
+                        {
+                            return null;
+                        }
+
+                        tv = JSONHelper.ParseFile<TreeViewJSON>(sourceURI);
+
+                        break;
+                    }
+
+                default:
+                    throw new NotImplementedException();
+            }
+
+            TreeViewModelContext context = new TreeViewModelContext();
+
+            TreeViewModel treeVM = new TreeViewModel();
+
+            foreach (TreeNodeJSON nodeJson in tv.NodeList)
+            {
+                TreeNodeViewModel vm = new TreeNodeViewModel(context)
+                {
+                    ID = nodeJson.ID,
+                    Name = nodeJson.Name,
+                    IconURI = nodeJson.Icon,
+                };
+
+                treeVM.Items.Add(vm);
+
+                LoadChildNodes(vm, nodeJson.Children);
+            }
+
+            return treeVM;
         }
 
         #endregion

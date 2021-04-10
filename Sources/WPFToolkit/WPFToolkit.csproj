@@ -60,6 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\EnumMemberAttribute.cs" />
+    <Compile Include="Attributes\ItemsSourceAttribute.cs" />
+    <Compile Include="MVVM\Internals\TreeNodeJSON.cs" />
+    <Compile Include="MVVM\Internals\TreeViewJSON.cs" />
     <Compile Include="QuickControls\IQuickMainMenuHook.cs" />
     <Compile Include="QuickControls\QuickMainMenu.cs" />
     <Compile Include="Controls\PanAndZoomViewer.cs" />

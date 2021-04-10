@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,8 +19,13 @@ namespace WPFToolkit.MVVM
         public TreeNodeViewModel SelectedItem { get; internal set; }
 
         /// <summary>
-        /// 数据提供器
+        /// 当前选中的节点集合
         /// </summary>
-        internal IDataProvider DataProvider { get; set; }
+        public ObservableCollection<TreeNodeViewModel> SelectedItems { get; internal set; }
+
+        public TreeViewModelContext()
+        {
+            this.SelectedItems = new ObservableCollection<TreeNodeViewModel>();
+        }
     }
 }

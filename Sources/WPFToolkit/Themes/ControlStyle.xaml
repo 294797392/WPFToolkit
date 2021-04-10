@@ -211,8 +211,11 @@
                 <ControlTemplate TargetType="{x:Type Button}">
 
                     <Grid>
-                        <Border Background="{TemplateBinding Background}"/>
-                        <ContentPresenter/>
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"/>
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}"/>
                     </Grid>
 
                 </ControlTemplate>
