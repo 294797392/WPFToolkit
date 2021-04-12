@@ -45,6 +45,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -61,6 +62,23 @@
   <ItemGroup>
     <Compile Include="Attributes\EnumMemberAttribute.cs" />
     <Compile Include="Attributes\ItemsSourceAttribute.cs" />
+    <Compile Include="DragDrop\DefaultDragHandler.cs" />
+    <Compile Include="DragDrop\DefaultDropHandler.cs" />
+    <Compile Include="DragDrop\DragAdorner.cs" />
+    <Compile Include="DragDrop\DragDrop.cs" />
+    <Compile Include="DragDrop\DragInfo.cs" />
+    <Compile Include="DragDrop\DropInfo.cs" />
+    <Compile Include="DragDrop\DropTargetAdorner.cs" />
+    <Compile Include="DragDrop\DropTargetAdorners.cs" />
+    <Compile Include="DragDrop\DropTargetHighlightAdorner.cs" />
+    <Compile Include="DragDrop\DropTargetInsertionAdorner.cs" />
+    <Compile Include="DragDrop\IDragSource.cs" />
+    <Compile Include="DragDrop\IDropHandler.cs" />
+    <Compile Include="DragDrop\IDropTarget.cs" />
+    <Compile Include="DragDrop\ItemsControlExtensions.cs" />
+    <Compile Include="DragDrop\TypeUtilities.cs" />
+    <Compile Include="DragDrop\VisualTreeExtensions.cs" />
+    <Compile Include="DragDrop\WinformDragDropHelper.cs" />
     <Compile Include="MVVM\Internals\TreeNodeJSON.cs" />
     <Compile Include="MVVM\Internals\TreeViewJSON.cs" />
     <Compile Include="QuickControls\IQuickMainMenuHook.cs" />
