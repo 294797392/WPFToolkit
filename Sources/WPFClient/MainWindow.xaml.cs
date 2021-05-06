@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFToolkit.Utility;
+using WPFToolkit.Windows;
 
 namespace WPFClient
 {
@@ -23,6 +26,21 @@ namespace WPFClient
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+
+            SplashScreenWindow ssw = new SplashScreenWindow();
+            ssw.Show();
+
+            Task.Factory.StartNew(() => 
+            {
+                Thread.Sleep(3000);
+
+                this.Dispatcher.Invoke(ssw.Close);
+            });
         }
     }
 }
