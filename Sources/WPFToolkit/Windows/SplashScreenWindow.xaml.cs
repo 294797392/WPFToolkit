@@ -22,6 +22,26 @@ namespace WPFToolkit.Windows
     {
         private Storyboard fadeOut;
 
+        public int FadeInMilliseconds
+        {
+            get { return (int)GetValue(FadeInMillisecondsProperty); }
+            set { SetValue(FadeInMillisecondsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for FadeInMilliseconds.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FadeInMillisecondsProperty =
+            DependencyProperty.Register("FadeInMilliseconds", typeof(int), typeof(SplashScreenWindow), new PropertyMetadata(100));
+
+        public int FadeOutMilliseconds
+        {
+            get { return (int)GetValue(FadeOutMillisecondsProperty); }
+            set { SetValue(FadeOutMillisecondsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for FadeOutMilliseconds.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FadeOutMillisecondsProperty =
+            DependencyProperty.Register("FadeOutMilliseconds", typeof(int), typeof(SplashScreenWindow), new PropertyMetadata(100));
+
         public UserControl ContentControl
         {
             get { return (UserControl)GetValue(ContentControlProperty); }
@@ -49,6 +69,11 @@ namespace WPFToolkit.Windows
         {
             this.fadeOut.Completed -= this.StoryboardFadeOut_Completed;
             base.Close();
+        }
+
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }

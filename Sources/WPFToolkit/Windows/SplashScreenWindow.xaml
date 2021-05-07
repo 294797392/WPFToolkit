@@ -12,11 +12,11 @@
 
     <Window.Resources>
         <Storyboard x:Key="StoryboardFadeIn" Storyboard.TargetProperty="Opacity">
-            <DoubleAnimation From="0" To="1" Duration="00:00:00.20" />
+            <DoubleAnimation From="0" To="1" Duration="00:00:00.700" />
         </Storyboard>
 
         <Storyboard x:Key="StoryboardFadeOut" Storyboard.TargetProperty="Opacity">
-            <DoubleAnimation From="1" To="0" Duration="00:00:00.20" />
+            <DoubleAnimation From="1" To="0" Duration="00:00:00.700" />
         </Storyboard>
     </Window.Resources>
 
@@ -32,13 +32,15 @@
 
 
     <Grid>
-        <Border Background="White" BorderBrush="Silver" BorderThickness="1" Margin="5">
+        <Border Background="White" BorderBrush="Silver" BorderThickness="1" Margin="5" MouseLeftButtonDown="Border_MouseLeftButtonDown"
+                PreviewMouseLeftButtonDown="Border_MouseLeftButtonDown">
             <Border.Effect>
                 <DropShadowEffect Color="Black" ShadowDepth="1" Opacity="0.5" />
             </Border.Effect>
         </Border>
 
-        <ContentControl Content="{Binding ElementName=SplashWindow, Path=ContentControl}"/>
+        <ContentControl Content="{Binding ElementName=SplashWindow, Path=ContentControl}"
+                        Margin="5"/>
 
     </Grid>
 
