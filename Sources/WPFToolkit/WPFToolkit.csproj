@@ -62,6 +62,9 @@
   <ItemGroup>
     <Compile Include="Attributes\EnumMemberAttribute.cs" />
     <Compile Include="Attributes\ItemsSourceAttribute.cs" />
+    <Compile Include="Controls\AutoCompletedComboBox.cs" />
+    <Compile Include="Controls\ColorPicker.cs" />
+    <Compile Include="Controls\Resources.cs" />
     <Compile Include="DragDrop\DefaultDragHandler.cs" />
     <Compile Include="DragDrop\DefaultDropHandler.cs" />
     <Compile Include="DragDrop\DragAdorner.cs" />
@@ -84,8 +87,7 @@
     <Compile Include="QuickControls\IQuickMainMenuHook.cs" />
     <Compile Include="QuickControls\QuickMainMenu.cs" />
     <Compile Include="Controls\PanAndZoomViewer.cs" />
-    <Compile Include="Controls\TKHotkey.cs" />
-    <Compile Include="Controls\TKSlider.cs" />
+    <Compile Include="Controls\Hotkey.cs" />
     <Compile Include="Converters\NullableVisiblityConverter.cs" />
     <Compile Include="Converters\BooleanVisiblityConverter.cs" />
     <Compile Include="MarkupExtensions\EnumItemsSource.cs" />
@@ -146,6 +148,14 @@
     <None Include="Windows\readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\AutoCompletedComboBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ColorPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ControlStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

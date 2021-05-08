@@ -36,7 +36,7 @@ namespace WPFToolkit.Controls
     /// 注意，这个控件继承自TextBox，因为之前发现过如果把该控件用于ListBox里，那么不会触发KeyDown事件。然而TextBox就可以触发KeyDown事件，所以就改成继承自TextBox
     /// 猜测是因为ListBoxItem给KeyDown事件做了特殊处理，设置了Handled=True
     /// </summary>
-    public class TKHotkey : TextBox
+    public class Hotkey : TextBox
     {
         /// <summary>
         /// 按键类型
@@ -106,7 +106,7 @@ namespace WPFToolkit.Controls
 
         // Using a DependencyProperty as the backing store for MaximumHotkeys.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MaximumCombinationsProperty =
-            DependencyProperty.Register("MaximumCombinations", typeof(int), typeof(TKHotkey), new PropertyMetadata(MAXIMUM_COMBINATION_KEYS));
+            DependencyProperty.Register("MaximumCombinations", typeof(int), typeof(Hotkey), new PropertyMetadata(MAXIMUM_COMBINATION_KEYS));
 
         public string HotkeyText
         {
@@ -116,7 +116,7 @@ namespace WPFToolkit.Controls
 
         // Using a DependencyProperty as the backing store for HotkeyText.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HotkeyTextProperty =
-            DependencyProperty.Register("HotkeyText", typeof(string), typeof(TKHotkey), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("HotkeyText", typeof(string), typeof(Hotkey), new PropertyMetadata(string.Empty));
 
         public List<Key> Hotkeys
         {
@@ -126,7 +126,7 @@ namespace WPFToolkit.Controls
 
         // Using a DependencyProperty as the backing store for Hotkeys.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HotkeysProperty =
-            DependencyProperty.Register("Hotkeys", typeof(IEnumerable<Key>), typeof(TKHotkey), new PropertyMetadata(new List<Key>(), OnHotkeysPropertyChangedCallback));
+            DependencyProperty.Register("Hotkeys", typeof(IEnumerable<Key>), typeof(Hotkey), new PropertyMetadata(new List<Key>(), OnHotkeysPropertyChangedCallback));
 
         public HotKeyStrategy Strategy
         {
@@ -136,13 +136,13 @@ namespace WPFToolkit.Controls
 
         // Using a DependencyProperty as the backing store for Strategy.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty StrategyProperty =
-            DependencyProperty.Register("Strategy", typeof(HotKeyStrategy), typeof(TKHotkey), new PropertyMetadata(DefaultStrategy));
+            DependencyProperty.Register("Strategy", typeof(HotKeyStrategy), typeof(Hotkey), new PropertyMetadata(DefaultStrategy));
 
         #endregion
 
         #region 构造方法
 
-        public TKHotkey()
+        public Hotkey()
         {
         }
 
@@ -273,7 +273,7 @@ namespace WPFToolkit.Controls
         /// <param name="e">回调参数</param>        
         private static void OnHotkeysPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as TKHotkey).OnHotkeysPropertyChanged(e.NewValue as IEnumerable<Key>, e.OldValue as IEnumerable<Key>);
+            (d as Hotkey).OnHotkeysPropertyChanged(e.NewValue as IEnumerable<Key>, e.OldValue as IEnumerable<Key>);
         }
 
         #endregion
