@@ -17,7 +17,7 @@ namespace WPFToolkitDemo
     /// <summary>
     /// HotkeyDemo.xaml 的交互逻辑
     /// </summary>
-    public partial class HotkeyDemo : Window
+    public partial class HotkeyDemo : UserControl
     {
         #region 字段
 

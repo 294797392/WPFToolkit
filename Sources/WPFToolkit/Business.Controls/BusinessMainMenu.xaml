@@ -4,15 +4,41 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFToolkit.Business.Controls"
+         xmlns:tookit="clr-namespace:WPFToolkit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
+    <ListBox.Resources>
+
+        <ItemsPanelTemplate x:Key="ItemsPanelTemplateVertical">
+            <StackPanel Orientation="Vertical" IsItemsHost="True"/>
+        </ItemsPanelTemplate>
+
+        <ItemsPanelTemplate x:Key="ItemsPanelTemplateHorizontal">
+            <StackPanel Orientation="Horizontal" IsItemsHost="True"/>
+        </ItemsPanelTemplate>
+
+        <DataTemplate x:Key="DataTemplateDefault">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="1" Text="{Binding Path=Name}"/>
+
+            </Grid>
+        </DataTemplate>
+
+    </ListBox.Resources>
 
     <ListBox.Style>
 
-        <Style TargetType="{x:Type ListBox}">
+        <Style TargetType="{x:Type ListBox}" BasedOn="{x:Static tookit:Resources.DefaultListBoxStyle}">
             <Setter Property="ItemsSource" Value="{Binding Path=Items}"/>
             <Setter Property="SelectedItem" Value="{Binding Path=SelectedItem, Mode=TwoWay}"/>
+            <Setter Property="ItemContainerStyle" Value="{Binding Source={RelativeSource Mode=Self}}"/>
+            <Setter Property="ItemTemplate" Value="{StaticResource ResourceKey=DataTemplateDefault}"/>
         </Style>
 
     </ListBox.Style>

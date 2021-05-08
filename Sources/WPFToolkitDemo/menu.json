@@ -2,8 +2,16 @@
     "menus": [
         {
             "id": "1",
-            "name": "主页",
-            "entryClass": ""
+            "name": "Hotkey",
+            "entry": "WPFToolkitDemo.HotkeyDemo, WPFToolkitDemo",
+            "icon": ""
+        },
+
+        {
+            "id": "2",
+            "name": "Hotkey",
+            "entry": "WPFToolkitDemo.HotkeyDemo, WPFToolkitDemo",
+            "icon": ""
         }
     ]
 }

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using WPFToolkit.MVVM;
+using System.ComponentModel;
 
 namespace WPFToolkit.Business.Controls
 {
@@ -27,16 +28,16 @@ namespace WPFToolkit.Business.Controls
             [JsonProperty("name")]
             public string Name { get; set; }
 
-            [JsonProperty("entryClass")]
+            [JsonProperty("entry")]
             public string EntryClass { get; set; }
         }
 
-        internal class QuickMainMenuJson
+        internal class BusinessMainMenuJson
         {
             [JsonProperty("menus")]
             public List<MenuItem> MenuList { get; set; }
 
-            public QuickMainMenuJson()
+            public BusinessMainMenuJson()
             {
                 this.MenuList = new List<MenuItem>();
             }
@@ -44,7 +45,7 @@ namespace WPFToolkit.Business.Controls
 
         #region 类变量
 
-        private static log4net.ILog logger = log4net.LogManager.GetLogger("QuickMainMenu");
+        private static log4net.ILog logger = log4net.LogManager.GetLogger("BusinessMainMenu");
 
         #endregion
 
@@ -55,22 +56,33 @@ namespace WPFToolkit.Business.Controls
         /// </summary>
         private BusinessMainMenuItemVM previouSelected;
 
-        private QuickMainMenuJson menuConfig;
+        private BusinessMainMenuJson menuConfig;
+
+        private ItemsPanelTemplate verticalPanel;
+
+        private ItemsPanelTemplate horizontalPanel;
 
         #endregion
 
         #region 依赖属性
 
-        public ContentControl Content
+        /// <summary>
+        /// 指定显示菜单所对应的界面的区域
+        /// </summary>
+        public ContentControl ContentContainer
         {
-            get { return (ContentControl)GetValue(ContentProperty); }
-            set { SetValue(ContentProperty, value); }
+            get { return (ContentControl)GetValue(ContentContainerProperty); }
+            set { SetValue(ContentContainerProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Content.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ContentProperty =
-            DependencyProperty.Register("Content", typeof(ContentControl), typeof(BusinessMainMenu), new PropertyMetadata(null));
+        // Using a DependencyProperty as the backing store for ContentContainer.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ContentContainerProperty =
+            DependencyProperty.Register("ContentContainer", typeof(ContentControl), typeof(BusinessMainMenu), new PropertyMetadata(null));
 
+
+        /// <summary>
+        /// 指定菜单要使用的配置文件
+        /// </summary>
         public string ConfigFile
         {
             get { return (string)GetValue(ConfigFileProperty); }
@@ -80,6 +92,19 @@ namespace WPFToolkit.Business.Controls
         // Using a DependencyProperty as the backing store for ConfigFile.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ConfigFileProperty =
             DependencyProperty.Register("ConfigFile", typeof(string), typeof(BusinessMainMenu), new PropertyMetadata(string.Empty, ConfigFilePropertyChangedCallback));
+
+        /// <summary>
+        /// 指定菜单的方向
+        /// </summary>
+        public Orientation Orientation
+        {
+            get { return (Orientation)GetValue(OrientationProperty); }
+            set { SetValue(OrientationProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for OrientationProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty OrientationProperty =
+            DependencyProperty.Register("Orientation", typeof(Orientation), typeof(BusinessMainMenu), new PropertyMetadata(Orientation.Vertical, OrientationPropertyChangedCallback));
 
         #endregion
 
@@ -95,27 +120,25 @@ namespace WPFToolkit.Business.Controls
         {
             InitializeComponent();
 
+            if (DesignerProperties.GetIsInDesignMode(this))
+            {
+                return;
+            }
+
+            this.verticalPanel = this.FindResource("ItemsPanelTemplateVertical") as ItemsPanelTemplate;
+            this.horizontalPanel = this.FindResource("ItemsPanelTemplateHorizontal") as ItemsPanelTemplate;
+
             this.ViewModel = new BusinessMainMenuVM();
             this.DataContext = this.ViewModel;
         }
 
         #endregion
 
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-        }
-
         #region 重写方法
 
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
         {
             base.OnSelectionChanged(e);
-
-            if (this.Content == null)
-            {
-                return;
-            }
 
             if (e.AddedItems == null || e.AddedItems.Count == 0)
             {
@@ -146,12 +169,12 @@ namespace WPFToolkit.Business.Controls
                 }
             }
 
-            this.Content.Content = null;
+            this.ContentContainer.Content = null;
             if (this.previouSelected != null && this.previouSelected.Content is IBusinessMainMenuHook)
             {
                 (this.previouSelected.Content as IBusinessMainMenuHook).OnUnload();
             }
-            this.Content.Content = selectedMenu.Content;
+            this.ContentContainer.Content = selectedMenu.Content;
             IBusinessMainMenuHook hook = selectedMenu.Content as IBusinessMainMenuHook;
             if (hook != null)
             {
@@ -163,8 +186,11 @@ namespace WPFToolkit.Business.Controls
 
         #endregion
 
+        #region 实例方法
+
         private void OnConfigFilePropertyChanged(object oldValue, object newValue)
         {
+
             if (newValue == null)
             {
                 this.ViewModel.Items.Clear();
@@ -175,7 +201,7 @@ namespace WPFToolkit.Business.Controls
             {
                 string configFile = oldValue.ToString();
 
-                if (!JSONHelper.TryParseFile<QuickMainMenuJson>(this.ConfigFile, out this.menuConfig))
+                if (!JSONHelper.TryParseFile<BusinessMainMenuJson>(this.ConfigFile, out this.menuConfig))
                 {
                     return;
                 }
@@ -185,7 +211,8 @@ namespace WPFToolkit.Business.Controls
                     BusinessMainMenuItemVM vm = new BusinessMainMenuItemVM()
                     {
                         ID = menuItem.ID,
-                        Name = menuItem.Name
+                        Name = menuItem.Name,
+                        EntryClass = menuItem.EntryClass
                     };
                     this.ViewModel.Items.Add(vm);
                 }
@@ -198,8 +225,40 @@ namespace WPFToolkit.Business.Controls
             me.OnConfigFilePropertyChanged(e.OldValue, e.NewValue);
         }
 
-        #region 实例方法
+
+        private void OnOrientationPropertyChanged(object oldValue, object newValue)
+        {
+            Orientation orientation = (Orientation)newValue;
+
+            switch (orientation)
+            {
+                case Orientation.Horizontal:
+                    this.ItemsPanel = this.horizontalPanel;
+                    break;
+
+                case Orientation.Vertical:
+                    this.ItemsPanel = this.verticalPanel;
+                    break;
+
+                default:
+                    return;
+            }
+        }
+
+        private static void OrientationPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            BusinessMainMenu me = d as BusinessMainMenu;
+            me.OnOrientationPropertyChanged(e.OldValue, e.NewValue);
+        }
 
         #endregion
+    }
+
+    public class BusinessMainMenuItemContainerSelector : ItemContainerTemplateSelector
+    {
+        public override DataTemplate SelectTemplate(object item, ItemsControl parentItemsControl)
+        {
+            return new DataTemplate();
+        }
     }
 }

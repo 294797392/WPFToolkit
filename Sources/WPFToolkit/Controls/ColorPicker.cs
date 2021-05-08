@@ -39,7 +39,7 @@ namespace WPFToolkit.Controls
 
         public ColorPicker()
         {
-            this.Style = WPFToolkit.Controls.Resources.ColorPickerStyle;
+            this.Style = WPFToolkit.Resources.ColorPickerStyle;
         }
 
         #endregion
