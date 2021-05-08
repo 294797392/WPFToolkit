@@ -62,6 +62,9 @@
   <ItemGroup>
     <Compile Include="Attributes\EnumMemberAttribute.cs" />
     <Compile Include="Attributes\ItemsSourceAttribute.cs" />
+    <Compile Include="Business.Controls\BusinessMainMenu.xaml.cs">
+      <DependentUpon>BusinessMainMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\AutoCompletedComboBox.cs" />
     <Compile Include="Controls\ColorPicker.cs" />
     <Compile Include="Controls\Resources.cs" />
@@ -84,8 +87,7 @@
     <Compile Include="DragDrop\WinformDragDropHelper.cs" />
     <Compile Include="MVVM\Internals\TreeNodeJSON.cs" />
     <Compile Include="MVVM\Internals\TreeViewJSON.cs" />
-    <Compile Include="QuickControls\IQuickMainMenuHook.cs" />
-    <Compile Include="QuickControls\QuickMainMenu.cs" />
+    <Compile Include="Business.Controls\IBusinessMainMenuHook.cs" />
     <Compile Include="Controls\PanAndZoomViewer.cs" />
     <Compile Include="Controls\Hotkey.cs" />
     <Compile Include="Converters\NullableVisiblityConverter.cs" />
@@ -125,11 +127,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="QuickControls\QuickMainMenuItemVM.cs" />
-    <Compile Include="QuickControls\QuickMainMenuVM.cs" />
-    <Compile Include="Utility\FontUtility.cs" />
-    <Compile Include="Utility\ImageUtility.cs" />
+    <Compile Include="Business.Controls\BusinessMainMenuItemVM.cs" />
+    <Compile Include="Business.Controls\BusinessMainMenuVM.cs" />
+    <Compile Include="FontUtility.cs" />
+    <Compile Include="ImageUtility.cs" />
     <Compile Include="Extentions\VisualTreeExtentons.cs" />
+    <Compile Include="ThemeManager.cs" />
     <Compile Include="Windows\SplashScreenWindow.xaml.cs">
       <DependentUpon>SplashScreenWindow.xaml</DependentUpon>
     </Compile>
@@ -141,13 +144,17 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="QuickControls\QuickMenu.json">
+    <None Include="Business.Controls\BusinessMainMenu.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="QuickControls\readme.md" />
+    <None Include="Business.Controls\readme.md" />
     <None Include="Windows\readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Business.Controls\BusinessMainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\AutoCompletedComboBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
