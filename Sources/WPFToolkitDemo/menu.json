@@ -4,14 +4,98 @@
             "id": "1",
             "name": "Hotkey",
             "entry": "WPFToolkitDemo.HotkeyDemo, WPFToolkitDemo",
-            "icon": ""
+            "icon": "pack://application:,,,/WPFToolkit;component/Images/about.png"
         },
 
         {
             "id": "2",
             "name": "Hotkey",
             "entry": "WPFToolkitDemo.HotkeyDemo, WPFToolkitDemo",
-            "icon": ""
+            "icon": "pack://application:,,,/WPFToolkit;component/Images/about.png"
+        },
+
+        {
+            "id": "2",
+            "name": "Hotkey",
+            "entry": "WPFToolkitDemo.HotkeyDemo, WPFToolkitDemo",
+            "icon": "pack://application:,,,/WPFToolkit;component/Images/about.png"
+        },
+
+        {
+            "id": "2",
+            "name": "Hotkey",
+            "entry": "WPFToolkitDemo.HotkeyDemo, WPFToolkitDemo",
+            "icon": "pack://application:,,,/WPFToolkit;component/Images/about.png"
+        },
+
+        {
+            "id": "2",
+            "name": "Hotkey",
+            "entry": "WPFToolkitDemo.HotkeyDemo, WPFToolkitDemo",
+            "icon": "pack://application:,,,/WPFToolkit;component/Images/about.png"
+        },
+
+        {
+            "id": "2",
+            "name": "Hotkey",
+            "entry": "WPFToolkitDemo.HotkeyDemo, WPFToolkitDemo",
+            "icon": "pack://application:,,,/WPFToolkit;component/Images/about.png"
+        },
+
+        {
+            "id": "2",
+            "name": "Hotkey",
+            "entry": "WPFToolkitDemo.HotkeyDemo, WPFToolkitDemo",
+            "icon": "pack://application:,,,/WPFToolkit;component/Images/about.png"
+        },
+
+        {
+            "id": "1",
+            "name": "Hotkey",
+            "entry": "WPFToolkitDemo.HotkeyDemo, WPFToolkitDemo",
+            "icon": "pack://application:,,,/WPFToolkit;component/Images/about.png"
+        },
+
+        {
+            "id": "2",
+            "name": "Hotkey",
+            "entry": "WPFToolkitDemo.HotkeyDemo, WPFToolkitDemo",
+            "icon": "pack://application:,,,/WPFToolkit;component/Images/about.png"
+        },
+
+        {
+            "id": "2",
+            "name": "Hotkey",
+            "entry": "WPFToolkitDemo.HotkeyDemo, WPFToolkitDemo",
+            "icon": "pack://application:,,,/WPFToolkit;component/Images/about.png"
+        },
+
+        {
+            "id": "2",
+            "name": "Hotkey",
+            "entry": "WPFToolkitDemo.HotkeyDemo, WPFToolkitDemo",
+            "icon": "pack://application:,,,/WPFToolkit;component/Images/about.png"
+        },
+
+        {
+            "id": "2",
+            "name": "Hotkey",
+            "entry": "WPFToolkitDemo.HotkeyDemo, WPFToolkitDemo",
+            "icon": "pack://application:,,,/WPFToolkit;component/Images/about.png"
+        },
+
+        {
+            "id": "2",
+            "name": "Hotkey",
+            "entry": "WPFToolkitDemo.HotkeyDemo, WPFToolkitDemo",
+            "icon": "pack://application:,,,/WPFToolkit;component/Images/about.png"
+        },
+
+        {
+            "id": "2",
+            "name": "Hotkey",
+            "entry": "WPFToolkitDemo.HotkeyDemo, WPFToolkitDemo",
+            "icon": "pack://application:,,,/WPFToolkit;component/Images/about.png"
         }
     ]
 }

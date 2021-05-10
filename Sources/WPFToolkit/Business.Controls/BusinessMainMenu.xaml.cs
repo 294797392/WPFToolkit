@@ -12,13 +12,14 @@ using System.Windows;
 using System.Windows.Controls;
 using WPFToolkit.MVVM;
 using System.ComponentModel;
+using System.Windows.Media;
 
 namespace WPFToolkit.Business.Controls
 {
     /// <summary>
     /// 主菜单业务逻辑控件
     /// </summary>
-    public partial class BusinessMainMenu : ListBox
+    public partial class BusinessMainMenu : UserControl
     {
         internal class MenuItem
         {
@@ -30,6 +31,9 @@ namespace WPFToolkit.Business.Controls
 
             [JsonProperty("entry")]
             public string EntryClass { get; set; }
+
+            [JsonProperty("Icon")]
+            public string Icon { get; set; }
         }
 
         internal class BusinessMainMenuJson
@@ -106,6 +110,7 @@ namespace WPFToolkit.Business.Controls
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register("Orientation", typeof(Orientation), typeof(BusinessMainMenu), new PropertyMetadata(Orientation.Vertical, OrientationPropertyChangedCallback));
 
+
         #endregion
 
         #region 属性
@@ -134,13 +139,78 @@ namespace WPFToolkit.Business.Controls
 
         #endregion
 
-        #region 重写方法
+        #region 实例方法
 
-        protected override void OnSelectionChanged(SelectionChangedEventArgs e)
+        private void OnConfigFilePropertyChanged(object oldValue, object newValue)
         {
-            base.OnSelectionChanged(e);
+            if (newValue == null)
+            {
+                this.ViewModel.Items.Clear();
+                this.ViewModel.SelectedItem = null;
+                this.ViewModel.SelectedItems.Clear();
+            }
+            else
+            {
+                string configFile = newValue.ToString();
 
-            if (e.AddedItems == null || e.AddedItems.Count == 0)
+                if (!JSONHelper.TryParseFile<BusinessMainMenuJson>(configFile, out this.menuConfig))
+                {
+                    return;
+                }
+
+                foreach (MenuItem menuItem in this.menuConfig.MenuList)
+                {
+                    BusinessMainMenuItemVM vm = new BusinessMainMenuItemVM()
+                    {
+                        ID = menuItem.ID,
+                        Name = menuItem.Name,
+                        EntryClass = menuItem.EntryClass,
+                        IconURI = menuItem.Icon
+                    };
+                    this.ViewModel.Items.Add(vm);
+                }
+            }
+        }
+
+        private static void ConfigFilePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            BusinessMainMenu me = d as BusinessMainMenu;
+            me.OnConfigFilePropertyChanged(e.OldValue, e.NewValue);
+        }
+
+
+        private void OnOrientationPropertyChanged(object oldValue, object newValue)
+        {
+            Orientation orientation = (Orientation)newValue;
+
+            switch (orientation)
+            {
+                case Orientation.Horizontal:
+                    ListBoxMenu.ItemsPanel = this.horizontalPanel;
+                    break;
+
+                case Orientation.Vertical:
+                    ListBoxMenu.ItemsPanel = this.verticalPanel;
+                    break;
+
+                default:
+                    return;
+            }
+        }
+
+        private static void OrientationPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            BusinessMainMenu me = d as BusinessMainMenu;
+            me.OnOrientationPropertyChanged(e.OldValue, e.NewValue);
+        }
+
+        #endregion
+
+        #region 事件处理器
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems == null || e.AddedItems.Count == 0 || this.ContentContainer == null)
             {
                 return;
             }
@@ -182,73 +252,6 @@ namespace WPFToolkit.Business.Controls
             }
 
             this.previouSelected = selectedMenu;
-        }
-
-        #endregion
-
-        #region 实例方法
-
-        private void OnConfigFilePropertyChanged(object oldValue, object newValue)
-        {
-
-            if (newValue == null)
-            {
-                this.ViewModel.Items.Clear();
-                this.ViewModel.SelectedItem = null;
-                this.ViewModel.SelectedItems.Clear();
-            }
-            else
-            {
-                string configFile = oldValue.ToString();
-
-                if (!JSONHelper.TryParseFile<BusinessMainMenuJson>(this.ConfigFile, out this.menuConfig))
-                {
-                    return;
-                }
-
-                foreach (MenuItem menuItem in this.menuConfig.MenuList)
-                {
-                    BusinessMainMenuItemVM vm = new BusinessMainMenuItemVM()
-                    {
-                        ID = menuItem.ID,
-                        Name = menuItem.Name,
-                        EntryClass = menuItem.EntryClass
-                    };
-                    this.ViewModel.Items.Add(vm);
-                }
-            }
-        }
-
-        private static void ConfigFilePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            BusinessMainMenu me = d as BusinessMainMenu;
-            me.OnConfigFilePropertyChanged(e.OldValue, e.NewValue);
-        }
-
-
-        private void OnOrientationPropertyChanged(object oldValue, object newValue)
-        {
-            Orientation orientation = (Orientation)newValue;
-
-            switch (orientation)
-            {
-                case Orientation.Horizontal:
-                    this.ItemsPanel = this.horizontalPanel;
-                    break;
-
-                case Orientation.Vertical:
-                    this.ItemsPanel = this.verticalPanel;
-                    break;
-
-                default:
-                    return;
-            }
-        }
-
-        private static void OrientationPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            BusinessMainMenu me = d as BusinessMainMenu;
-            me.OnOrientationPropertyChanged(e.OldValue, e.NewValue);
         }
 
         #endregion

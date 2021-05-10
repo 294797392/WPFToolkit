@@ -36,7 +36,8 @@
     <Reference Include="DotNEToolkit">
       <HintPath>..\..\Dependence\DotNEToolkit.dll</HintPath>
     </Reference>
-    <Reference Include="log4net">
+    <Reference Include="log4net, Version=2.0.9.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependence\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
@@ -62,6 +63,11 @@
   <ItemGroup>
     <Compile Include="Attributes\EnumMemberAttribute.cs" />
     <Compile Include="Attributes\ItemsSourceAttribute.cs" />
+    <Compile Include="Business.Controls\BusinessDataGrid.xaml.cs">
+      <DependentUpon>BusinessDataGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Business.Controls\BusinessDataGridItemVM.cs" />
+    <Compile Include="Business.Controls\BusinessDataGridVM.cs" />
     <Compile Include="Business.Controls\BusinessMainMenu.xaml.cs">
       <DependentUpon>BusinessMainMenu.xaml</DependentUpon>
     </Compile>
@@ -133,6 +139,7 @@
     <Compile Include="ImageUtility.cs" />
     <Compile Include="Extentions\VisualTreeExtentons.cs" />
     <Compile Include="ThemeManager.cs" />
+    <Compile Include="DefaultStyles.cs" />
     <Compile Include="Windows\SplashScreenWindow.xaml.cs">
       <DependentUpon>SplashScreenWindow.xaml</DependentUpon>
     </Compile>
@@ -140,6 +147,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Business.Controls\BusinessDataGrid.json" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -151,9 +159,17 @@
     <None Include="Windows\readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Business.Controls\BusinessDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Business.Controls\BusinessMainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Business.Controls\Themes\Blue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\AutoCompletedComboBox.xaml">
       <SubType>Designer</SubType>
@@ -167,7 +183,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\DefaultStyles.xaml">
+    <Page Include="Themes\Blue.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DefaultStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -182,6 +202,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MVVM\Extentions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\about.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

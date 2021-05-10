@@ -11,17 +11,11 @@ namespace WPFToolkit
     {
         public static Style ColorPickerStyle { get; private set; }
 
-        public static Style DefaultListBoxStyle { get; private set; }
 
         static Resources()
         {
             //ColorPickerStyle = (Application.LoadComponent(new Uri("pack://application:,,,/WPFToolkit;component/Controls/ColorPicker.xaml")) as ResourceDictionary)["StyleColorPicker"] as Style;
 
-            ResourceDictionary resource = new ResourceDictionary() 
-            {
-                Source = new Uri("pack://application:,,,/WPFToolkit;component/Themes/DefaultStyles.xaml")
-            };
-            DefaultListBoxStyle = resource["StyleListBox"] as Style;
         }
     }
 }
