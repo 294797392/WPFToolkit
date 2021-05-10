@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using DotNEToolkit;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -81,7 +79,7 @@ namespace WPFToolkit.Business.Controls
 
         // Using a DependencyProperty as the backing store for ContentContainer.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ContentContainerProperty =
-            DependencyProperty.Register("ContentContainer", typeof(ContentControl), typeof(BusinessMainMenu), new PropertyMetadata(null));
+            DependencyProperty.Register("ContentContainer", typeof(ContentControl), typeof(BusinessMainMenu), new PropertyMetadata(null, ContentContainerPropertyChangedCallback));
 
 
         /// <summary>
@@ -109,6 +107,20 @@ namespace WPFToolkit.Business.Controls
         // Using a DependencyProperty as the backing store for OrientationProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register("Orientation", typeof(Orientation), typeof(BusinessMainMenu), new PropertyMetadata(Orientation.Vertical, OrientationPropertyChangedCallback));
+
+
+        /// <summary>
+        /// 指定当前选中项
+        /// </summary>
+        public int SelectedIndex
+        {
+            get { return (int)GetValue(SelectedIndexProperty); }
+            set { SetValue(SelectedIndexProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedIndex.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedIndexProperty =
+            DependencyProperty.Register("SelectedIndex", typeof(int), typeof(BusinessMainMenu), new PropertyMetadata(-1, SelectedIndexPropertyChangedCallback));
 
 
         #endregion
@@ -140,6 +152,20 @@ namespace WPFToolkit.Business.Controls
         #endregion
 
         #region 实例方法
+
+        private void SwitchContent(int index)
+        {
+            if (index > this.ViewModel.Items.Count - 1 || index < 0)
+            {
+                return;
+            }
+
+            this.ViewModel.SelectedItem = this.ViewModel.Items[index];
+        }
+
+        #endregion
+
+        #region 依赖属性回调
 
         private void OnConfigFilePropertyChanged(object oldValue, object newValue)
         {
@@ -202,6 +228,42 @@ namespace WPFToolkit.Business.Controls
         {
             BusinessMainMenu me = d as BusinessMainMenu;
             me.OnOrientationPropertyChanged(e.OldValue, e.NewValue);
+        }
+
+
+        private void OnSelectedIndexPropertyChanged(object oldValue, object newValue)
+        {
+            int index = (int)newValue;
+
+            this.SwitchContent(index);
+        }
+
+        private static void SelectedIndexPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            BusinessMainMenu me = d as BusinessMainMenu;
+            me.OnSelectedIndexPropertyChanged(e.OldValue, e.NewValue);
+        }
+
+
+        private void OnContentContainerPropertyChanged(object oldValue, object newValue)
+        {
+            if (oldValue != null)
+            {
+                ContentControl container = oldValue as ContentControl;
+                container.Content = null;
+            }
+
+            if (newValue != null)
+            {
+                this.ViewModel.SelectedItem = null;
+                this.SwitchContent(this.SelectedIndex);
+            }
+        }
+
+        private static void ContentContainerPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            BusinessMainMenu me = d as BusinessMainMenu;
+            me.OnContentContainerPropertyChanged(e.OldValue, e.NewValue);
         }
 
         #endregion
