@@ -19,6 +19,7 @@ namespace WPFToolkit
     {
         public static void RGB2HSB(byte r, byte g, byte b, out float h, out float s, out float ob)
         {
+            System.Drawing.ColorConverter
             System.Drawing.Color color = System.Drawing.Color.FromArgb(r, g, b);
             h = color.GetHue();
             s = color.GetSaturation();
