@@ -233,6 +233,11 @@ namespace WPFToolkit.Business.Controls
 
         private void OnSelectedIndexPropertyChanged(object oldValue, object newValue)
         {
+            if (newValue == null)
+            {
+                return;
+            }
+
             int index = (int)newValue;
 
             this.SwitchContent(index);
@@ -287,7 +292,7 @@ namespace WPFToolkit.Business.Controls
             {
                 try
                 {
-                    selectedMenu.Content = ConfigFactory<DependencyObject>.CreateInstance<DependencyObject>(selectedMenu.EntryClass);
+                    selectedMenu.Content = ConfigFactory<DependencyObject>.CreateInstance(selectedMenu.EntryClass);
 
                     if (selectedMenu is IBusinessMainMenuHook)
                     {

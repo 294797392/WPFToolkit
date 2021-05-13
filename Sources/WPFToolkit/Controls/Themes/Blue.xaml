@@ -6,4 +6,6 @@
     <SolidColorBrush x:Key="BrushMainMenuItemHoverBorder" Color="#007efe"/>
     <SolidColorBrush x:Key="BrushMainMenuItemSelectedBorder" Color="#409cf9"/>
 
+
+
 </ResourceDictionary>

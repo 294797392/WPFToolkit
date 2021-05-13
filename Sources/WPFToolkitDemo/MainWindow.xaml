@@ -6,7 +6,7 @@
         xmlns:demo="clr-namespace:WPFToolkitDemo"
         xmlns:biz="clr-namespace:WPFToolkit.Business.Controls;assembly=WPFToolkit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="500" Width="1000">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -25,12 +25,14 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <biz:BusinessMainMenu Grid.Column="0" ConfigFile="menu.json" Orientation="Vertical"
-                                  SelectedIndex="0"
-                                  ContentContainer="{Binding ElementName=ContentControl}"
-                                  />
+            <Border Grid.Column="0" BorderBrush="{DynamicResource ResourceKey=BrushBorder}" BorderThickness="1">
+                <biz:BusinessMainMenu ConfigFile="menu.json" Orientation="Vertical"
+                                      SelectedIndex="0" ContentContainer="{Binding ElementName=ContentControl}"/>
+            </Border>
 
-            <ContentControl Grid.Column="2" x:Name="ContentControl"/>
+            <Border Grid.Column="2" Padding="3" BorderBrush="{DynamicResource ResourceKey=BrushBorder}" BorderThickness="1">
+                <ContentControl x:Name="ContentControl"/>
+            </Border>
 
         </Grid>
 

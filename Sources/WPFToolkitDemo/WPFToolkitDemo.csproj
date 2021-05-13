@@ -68,6 +68,9 @@
     <Compile Include="MVVMDemo.xaml.cs">
       <DependentUpon>MVVMDemo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\GenericControlUserControl.xaml.cs">
+      <DependentUpon>GenericControlUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\EnumItemsSourceVM.cs" />
     <Compile Include="VisualTreeExtentionsDemo.xaml.cs">
       <DependentUpon>VisualTreeExtentionsDemo.xaml</DependentUpon>
@@ -94,6 +97,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MVVMDemo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\GenericControlUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

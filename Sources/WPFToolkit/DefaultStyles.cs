@@ -7,9 +7,9 @@ using System.Windows;
 
 namespace WPFToolkit
 {
-    public class DefaultStyles
+    public static class DefaultStyles
     {
-        private const string DefaultStyleResourceURI = "pack://application:,,,/WPFToolkit;component/DefaultStyles.xaml";
+        private const string ResourceURI = "pack://application:,,,/WPFToolkit;component/DefaultStyles.xaml";
 
         public static Style DefaultListBoxStyle { get; private set; }
 
@@ -19,7 +19,7 @@ namespace WPFToolkit
         {
             ResourceDictionary resource = new ResourceDictionary()
             {
-                Source = new Uri(DefaultStyleResourceURI)
+                Source = new Uri(ResourceURI)
             };
 
             DefaultListBoxStyle = resource["StyleListBox"] as Style;

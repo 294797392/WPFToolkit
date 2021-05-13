@@ -1,0 +1,248 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:kcontrol="clr-namespace:WPFToolkit.Controls">
+
+    <CornerRadius x:Key="GLOABL_CornerRadius">4</CornerRadius>
+
+    <Style TargetType="{x:Type Control}">
+        <Setter Property="FontFamily" Value="YaHei"/>
+        <Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushPrimaryText}"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+    </Style>
+
+    <!--<Style x:Key="ToolkitHotkey" TargetType="{x:Type tkctrl:Hotkey}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource ResourceKey=BrushBorder}"/>
+            </Trigger>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource ResourceKey=BrushBorder}"/>
+                <Setter Property="Background" Value="{StaticResource ResourceKey=BrushPrimary3}"/>
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="BorderBrush" Value="Silver"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type tkctrl:Hotkey}">
+
+                    <Grid>
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}"/>
+                        <TextBlock x:Name="PART_HotkeyText" Text="{TemplateBinding HotkeyText}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" TextOptions.TextFormattingMode="Display"/>
+                    </Grid>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
+
+    <!-- KComboBox -->
+    <Style x:Key="KComboBoxItemStyle" TargetType="{x:Type ComboBoxItem}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ResourceKey=BrushPrimaryHover}"/>
+                <Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushPrimary}"/>
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ResourceKey=BrushPrimaryHover}"/>
+                <Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushPrimary}"/>
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="MinHeight" Value="35"/>
+        <Setter Property="Padding" Value="15,0,0,0"/>
+        <Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushPrimaryText}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" x:Name="contentPresenter" 
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="KComboBoxStyle" TargetType="{x:Type kcontrol:KComboBox}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource ResourceKey=BrushBorderHover}"/>
+            </Trigger>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource ResourceKey=BrushPrimary}"/>
+            </Trigger>
+            <Trigger Property="IsDropDownOpen" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource ResourceKey=BrushPrimary}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#f5f7fa"/>
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="SelectionsThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="{StaticResource ResourceKey=GLOABL_CornerRadius}"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="SelectionsBackground" Value="White"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ResourceKey=BrushBorderBase}"/>
+        <Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushPrimaryText}"/>
+        <Setter Property="SelectionsBorder" Value="{DynamicResource ResourceKey=BrushBorderLight}"/>
+        <Setter Property="ItemContainerStyle" Value="{DynamicResource ResourceKey=KComboBoxItemStyle}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type kcontrol:KComboBox}">
+
+                    <ControlTemplate.Resources>
+                        <Style TargetType="ToggleButton" x:Key="ComboToggleStyle">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <!--<Setter Property="Background" Value="{DynamicResource ResourceKey=BrushComboBoxMouseOverBackground}"/>-->
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <!--<Setter Property="Background" Value="{DynamicResource ResourceKey=BrushComboBoxMousePressedBackground}"/>-->
+                                </Trigger>
+                            </Style.Triggers>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderBrush" Value="{x:Null}"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Padding" Value="3"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Grid>
+                                            <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}"/>
+                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" x:Name="contentPresenter" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ControlTemplate.Resources>
+
+                    <Grid>
+                        <Border x:Name="ContentPresenterBorder">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="15"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Border Grid.Column="0" Grid.ColumnSpan="2" x:Name="BorderBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
+                                        BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding CornerRadius}"/>
+
+                                <ToggleButton Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="{TemplateBinding BorderThickness}" HorizontalContentAlignment="Right" HorizontalAlignment="Stretch" 
+                                              x:Name="DropDownToggle" VerticalAlignment="Stretch" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" 
+                                              ClickMode="Press" Style="{StaticResource ResourceKey=ComboToggleStyle}">
+                                    <Path Height="4" HorizontalAlignment="Right" Margin="0,0,6,0" x:Name="BtnArrow" Width="8" Stretch="Uniform" 
+                                          Data="F1 M 301.14,-189.041L 311.57,-189.041L 306.355,-182.942L 301.14,-189.041 Z " Fill="{DynamicResource ResourceKey=BrushBorderBase}"/>
+                                </ToggleButton>
+
+                                <ContentPresenter Grid.Column="0" x:Name="ContentSite" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0"
+                                                  Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" 
+                                                  ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" IsHitTestVisible="False"/>
+                            </Grid>
+                        </Border>
+                        <Popup IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom" x:Name="Popup" Focusable="False" AllowsTransparency="True" PopupAnimation="Fade">
+                            <Grid MaxHeight="{TemplateBinding MaxDropDownHeight}" Width="{TemplateBinding ActualWidth}" x:Name="DropDown" SnapsToDevicePixels="True">
+                                <Border Height="Auto" HorizontalAlignment="Stretch" x:Name="PopupBorder" Background="{TemplateBinding SelectionsBackground}" 
+                                        BorderBrush="{TemplateBinding SelectionsBorder}" BorderThickness="{TemplateBinding SelectionsThickness}" ClipToBounds="False"
+                                        Margin="4" CornerRadius="{TemplateBinding CornerRadius}">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="{DynamicResource ResourceKey=BrushShadowColor}" ShadowDepth="0" Opacity="0.3" BlurRadius="10"/>
+                                    </Border.Effect>
+                                </Border>
+
+                                <ScrollViewer BorderThickness="0" BorderBrush="{x:Null}" SnapsToDevicePixels="True" HorizontalScrollBarVisibility="Auto" 
+                                              VerticalScrollBarVisibility="Auto" CanContentScroll="True" Margin="4" ClipToBounds="True">
+                                    <ItemsPresenter VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                                </ScrollViewer>
+
+                            </Grid>
+                        </Popup>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="0.8" TargetName="BorderBackground"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="KButtonStyle" TargetType="{x:Type kcontrol:KButton}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushPrimary}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource ResourceKey=BrushPrimary}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource ResourceKey=BrushPrimary}"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushPrimary}"/>
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ResourceKey=BrushBorderBase}"/>
+        <Setter Property="CornerRadius" Value="{StaticResource ResourceKey=GLOABL_CornerRadius}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type kcontrol:KButton}">
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CheckedState">
+                                        <DoubleAnimation From="0" To="1" Duration="00:00:0.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CheckedState">
+                                        <DoubleAnimation From="1" To="0" Duration="00:00:0.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                    
+                    <Grid>
+
+                        <Border x:Name="NormalState" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding CornerRadius}"/>
+
+                        <Border x:Name="CheckedState" BorderBrush="{DynamicResource ResourceKey=BrushPrimary}" BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{DynamicResource ResourceKey=BrushPrimaryHover}" Opacity="0" CornerRadius="{TemplateBinding CornerRadius}"/>
+
+
+                        <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

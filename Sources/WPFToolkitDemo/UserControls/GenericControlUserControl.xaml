@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="WPFToolkitDemo.UserControls.GenericControlUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFToolkitDemo.UserControls"
+             xmlns:kcontrol="clr-namespace:WPFToolkit.Controls;assembly=WPFToolkit"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <StackPanel>
+        <Border Background="White" Height="30" BorderBrush="Black" BorderThickness="0,0,0,1">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <TextBlock Text="Theme: " Margin="5,0,0,0"   />
+                <ComboBox x:Name="themes" Width="150" Height="20" SelectedIndex="0">
+                    <ComboBoxItem>123</ComboBoxItem>
+                    <ComboBoxItem>123</ComboBoxItem>
+                    <ComboBoxItem>123</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+        </Border>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Margin="10,10,10,10" Grid.Column="1">
+                <kcontrol:KComboBox Height="35" Margin="0,0,0,5" x:Name="comboBox" SelectedIndex="0">
+                    <ComboBoxItem>ComboBoxItem1</ComboBoxItem>
+                    <ComboBoxItem>ComboBoxItem2</ComboBoxItem>
+                    <ComboBoxItem>ComboBoxItem3</ComboBoxItem>
+                    <ComboBoxItem>ComboBoxItem4</ComboBoxItem>
+                </kcontrol:KComboBox>
+                <ListBox Height="220" x:Name="listBox" DisplayMemberPath="Name" />
+            </StackPanel>
+            <StackPanel Margin="10,10,10,10" Grid.Column="0">
+                <kcontrol:KButton Content="Button" Margin="0,0,0,5" Height="35" />
+                <kcontrol:KButton Content="Checked Button" Margin="0,0,0,5" Height="35" CanChecked="True"/>
+                <CheckBox Content="CheckBox" IsChecked="True"/>
+                <CheckBox Content="CheckBox - Three State" IsThreeState="True" IsChecked="{x:Null}" />
+                <CheckBox Content="CheckBox - Disabled" IsEnabled="False" Margin="0,0,0,5" />
+
+                <RadioButton Content="RadioButton" IsChecked="True"/>
+                <RadioButton Content="RadioButton" />
+                <RadioButton Content="RadioButton - Disabled" IsEnabled="False" Margin="0,0,0,5" />
+
+                <Slider x:Name="slider" Minimum="0" Maximum="100" Value="50" Margin="0,0,0,2.5" />
+                <ProgressBar IsIndeterminate="True" Height="22" Margin="0,0,0,2.5"/>
+                <ProgressBar Minimum="0" Maximum="100" Value="{Binding ElementName=slider, Path=Value}" Height="22" Margin="0,0,0,5" />
+
+                <TextBox Text="TextBox" />
+            </StackPanel>
+
+            <TabControl Grid.Column="2">
+                <TabItem Header="Tab #1">
+                    <Grid>
+                        <Expander IsExpanded="True" Header="Expander" Margin="8,8,8,8">
+                            <TreeView HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="215"  >
+                                <TreeViewItem Header="TreeViewItem #1"/>
+                                <TreeViewItem Header="TreeViewItem #2" IsExpanded="True">
+                                    <TreeViewItem Header="TreeViewItem #3"/>
+                                    <TreeViewItem Header="TreeViewItem #4"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="TreeViewItem #5"/>
+                                <TreeViewItem Header="TreeViewItem #6">
+                                    <TreeViewItem Header="TreeViewItem #7">
+                                        <TreeViewItem Header="TreeViewItem #8"/>
+                                        <TreeViewItem Header="TreeViewItem #9"/>
+                                    </TreeViewItem>
+                                </TreeViewItem>
+                            </TreeView>
+                        </Expander>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Tab #2">
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <TextBlock Text="Item #1" />
+                        <TextBlock Text="Item #2" />
+                        <TextBlock Text="Item #3" />
+                        <TextBlock Text="Item #4" />
+                    </StackPanel>
+                </TabItem>
+
+            </TabControl>
+        </Grid>
+    </StackPanel>
+</UserControl>

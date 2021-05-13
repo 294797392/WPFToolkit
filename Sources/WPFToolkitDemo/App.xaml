@@ -5,8 +5,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/WPFToolkit;component/Controls/ControlStyles.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/WPFToolkit;component/Business.Controls/Themes/Blue.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/WPFToolkit;component/Themes/Blue.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

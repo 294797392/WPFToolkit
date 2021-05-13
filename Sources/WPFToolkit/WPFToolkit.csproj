@@ -72,7 +72,10 @@
       <DependentUpon>BusinessMainMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\AutoCompletedComboBox.cs" />
+    <Compile Include="Controls\KButton.cs" />
     <Compile Include="Controls\ColorPicker.cs" />
+    <Compile Include="Controls\KComboBox.cs" />
+    <Compile Include="Controls\Templates\Templates.cs" />
     <Compile Include="Resources.cs" />
     <Compile Include="DragDrop\DefaultDragHandler.cs" />
     <Compile Include="DragDrop\DefaultDropHandler.cs" />
@@ -167,7 +170,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Business.Controls\Themes\Blue.xaml">
+    <Page Include="Controls\Templates\mac_osx.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Templates\windows10.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Themes\Blue.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -179,7 +190,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ControlStyles.xaml">
+    <Page Include="Controls\Templates\element_ui.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
