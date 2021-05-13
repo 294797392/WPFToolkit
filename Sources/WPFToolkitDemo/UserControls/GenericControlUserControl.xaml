@@ -36,7 +36,39 @@
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="0" Margin="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <kcontrol:KButton Grid.Row="0" Content="Button"/>
+                <kcontrol:KButton Grid.Row="1" Content="Checked Button" CanChecked="True"/>
+
+                <kcontrol:KColorPicker Grid.Row="2" SelectedColor="Red"/>
+
+                <!--<CheckBox Grid.Row="2" Content="CheckBox" IsChecked="True"/>
+                <CheckBox Grid.Row="3" Content="CheckBox - Three State" IsThreeState="True" IsChecked="{x:Null}" />
+                <CheckBox Grid.Row="4" Content="CheckBox - Disabled" IsEnabled="False" Margin="0,0,0,5" />
+
+                <RadioButton Grid.Row="5" Content="RadioButton" IsChecked="True"/>
+                <RadioButton Grid.Row="6" Content="RadioButton" />
+                <RadioButton Grid.Row="7" Content="RadioButton - Disabled" IsEnabled="False" Margin="0,0,0,5" />
+
+                <Slider Grid.Row="8" x:Name="slider" Minimum="0" Maximum="100" Value="50" Margin="0,0,0,2.5" />
+                <ProgressBar Grid.Row="9" IsIndeterminate="True" Height="22" Margin="0,0,0,2.5"/>
+                <ProgressBar Grid.Row="10" Minimum="0" Maximum="100" Value="{Binding ElementName=slider, Path=Value}" Height="22" Margin="0,0,0,5" />
+
+                <TextBox Grid.Row="11" Text="TextBox" />-->
+
+            </Grid>
+
+            <Grid Grid.Column="1" Margin="3">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -52,24 +84,6 @@
                 <ListBox Grid.Row="1" x:Name="listBox" />
 
             </Grid>
-
-            <StackPanel Margin="10,10,10,10" Grid.Column="0">
-                <kcontrol:KButton Content="Button" Margin="0,0,0,5"/>
-                <kcontrol:KButton Content="Checked Button" Margin="0,0,0,5" CanChecked="True"/>
-                <CheckBox Content="CheckBox" IsChecked="True"/>
-                <CheckBox Content="CheckBox - Three State" IsThreeState="True" IsChecked="{x:Null}" />
-                <CheckBox Content="CheckBox - Disabled" IsEnabled="False" Margin="0,0,0,5" />
-
-                <RadioButton Content="RadioButton" IsChecked="True"/>
-                <RadioButton Content="RadioButton" />
-                <RadioButton Content="RadioButton - Disabled" IsEnabled="False" Margin="0,0,0,5" />
-
-                <Slider x:Name="slider" Minimum="0" Maximum="100" Value="50" Margin="0,0,0,2.5" />
-                <ProgressBar IsIndeterminate="True" Height="22" Margin="0,0,0,2.5"/>
-                <ProgressBar Minimum="0" Maximum="100" Value="{Binding ElementName=slider, Path=Value}" Height="22" Margin="0,0,0,5" />
-
-                <TextBox Text="TextBox" />
-            </StackPanel>
 
             <TabControl Grid.Column="2">
                 <TabItem Header="Tab #1">

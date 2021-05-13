@@ -7,10 +7,11 @@ using System.Windows.Controls;
 
 namespace WPFToolkit.Controls
 {
-    /// <summary>
-    /// 可以输入关键字进行搜索的下拉框控件
-    /// </summary>
-    public class AutoCompletedComboBox : ComboBox
+    public class KTextBox : TextBox
     {
+        public KTextBox()
+        {
+            this.Style = Templates.KTextBoxStyle;
+        }
     }
 }

@@ -74,10 +74,11 @@
     <Compile Include="Business.Controls\BusinessTransfer.xaml.cs">
       <DependentUpon>BusinessTransfer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\AutoCompletedComboBox.cs" />
+    <Compile Include="ColorConverter.cs" />
     <Compile Include="Controls\KButton.cs" />
-    <Compile Include="Controls\ColorPicker.cs" />
+    <Compile Include="Controls\KColorPicker.cs" />
     <Compile Include="Controls\KComboBox.cs" />
+    <Compile Include="Controls\KTextBox.cs" />
     <Compile Include="Controls\Templates\Templates.cs" />
     <Compile Include="Resources.cs" />
     <Compile Include="DragDrop\DefaultDragHandler.cs" />
@@ -182,14 +183,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Templates\windows10.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\AutoCompletedComboBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\ColorPicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
