@@ -4,6 +4,7 @@
     <SolidColorBrush x:Key="BrushPrimaryText" Color="#303133"/>
     <SolidColorBrush x:Key="BrushPrimary" Color="#409EFF"/>
     <SolidColorBrush x:Key="BrushPrimaryHover" Color="#d9ecff"/>
+    <SolidColorBrush x:Key="BrushPrimaryPressed" Color="#3a8ee6"/>
 
     <Color x:Key="BrushShadowColor">Silver</Color>
     <SolidColorBrush x:Key="BrushBorderBase" Color="#DCDFE6"/>

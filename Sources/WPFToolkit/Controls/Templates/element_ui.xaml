@@ -200,7 +200,9 @@
                 <Setter Property="BorderBrush" Value="{DynamicResource ResourceKey=BrushPrimary}"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="BorderBrush" Value="{DynamicResource ResourceKey=BrushPrimary}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource ResourceKey=BrushPrimaryPressed}"/>
+                <Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushPrimaryPressed}"/>
+                <Setter Property="Padding" Value="2,2,0,0"/>
             </Trigger>
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushPrimary}"/>
