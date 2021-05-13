@@ -22,7 +22,7 @@
         <DataTemplate x:Key="DataTemplateDefault">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="0"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
@@ -34,21 +34,26 @@
         </DataTemplate>
 
         <Style x:Key="StyleListBoxLocal" TargetType="{x:Type ListBox}" BasedOn="{x:Static tookit:DefaultStyles.DefaultListBoxStyle}">
-            <Setter Property="BorderBrush" Value="{DynamicResource ResourceKey=BrushMainMenuBorder}"/>
-            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="{x:Null}"/>
+            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="ItemContainerStyle">
                 <Setter.Value>
                     <Style TargetType="{x:Type ListBoxItem}" BasedOn="{x:Static tookit:DefaultStyles.DefaultListBoxItemStyle}">
-                        <Setter Property="Padding" Value="10,5,10,5"/>
-                        <Setter Property="BorderBrush" Value="{DynamicResource ResourceKey=BrushMainMenuItemDefaultBorder}"/>
+                        <Setter Property="Padding" Value="0,0,0,0"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="BorderBrush" Value="{x:Null}"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushPrimaryText}"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="Height" Value="40"/>
                         <Style.Triggers>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="BorderBrush" Value="{DynamicResource ResourceKey=BrushMainMenuItemSelectedBorder}"/>
-                                <Setter Property="BorderThickness" Value="2"/>
-                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushPrimary}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderBrush" Value="{DynamicResource ResourceKey=BrushMainMenuItemHoverBorder}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushPrimary}"/>
+                                <!--<Setter Property="Background" Value="{DynamicResource ResourceKey=BrushPrimaryHover}"/>-->
                             </Trigger>
                         </Style.Triggers>
                     </Style>

@@ -7,38 +7,55 @@
              xmlns:kcontrol="clr-namespace:WPFToolkit.Controls;assembly=WPFToolkit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
-    <StackPanel>
-        <Border Background="White" Height="30" BorderBrush="Black" BorderThickness="0,0,0,1">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                <TextBlock Text="Theme: " Margin="5,0,0,0"   />
-                <ComboBox x:Name="themes" Width="150" Height="20" SelectedIndex="0">
-                    <ComboBoxItem>123</ComboBoxItem>
-                    <ComboBoxItem>123</ComboBoxItem>
-                    <ComboBoxItem>123</ComboBoxItem>
-                </ComboBox>
-            </StackPanel>
-        </Border>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
         <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Theme:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <kcontrol:KComboBox Grid.Column="1" x:Name="themes" SelectedIndex="0">
+                <ComboBoxItem>123</ComboBoxItem>
+                <ComboBoxItem>456</ComboBoxItem>
+                <ComboBoxItem>789</ComboBoxItem>
+            </kcontrol:KComboBox>
+
+        </Grid>
+
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
-            <StackPanel Margin="10,10,10,10" Grid.Column="1">
-                <kcontrol:KComboBox Height="35" Margin="0,0,0,5" x:Name="comboBox" SelectedIndex="0">
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <kcontrol:KComboBox Grid.Row="0" x:Name="comboBox" SelectedIndex="0">
                     <ComboBoxItem>ComboBoxItem1</ComboBoxItem>
                     <ComboBoxItem>ComboBoxItem2</ComboBoxItem>
                     <ComboBoxItem>ComboBoxItem3</ComboBoxItem>
                     <ComboBoxItem>ComboBoxItem4</ComboBoxItem>
                 </kcontrol:KComboBox>
-                <ListBox Height="220" x:Name="listBox" DisplayMemberPath="Name" />
-            </StackPanel>
+
+                <ListBox Grid.Row="1" x:Name="listBox" />
+
+            </Grid>
+
             <StackPanel Margin="10,10,10,10" Grid.Column="0">
-                <kcontrol:KButton Content="Button" Margin="0,0,0,5" Height="35" />
-                <kcontrol:KButton Content="Checked Button" Margin="0,0,0,5" Height="35" CanChecked="True"/>
+                <kcontrol:KButton Content="Button" Margin="0,0,0,5"/>
+                <kcontrol:KButton Content="Checked Button" Margin="0,0,0,5" CanChecked="True"/>
                 <CheckBox Content="CheckBox" IsChecked="True"/>
                 <CheckBox Content="CheckBox - Three State" IsThreeState="True" IsChecked="{x:Null}" />
                 <CheckBox Content="CheckBox - Disabled" IsEnabled="False" Margin="0,0,0,5" />
@@ -86,5 +103,5 @@
 
             </TabControl>
         </Grid>
-    </StackPanel>
+    </Grid>
 </UserControl>

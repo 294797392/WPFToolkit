@@ -11,6 +11,11 @@
         <Setter Property="SnapsToDevicePixels" Value="True"/>
     </Style>
 
+    <Style TargetType="{x:Type Border}">
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+    </Style>
+
     <!--<Style x:Key="ToolkitHotkey" TargetType="{x:Type tkctrl:Hotkey}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
@@ -47,12 +52,13 @@
     <Style x:Key="KComboBoxItemStyle" TargetType="{x:Type ComboBoxItem}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource ResourceKey=BrushPrimaryHover}"/>
+                <Setter Property="Background" Value="{DynamicResource ResourceKey=BrushBorderExtralight}"/>
                 <Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushPrimary}"/>
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="{DynamicResource ResourceKey=BrushPrimaryHover}"/>
+                <Setter Property="Background" Value="{DynamicResource ResourceKey=BrushBorderExtralight}"/>
                 <Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushPrimary}"/>
+                <Setter Property="FontWeight" Value="Bold"/>
             </Trigger>
         </Style.Triggers>
         <Setter Property="VerticalAlignment" Value="Stretch"/>
@@ -96,6 +102,8 @@
         <Setter Property="CornerRadius" Value="{StaticResource ResourceKey=GLOABL_CornerRadius}"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Background" Value="White"/>
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Margin" Value="3"/>
         <Setter Property="SelectionsBackground" Value="White"/>
         <Setter Property="BorderBrush" Value="{DynamicResource ResourceKey=BrushBorderBase}"/>
         <Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushPrimaryText}"/>
@@ -159,14 +167,14 @@
                             <Grid MaxHeight="{TemplateBinding MaxDropDownHeight}" Width="{TemplateBinding ActualWidth}" x:Name="DropDown" SnapsToDevicePixels="True">
                                 <Border Height="Auto" HorizontalAlignment="Stretch" x:Name="PopupBorder" Background="{TemplateBinding SelectionsBackground}" 
                                         BorderBrush="{TemplateBinding SelectionsBorder}" BorderThickness="{TemplateBinding SelectionsThickness}" ClipToBounds="False"
-                                        Margin="4" CornerRadius="{TemplateBinding CornerRadius}">
+                                        Margin="3" CornerRadius="{TemplateBinding CornerRadius}">
                                     <Border.Effect>
                                         <DropShadowEffect Color="{DynamicResource ResourceKey=BrushShadowColor}" ShadowDepth="0" Opacity="0.3" BlurRadius="10"/>
                                     </Border.Effect>
                                 </Border>
 
                                 <ScrollViewer BorderThickness="0" BorderBrush="{x:Null}" SnapsToDevicePixels="True" HorizontalScrollBarVisibility="Auto" 
-                                              VerticalScrollBarVisibility="Auto" CanContentScroll="True" Margin="4" ClipToBounds="True">
+                                              VerticalScrollBarVisibility="Auto" CanContentScroll="True" Margin="3" ClipToBounds="True">
                                     <ItemsPresenter VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                                 </ScrollViewer>
 
@@ -203,6 +211,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="Background" Value="White"/>
+        <Setter Property="Height" Value="35"/>
         <Setter Property="BorderBrush" Value="{DynamicResource ResourceKey=BrushBorderBase}"/>
         <Setter Property="CornerRadius" Value="{StaticResource ResourceKey=GLOABL_CornerRadius}"/>
         <Setter Property="Template">

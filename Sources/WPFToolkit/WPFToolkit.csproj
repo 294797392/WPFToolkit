@@ -71,6 +71,9 @@
     <Compile Include="Business.Controls\BusinessMainMenu.xaml.cs">
       <DependentUpon>BusinessMainMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Business.Controls\BusinessTransfer.xaml.cs">
+      <DependentUpon>BusinessTransfer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\AutoCompletedComboBox.cs" />
     <Compile Include="Controls\KButton.cs" />
     <Compile Include="Controls\ColorPicker.cs" />
@@ -170,6 +173,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Business.Controls\BusinessTransfer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Templates\mac_osx.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -177,10 +184,6 @@
     <Page Include="Controls\Templates\windows10.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Themes\Blue.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\AutoCompletedComboBox.xaml">
       <SubType>Designer</SubType>
