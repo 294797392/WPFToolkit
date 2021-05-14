@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace WPFToolkit.Controls
 {
@@ -23,7 +24,6 @@ namespace WPFToolkit.Controls
             DependencyProperty.Register("IsChecked", typeof(bool?), typeof(KButton), new PropertyMetadata(null));
 
 
-
         public bool CanChecked
         {
             get { return (bool)GetValue(CanCheckedProperty); }
@@ -35,9 +35,6 @@ namespace WPFToolkit.Controls
             DependencyProperty.Register("CanChecked", typeof(bool), typeof(KButton), new PropertyMetadata(false));
 
 
-
-
-
         public CornerRadius CornerRadius
         {
             get { return (CornerRadius)GetValue(CornerRadiusProperty); }
@@ -47,8 +44,6 @@ namespace WPFToolkit.Controls
         // Using a DependencyProperty as the backing store for CornerRadius.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CornerRadiusProperty =
             DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(KButton), new PropertyMetadata(null));
-
-
 
 
         public KButton()

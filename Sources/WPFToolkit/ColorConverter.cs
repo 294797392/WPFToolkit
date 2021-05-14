@@ -17,73 +17,111 @@ namespace WPFToolkit
     /// </summary>
     public static class ColorConverter
     {
-        public static void RGB2HSB(byte r, byte g, byte b, out float h, out float s, out float ob)
+        /// <summary>
+        /// RGB颜色模式转HSV颜色模式
+        /// </summary>
+        /// <param name="r"></param>
+        /// <param name="g"></param>
+        /// <param name="b"></param>
+        /// <param name="h"></param>
+        /// <param name="s"></param>
+        /// <param name="v"></param>
+        public static void RGB2HSB(byte r, byte g, byte b, out double h, out double s, out double v)
         {
-            System.Drawing.ColorConverter
+            //System.Drawing.Color color = System.Drawing.Color.FromArgb(r, g, b);
+            //h = color.GetHue();
+            //s = color.GetSaturation();
+            //ob = color.GetBrightness();
+
+            //System.Drawing.IDeviceContext
+
             System.Drawing.Color color = System.Drawing.Color.FromArgb(r, g, b);
+
+            int max = Math.Max(r, Math.Max(g, b));
+            int min = Math.Min(r, Math.Min(g, b));
+
             h = color.GetHue();
-            s = color.GetSaturation();
-            ob = color.GetBrightness();
+            s = (max == 0) ? 0 : 1d - (1d * min / max);
+            v = max / 255d;
         }
 
-        public static void RGB2HSB(Color color, out float h, out float s, out float b)
+        /// <summary>
+        /// RGB颜色模式转HSV颜色模式
+        /// </summary>
+        public static void RGB2HSB(Color color, out double h, out double s, out double b)
         {
             RGB2HSB(color.R, color.G, color.B, out h, out s, out b);
         }
 
-        public static void HSB2RGB(double hue, double saturation, double brightness, out byte r, out byte g, out byte b)
+        /// <summary>
+        /// HSV颜色模式转RGB颜色模式
+        /// </summary>
+        /// <param name="h"></param>
+        /// <param name="s"></param>
+        /// <param name="v1"></param>
+        /// <param name="r"></param>
+        /// <param name="g"></param>
+        /// <param name="b"></param>
+        public static void HSB2RGB(double h, double s, double v1, out byte r, out byte g, out byte b)
         {
             r = 0;
             g = 0;
             b = 0;
 
-            if (saturation == 0)
+            int hi = Convert.ToInt32(Math.Floor(h / 60)) % 6;
+            double f = h / 60 - Math.Floor(h / 60);
+
+            v1 = v1 * 255;
+            byte v = Convert.ToByte(v1);
+            byte p = Convert.ToByte(v * (1 - s));
+            byte q = Convert.ToByte(v * (1 - f * s));
+            byte t = Convert.ToByte(v * (1 - (1 - f) * s));
+
+            if (hi == 0)
             {
-                r = g = b = (byte)(brightness * 255.0f + 0.5f);
+                r = v;
+                g = t;
+                b = p;
+            }
+            else if (hi == 1)
+            {
+                r = q;
+                g = v;
+                b = p;
+            }
+            else if (hi == 2)
+            {
+                r = p;
+                g = v;
+                b = t;
+            }
+            else if (hi == 3)
+            {
+                r = p;
+                g = q;
+                b = v;
+            }
+            else if (hi == 4)
+            {
+                r = t;
+                g = p;
+                b = v;
             }
             else
             {
-                double h = (hue - (double)Math.Floor(hue)) * 6.0f;
-                double f = h - (double)Math.Floor(h);
-                double p = brightness * (1.0f - saturation);
-                double q = brightness * (1.0f - saturation * f);
-                double t = brightness * (1.0f - (saturation * (1.0f - f)));
-                switch ((int)h)
-                {
-                    case 0:
-                        r = (byte)(brightness * 255.0f + 0.5f);
-                        g = (byte)(t * 255.0f + 0.5f);
-                        b = (byte)(p * 255.0f + 0.5f);
-                        break;
-                    case 1:
-                        r = (byte)(q * 255.0f + 0.5f);
-                        g = (byte)(brightness * 255.0f + 0.5f);
-                        b = (byte)(p * 255.0f + 0.5f);
-                        break;
-                    case 2:
-                        r = (byte)(p * 255.0f + 0.5f);
-                        g = (byte)(brightness * 255.0f + 0.5f);
-                        b = (byte)(t * 255.0f + 0.5f);
-                        break;
-                    case 3:
-                        r = (byte)(p * 255.0f + 0.5f);
-                        g = (byte)(q * 255.0f + 0.5f);
-                        b = (byte)(brightness * 255.0f + 0.5f);
-                        break;
-                    case 4:
-                        r = (byte)(t * 255.0f + 0.5f);
-                        g = (byte)(p * 255.0f + 0.5f);
-                        b = (byte)(brightness * 255.0f + 0.5f);
-                        break;
-                    case 5:
-                        r = (byte)(brightness * 255.0f + 0.5f);
-                        g = (byte)(p * 255.0f + 0.5f);
-                        b = (byte)(q * 255.0f + 0.5f);
-                        break;
-                }
+                r = v;
+                g = p;
+                b = q;
             }
         }
 
+        /// <summary>
+        /// HSV颜色模式转RGB颜色模式
+        /// </summary>
+        /// <param name="hue"></param>
+        /// <param name="saturation"></param>
+        /// <param name="brightness"></param>
+        /// <param name="c"></param>
         public static void HSB2RGB(double hue, double saturation, double brightness, out Color c)
         {
             byte r, g, b;
