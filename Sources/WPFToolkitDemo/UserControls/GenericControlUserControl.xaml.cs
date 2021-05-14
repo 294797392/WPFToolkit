@@ -23,6 +23,14 @@ namespace WPFToolkitDemo.UserControls
         public GenericControlUserControl()
         {
             InitializeComponent();
+
+            List<string> itemsSource = new List<string>();
+            for (int i = 0; i < 50; i++)
+            {
+                itemsSource.Add(Guid.NewGuid().ToString());
+            }
+
+            ComboBoxList.ItemsSource = itemsSource;
         }
     }
 }

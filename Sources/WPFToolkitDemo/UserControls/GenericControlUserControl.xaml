@@ -70,12 +70,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <kcontrol:KComboBox Grid.Row="0" x:Name="comboBox" SelectedIndex="0">
-                    <ComboBoxItem>ComboBoxItem1</ComboBoxItem>
-                    <ComboBoxItem>ComboBoxItem2</ComboBoxItem>
-                    <ComboBoxItem>ComboBoxItem3</ComboBoxItem>
-                    <ComboBoxItem>ComboBoxItem4</ComboBoxItem>
-                </kcontrol:KComboBox>
+                <kcontrol:KComboBox Grid.Row="0" x:Name="ComboBoxList" SelectedIndex="0"/>
 
                 <ListBox Grid.Row="1" x:Name="listBox" />
 
