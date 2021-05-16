@@ -27,20 +27,5 @@ namespace WPFToolkitDemo
         {
             InitializeComponent();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Hide();
-
-            SplashScreenWindow ssw = new SplashScreenWindow();
-            ssw.Show();
-
-            Task.Factory.StartNew(() => 
-            {
-                Thread.Sleep(3000);
-
-                this.Dispatcher.Invoke(ssw.Close);
-            });
-        }
     }
 }

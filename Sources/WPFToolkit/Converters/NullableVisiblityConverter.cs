@@ -11,13 +11,13 @@ namespace WPFToolkit.Converters
 {
     /// <summary>
     /// 布尔值到空值的转换
-    /// 如果传进来的值为空，那么返回False，否则返回True
+    /// 如果传进来的值为空，那么返回Collapsed，否则返回Visible
     /// </summary>
     public class NullableVisiblityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value != null;
+            return value != null ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

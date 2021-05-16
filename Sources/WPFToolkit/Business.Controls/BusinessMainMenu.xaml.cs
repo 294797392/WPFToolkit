@@ -27,6 +27,12 @@ namespace WPFToolkit.Business.Controls
             [JsonProperty("name")]
             public string Name { get; set; }
 
+            /// <summary>
+            /// 菜单的详细描述信息
+            /// </summary>
+            [JsonProperty("description")]
+            public string Description { get; set; }
+
             [JsonProperty("entry")]
             public string EntryClass { get; set; }
 
@@ -190,6 +196,7 @@ namespace WPFToolkit.Business.Controls
                     {
                         ID = menuItem.ID,
                         Name = menuItem.Name,
+                        Description = menuItem.Description,
                         EntryClass = menuItem.EntryClass,
                         IconURI = menuItem.Icon
                     };

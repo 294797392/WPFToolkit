@@ -67,10 +67,13 @@
             <Grid Grid.Column="1" Margin="3">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <kcontrol:KComboBox Grid.Row="0" x:Name="ComboBoxList" SelectedIndex="0"/>
+
+                <kcontrol:KComboBox Grid.Row="0" SelectedIndex="0"/>
 
                 <ListBox Grid.Row="1" x:Name="listBox" />
 

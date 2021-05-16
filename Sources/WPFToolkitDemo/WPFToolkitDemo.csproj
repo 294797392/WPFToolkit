@@ -39,6 +39,14 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotNEToolkit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependence\DotNEToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependence\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -59,6 +67,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Data.cs" />
     <Compile Include="HotkeyDemo.xaml.cs">
       <DependentUpon>HotkeyDemo.xaml</DependentUpon>
     </Compile>
@@ -70,6 +79,9 @@
     </Compile>
     <Compile Include="UserControls\GenericControlUserControl.xaml.cs">
       <DependentUpon>GenericControlUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\KComboBoxDemo.xaml.cs">
+      <DependentUpon>KComboBoxDemo.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\EnumItemsSourceVM.cs" />
     <Compile Include="VisualTreeExtentionsDemo.xaml.cs">
@@ -104,6 +116,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\KComboBoxDemo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="VisualTreeExtentionsDemo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -127,6 +143,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="data.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="menu.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

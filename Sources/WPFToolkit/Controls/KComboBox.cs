@@ -58,7 +58,7 @@ namespace WPFToolkit.Controls
 
 
 
-
+        
 
         public object Placeholder
         {

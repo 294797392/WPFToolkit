@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:demo="clr-namespace:WPFToolkitDemo"
+        xmlns:demouc="clr-namespace:WPFToolkitDemo.UserControls"
         xmlns:biz="clr-namespace:WPFToolkit.Business.Controls;assembly=WPFToolkit"
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="1000">
@@ -26,15 +27,34 @@
             </Grid.ColumnDefinitions>
 
             <Border Grid.Column="0" BorderBrush="{DynamicResource ResourceKey=BrushBorder}" BorderThickness="1">
-                <biz:BusinessMainMenu ConfigFile="menu.json" Orientation="Vertical"
-                                      SelectedIndex="0" ContentContainer="{Binding ElementName=ContentControl}"/>
+                <biz:BusinessMainMenu x:Name="BusinessMainMenu" ConfigFile="menu.json" Orientation="Vertical" SelectedIndex="0" ContentContainer="{Binding ElementName=ContentControl}"/>
             </Border>
 
             <Border Grid.Column="1" Width="1" HorizontalAlignment="Left" Background="{DynamicResource ResourceKey=BrushBorderBase}"
                     Margin="0,10,0,10"/>
 
             <Border Grid.Column="2" Padding="3" BorderBrush="{DynamicResource ResourceKey=BrushBorder}" BorderThickness="1">
-                <ContentControl x:Name="ContentControl"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="40"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="{Binding ElementName=BusinessMainMenu, Path=ViewModel.SelectedItem.Name}" VerticalAlignment="Center"
+                                   FontSize="24"/>
+
+                        <TextBlock Grid.Row="1" Text="{Binding ElementName=BusinessMainMenu, Path=ViewModel.SelectedItem.Description}" VerticalAlignment="Center"/>
+
+                    </Grid>
+
+                    <ContentControl x:Name="ContentControl"/>
+                </Grid>
             </Border>
 
         </Grid>

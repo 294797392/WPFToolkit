@@ -9,6 +9,7 @@
     <DropShadowEffect x:Key="GLOBAL_ShadowEffect" Color="{DynamicResource ResourceKey=BrushShadowColor}" ShadowDepth="0" Opacity="0.4" BlurRadius="5"/>
 
     <kconv:ColorTextConverter x:Key="ColorTextConverter"/>
+    <kconv:NullableVisiblityConverter x:Key="NullableVisiblityConverter"/>
 
     <Style TargetType="{x:Type Control}">
         <Setter Property="FontFamily" Value="YaHei"/>
@@ -376,6 +377,11 @@
                                 <ContentPresenter Grid.Column="0" x:Name="ContentSite" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,10,0"
                                                   Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" 
                                                   ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" IsHitTestVisible="False"/>
+
+                                <ContentPresenter Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,10,0"
+                                                  Content="{TemplateBinding Placeholder}" ContentTemplate="{TemplateBinding PlaceholderTemplate}"
+                                                  Visibility="{TemplateBinding Placeholder, Converter={StaticResource ResourceKey=NullableVisiblityConverter}}"/>
+
                             </Grid>
                         </Border>
                         <Popup IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom" x:Name="Popup" Focusable="False" AllowsTransparency="True" PopupAnimation="Fade">

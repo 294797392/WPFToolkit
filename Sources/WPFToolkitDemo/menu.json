@@ -8,9 +8,10 @@
         },
 
         {
-            "id": "1",
-            "name": "常用WPF控件",
-            "entry": "WPFToolkitDemo.UserControls.GenericControlUserControl, WPFToolkitDemo",
+            "id": "2",
+            "name": "下拉列表 - KComboBox",
+            "description": "当选项过多时，使用下拉菜单展示并选择内容。",
+            "entry": "WPFToolkitDemo.UserControls.KComboBoxDemo, WPFToolkitDemo",
             "icon": "pack://application:,,,/WPFToolkit;component/Images/about.png"
         },
 
