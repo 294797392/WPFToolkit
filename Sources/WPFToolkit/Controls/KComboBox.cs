@@ -58,6 +58,33 @@ namespace WPFToolkit.Controls
 
 
 
+
+
+        public object Placeholder
+        {
+            get { return (object)GetValue(PlaceholderProperty); }
+            set { SetValue(PlaceholderProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Placeholder.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PlaceholderProperty =
+            DependencyProperty.Register("Placeholder", typeof(object), typeof(KComboBox), new PropertyMetadata(null));
+
+
+
+        public DataTemplate PlaceholderTemplate
+        {
+            get { return (DataTemplate)GetValue(PlaceholderTemplateProperty); }
+            set { SetValue(PlaceholderTemplateProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for PlaceholderTemplate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PlaceholderTemplateProperty =
+            DependencyProperty.Register("PlaceholderTemplate", typeof(DataTemplate), typeof(KComboBox), new PropertyMetadata(null));
+
+
+
+
         public KComboBox()
         {
             this.Style = Templates.KComboBoxStyle;
