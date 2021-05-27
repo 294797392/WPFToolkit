@@ -6,6 +6,7 @@
         xmlns:demo="clr-namespace:WPFToolkitDemo"
         xmlns:demouc="clr-namespace:WPFToolkitDemo.UserControls"
         xmlns:biz="clr-namespace:WPFToolkit.Business.Controls;assembly=WPFToolkit"
+        xmlns:ext="clr-namespace:WPFToolkit.Extentions;assembly=WPFToolkit"
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="1000">
 
@@ -53,7 +54,7 @@
 
                     </Grid>
 
-                    <ContentControl x:Name="ContentControl"/>
+                    <ContentControl Grid.Row="1" x:Name="ContentControl"/>
                 </Grid>
             </Border>
 

@@ -240,6 +240,11 @@ namespace WPFToolkit.Business.Controls
 
         private void OnSelectedIndexPropertyChanged(object oldValue, object newValue)
         {
+            if (DesignerProperties.GetIsInDesignMode(this))
+            {
+                return;
+            }
+
             if (newValue == null)
             {
                 return;

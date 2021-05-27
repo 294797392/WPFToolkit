@@ -80,6 +80,9 @@
     <Compile Include="UserControls\GenericControlUserControl.xaml.cs">
       <DependentUpon>GenericControlUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\KButtonDemo.xaml.cs">
+      <DependentUpon>KButtonDemo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\KComboBoxDemo.xaml.cs">
       <DependentUpon>KComboBoxDemo.xaml</DependentUpon>
     </Compile>
@@ -113,6 +116,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\GenericControlUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\KButtonDemo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

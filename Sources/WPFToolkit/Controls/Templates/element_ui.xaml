@@ -400,9 +400,6 @@
                     </Grid>
 
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Opacity" Value="0.8" TargetName="BorderBackground"/>
-                        </Trigger>
                     </ControlTemplate.Triggers>
 
                 </ControlTemplate>

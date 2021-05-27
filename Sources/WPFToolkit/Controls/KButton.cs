@@ -46,6 +46,20 @@ namespace WPFToolkit.Controls
             DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(KButton), new PropertyMetadata(null));
 
 
+        public bool CanPopup
+        {
+            get { return (bool)GetValue(CanPopupProperty); }
+            set { SetValue(CanPopupProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CanPopup.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CanPopupProperty =
+            DependencyProperty.Register("CanPopup", typeof(bool), typeof(KButton), new PropertyMetadata(false));
+
+
+
+
+
         public KButton()
         {
             this.Style = Templates.KButtonStyle;

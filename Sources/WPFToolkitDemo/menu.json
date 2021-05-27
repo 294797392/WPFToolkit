@@ -16,9 +16,10 @@
         },
 
         {
-            "id": "1",
-            "name": "常用WPF控件",
-            "entry": "WPFToolkitDemo.UserControls.GenericControlUserControl, WPFToolkitDemo",
+            "id": "3",
+            "name": "按钮 - KButton",
+            "description": "拥有多种形态可自由切换的按钮。",
+            "entry": "WPFToolkitDemo.UserControls.KButtonDemo, WPFToolkitDemo",
             "icon": "pack://application:,,,/WPFToolkit;component/Images/about.png"
         },
 

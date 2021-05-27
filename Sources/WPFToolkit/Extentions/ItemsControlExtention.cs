@@ -90,7 +90,50 @@ namespace WPFToolkit.Extentions
         /// <summary>
         /// 当列表项被选中的时候，是否自动让滚动条滚动到列表项可见区域
         /// </summary>
-        public static readonly DependencyProperty AutoBringIntoViewProperty = DependencyProperty.RegisterAttached("AutoBringIntoView", typeof(bool), typeof(ItemsControlExtention), new PropertyMetadata(true));
+        public static readonly DependencyProperty AutoBringIntoViewProperty = DependencyProperty.RegisterAttached("AutoBringIntoView", typeof(bool), typeof(ItemsControlExtention), new PropertyMetadata(false, AutoBringIntoViewChangedCallback));
+
+        private static void AutoBringIntoViewChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is Selector)
+            {
+                // DataGrid和ListBox都继承自Selector
+
+                Selector selector = d as Selector;
+
+                bool value = (bool)e.NewValue;
+                if (value)
+                {
+                    selector.SelectionChanged += Selector_SelectionChanged;
+                }
+                else
+                {
+                    selector.SelectionChanged -= Selector_SelectionChanged;
+                }
+            }
+            else
+            {
+                
+            }
+        }
+
+        private static void Selector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Selector selector = sender as Selector;
+            ScrollViewer scrollViewer = selector.FindVisualChild<ScrollViewer>();
+            if (scrollViewer != null)
+            {
+                if (selector is ListBox)
+                {
+                    ListBox listBox = selector as ListBox;
+                    listBox.ScrollIntoView(selector.SelectedItem);
+                }
+                else if (selector is DataGrid)
+                {
+                    DataGrid dataGrid = selector as DataGrid;
+                    dataGrid.ScrollIntoView(dataGrid.SelectedItem);
+                }
+            }
+        }
 
         #endregion
 
