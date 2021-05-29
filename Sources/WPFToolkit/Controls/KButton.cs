@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
+using WPFToolkit.Themes;
 
 namespace WPFToolkit.Controls
 {
@@ -56,13 +57,9 @@ namespace WPFToolkit.Controls
         public static readonly DependencyProperty CanPopupProperty =
             DependencyProperty.Register("CanPopup", typeof(bool), typeof(KButton), new PropertyMetadata(false));
 
-
-
-
-
-        public KButton()
+        static KButton()
         {
-            this.Style = Templates.KButtonStyle;
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(KButton), new FrameworkPropertyMetadata(typeof(KButton)));
         }
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)

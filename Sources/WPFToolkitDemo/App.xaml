@@ -3,4 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
 
+    <Application.Resources>
+        <ResourceDictionary>
+            
+            
+            <Style x:Key="StyleTextBlockTitle" TargetType="{x:Type TextBlock}">
+                <Setter Property="FontSize" Value="24"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+
+
+            <Style x:Key="StyleTextBlockDescription" TargetType="{x:Type TextBlock}">
+            </Style>
+            
+            
+            
+        </ResourceDictionary>
+    </Application.Resources>
+    
+    
 </Application>

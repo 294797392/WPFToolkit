@@ -79,10 +79,9 @@
     <Compile Include="Controls\KButton.cs" />
     <Compile Include="Controls\KColorPicker.cs" />
     <Compile Include="Controls\KComboBox.cs" />
+    <Compile Include="Controls\KDivider.cs" />
     <Compile Include="Controls\KTextBox.cs" />
-    <Compile Include="Controls\Templates\Templates.cs" />
     <Compile Include="Converters\ColorTextConverter.cs" />
-    <Compile Include="Resources.cs" />
     <Compile Include="DragDrop\DefaultDragHandler.cs" />
     <Compile Include="DragDrop\DefaultDropHandler.cs" />
     <Compile Include="DragDrop\DragAdorner.cs" />
@@ -108,7 +107,7 @@
     <Compile Include="Converters\NullableVisiblityConverter.cs" />
     <Compile Include="Converters\BooleanVisiblityConverter.cs" />
     <Compile Include="MarkupExtensions\EnumItemsSource.cs" />
-    <Compile Include="MarkupExtensions\ImageURI.cs" />
+    <Compile Include="MarkupExtensions\Images.cs" />
     <Compile Include="MVVM\Attributes\NotifiableAttribute.cs" />
     <Compile Include="MVVM\DataProviders\HierarchicalDataProvider.cs" />
     <Compile Include="MVVM\DataProviders\IDataProvider.cs" />
@@ -149,6 +148,7 @@
     <Compile Include="Extentions\VisualTreeExtentons.cs" />
     <Compile Include="ThemeManager.cs" />
     <Compile Include="DefaultStyles.cs" />
+    <Compile Include="Themes\SharedDictionaryManager.cs" />
     <Compile Include="Windows\SplashScreenWindow.xaml.cs">
       <DependentUpon>SplashScreenWindow.xaml</DependentUpon>
     </Compile>
@@ -180,18 +180,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Templates\mac_osx.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Templates\windows10.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Templates\element_ui.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Themes\Blue.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -199,6 +187,10 @@
     <Page Include="DefaultStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Gray.xaml">
       <SubType>Designer</SubType>
@@ -214,6 +206,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\about.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\LineColor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\FillColor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\FontColor.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,7 +8,7 @@
         xmlns:biz="clr-namespace:WPFToolkit.Business.Controls;assembly=WPFToolkit"
         xmlns:ext="clr-namespace:WPFToolkit.Extentions;assembly=WPFToolkit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="1000">
+        Title="MainWindow" Height="1000" Width="1000">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -38,23 +38,24 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="100"/>
+                        <RowDefinition Height="50"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Grid>
+                    <Grid Grid.Row="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="40"/>
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Row="0" Text="{Binding ElementName=BusinessMainMenu, Path=ViewModel.SelectedItem.Name}" VerticalAlignment="Center"
-                                   FontSize="24"/>
+                                   FontSize="30"/>
 
                         <TextBlock Grid.Row="1" Text="{Binding ElementName=BusinessMainMenu, Path=ViewModel.SelectedItem.Description}" VerticalAlignment="Center"/>
 
                     </Grid>
 
-                    <ContentControl Grid.Row="1" x:Name="ContentControl"/>
+                    <ContentControl Grid.Row="2" x:Name="ContentControl"/>
                 </Grid>
             </Border>
 

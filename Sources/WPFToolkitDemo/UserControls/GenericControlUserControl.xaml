@@ -40,13 +40,20 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="1000"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <kcontrol:KButton Grid.Row="0" Content="Button"/>
                 <kcontrol:KButton Grid.Row="1" Content="Checked Button" CanChecked="True"/>
+                <kcontrol:KColorPicker Grid.Row="2" Margin="3"/>
+                <kcontrol:KColorPicker Grid.Row="3" Margin="3">
+                    <TextBlock Text="123"/>
+                </kcontrol:KColorPicker>
 
-                <kcontrol:KColorPicker Grid.Row="2"/>
+                <kcontrol:KDivider Grid.Row="4" Orientation="Vertical" Margin="100"/>
 
                 <!--<CheckBox Grid.Row="2" Content="CheckBox" IsChecked="True"/>
                 <CheckBox Grid.Row="3" Content="CheckBox - Three State" IsThreeState="True" IsChecked="{x:Null}" />

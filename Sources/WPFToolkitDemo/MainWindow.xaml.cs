@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFToolkit;
 using WPFToolkit.Utility;
 using WPFToolkit.Windows;
 
@@ -26,6 +27,8 @@ namespace WPFToolkitDemo
         public MainWindow()
         {
             InitializeComponent();
+
+            ThemeManager.ApplyDefaultTheme();
         }
     }
 }

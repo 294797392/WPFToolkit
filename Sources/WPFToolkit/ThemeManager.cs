@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using WPFToolkit.Themes;
 
 namespace WPFToolkit
 {
@@ -11,5 +13,9 @@ namespace WPFToolkit
     /// </summary>
     public static class ThemeManager
     {
+        public static void ApplyDefaultTheme()
+        {
+            Application.Current.Resources.MergedDictionaries.Add(SharedDictionaryManager.SharedDictionary);
+        }
     }
 }

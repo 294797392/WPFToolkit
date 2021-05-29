@@ -12,21 +12,25 @@ namespace WPFToolkit.MarkupExtensions
     /// <summary>
     /// 提供把图片文件转换成ImageSource的功能
     /// </summary>
-    public class ImageURI : MarkupExtension
+    public class Images : MarkupExtension
     {
+        private const string URIPattern = "pack://application:,,,/WPFToolkit;component/Images/{0}.png";
+
         /// <summary>
-        /// 要显示的图像URI
+        /// 要显示的图像名字
         /// </summary>
-        public string URI { get; set; }
+        public string Name { get; set; }
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            if (string.IsNullOrEmpty(this.URI))
+            if (string.IsNullOrEmpty(this.Name))
             {
                 return null;
             }
 
-            return ImageUtility.FromURI(this.URI);
+            string uri = string.Format(URIPattern, this.Name);
+
+            return ImageUtility.FromURI(uri);
         }
     }
 }

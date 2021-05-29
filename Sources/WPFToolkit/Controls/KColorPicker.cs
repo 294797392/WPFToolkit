@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 
 namespace WPFToolkit.Controls
@@ -32,7 +34,9 @@ namespace WPFToolkit.Controls
     [TemplatePart(Name = "PART_Ball", Type = typeof(Border))]
     [TemplatePart(Name = "PART_OKButton", Type = typeof(KButton))]
     [TemplatePart(Name = "PART_ClearButton", Type = typeof(KButton))]
-    public class KColorPicker : Control
+    [ContentProperty("Content")]
+    [DefaultProperty("Content")]
+    public class KColorPicker : ContentControl
     {
         #region 类变量
 
@@ -96,10 +100,13 @@ namespace WPFToolkit.Controls
 
         #region 构造方法
 
+        static KColorPicker()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(KColorPicker), new FrameworkPropertyMetadata(typeof(KColorPicker)));
+        }
+
         public KColorPicker()
         {
-            this.Style = Templates.KColorPickerStyle;
-
             this.SelectedBrush = new SolidColorBrush(DefaultColor);
         }
 

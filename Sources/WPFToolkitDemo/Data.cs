@@ -15,6 +15,11 @@ namespace WPFToolkitDemo
 
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 
     public class Data : SingletonObject<Data>

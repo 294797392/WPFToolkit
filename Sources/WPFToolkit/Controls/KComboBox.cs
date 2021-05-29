@@ -83,11 +83,9 @@ namespace WPFToolkit.Controls
             DependencyProperty.Register("PlaceholderTemplate", typeof(DataTemplate), typeof(KComboBox), new PropertyMetadata(null));
 
 
-
-
-        public KComboBox()
+        static KComboBox()
         {
-            this.Style = Templates.KComboBoxStyle;
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(KComboBox), new FrameworkPropertyMetadata(typeof(KComboBox)));
         }
     }
 }

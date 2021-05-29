@@ -22,9 +22,7 @@
         <Setter Property="UseLayoutRounding" Value="True"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
     </Style>
-    
-    
-    
+
     <Style x:Key="StyleScrollBar" TargetType="{x:Type ScrollBar}">
         <Style.Resources>
             <!-- 拖动标样式 -->
@@ -263,7 +261,7 @@
     </Style>-->
 
     <!-- KComboBox -->
-    <Style x:Key="KComboBoxItemStyle" TargetType="{x:Type ComboBoxItem}">
+    <Style x:Key="ComboBoxItemStyle" TargetType="{x:Type ComboBoxItem}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{DynamicResource ResourceKey=BrushBorderExtralight}"/>
@@ -296,7 +294,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="KComboBoxStyle" TargetType="{x:Type kcontrol:KComboBox}">
+    <Style TargetType="{x:Type kcontrol:KComboBox}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="BorderBrush" Value="{DynamicResource ResourceKey=BrushBorderHover}"/>
@@ -322,7 +320,9 @@
         <Setter Property="BorderBrush" Value="{DynamicResource ResourceKey=BrushBorderBase}"/>
         <Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushPrimaryText}"/>
         <Setter Property="SelectionsBorder" Value="{DynamicResource ResourceKey=BrushBorderLight}"/>
-        <Setter Property="ItemContainerStyle" Value="{DynamicResource ResourceKey=KComboBoxItemStyle}"/>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource ResourceKey=ComboBoxItemStyle}"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type kcontrol:KComboBox}">
@@ -407,12 +407,8 @@
         </Setter>
     </Style>
 
-
-
-
-
     <!-- KButton -->
-    <Style x:Key="KButtonStyle" TargetType="{x:Type kcontrol:KButton}">
+    <Style TargetType="{x:Type kcontrol:KButton}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushPrimary}"/>
@@ -427,7 +423,6 @@
                 <Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushPrimary}"/>
             </Trigger>
         </Style.Triggers>
-        <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -438,6 +433,8 @@
         <Setter Property="Margin" Value="{StaticResource ResourceKey=GLOBAL_Margin}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource ResourceKey=BrushBorderBase}"/>
         <Setter Property="CornerRadius" Value="{StaticResource ResourceKey=GLOABL_CornerRadius}"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type kcontrol:KButton}">
@@ -497,16 +494,18 @@
     </Style>
 
     <!-- KTextBoxStyle -->
-    <Style x:Key="KTextBoxStyle" TargetType="{x:Type kcontrol:KTextBox}">
+    <Style TargetType="{x:Type kcontrol:KTextBox}">
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Margin" Value="{StaticResource ResourceKey=GLOBAL_Margin}"/>
     </Style>
 
     <!-- KColorPicker -->
-    <Style x:Key="KColorPickerStyle" TargetType="{x:Type kcontrol:KColorPicker}">
+    <Style TargetType="{x:Type kcontrol:KColorPicker}">
         <Setter Property="Background" Value="White"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="BorderBrush" Value="{DynamicResource ResourceKey=BrushBorderBase}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="Template">
             <Setter.Value>
 
@@ -517,17 +516,20 @@
                     </ControlTemplate.Resources>
 
                     <Grid>
-                        <kcontrol:KButton IsChecked="{Binding Path=IsOpened, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" 
-                                          CanChecked="True" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Margin="0">
-                            <Border CornerRadius="{StaticResource ResourceKey=GLOABL_CornerRadius}" BorderThickness="1" Margin="3"
-                                    BorderBrush="{DynamicResource ResourceKey=BrushBorderHover}" Background="{TemplateBinding SelectedBrush}">
+                        <!--Content="{TemplateBinding Content}"-->
+
+                        <kcontrol:KButton IsChecked="{Binding Path=IsOpened, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="0"
+                                          CanChecked="True" Background="Transparent" Content="{TemplateBinding Content}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}">
+                            <!--<Border CornerRadius="{StaticResource ResourceKey=GLOABL_CornerRadius}" BorderThickness="1" Margin="3"
+                                    BorderBrush="{DynamicResource ResourceKey=BrushBorderHover}" Background="{TemplateBinding SelectedBrush}"
+                                    Visibility="Collapsed">
                                 <Path Width="10" Height="10" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="BtnArrow" Stretch="Uniform" 
                                       Data="F1 M 301.14,-189.041L 311.57,-189.041L 306.355,-182.942L 301.14,-189.041 Z " Fill="{DynamicResource ResourceKey=BrushBorderBase}"/>
-                            </Border>
+                            </Border>-->
                         </kcontrol:KButton>
 
-                        <Popup IsOpen="{TemplateBinding IsOpened}" Placement="Bottom" x:Name="Popup" Focusable="False" AllowsTransparency="True" PopupAnimation="Fade"
-                               StaysOpen="False">
+                        <Popup IsOpen="{TemplateBinding IsOpened}" Placement="Bottom" x:Name="Popup" Focusable="False" AllowsTransparency="True" PopupAnimation="Fade" StaysOpen="False">
                             <Grid Width="320" Height="220">
                                 <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
                                         Margin="4" Effect="{StaticResource ResourceKey=GLOBAL_ShadowEffect}" CornerRadius="{StaticResource ResourceKey=GLOABL_CornerRadius}"/>

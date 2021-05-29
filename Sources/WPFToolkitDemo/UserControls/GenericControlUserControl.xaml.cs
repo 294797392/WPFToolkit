@@ -32,5 +32,10 @@ namespace WPFToolkitDemo.UserControls
 
             ComboBoxList.ItemsSource = itemsSource;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

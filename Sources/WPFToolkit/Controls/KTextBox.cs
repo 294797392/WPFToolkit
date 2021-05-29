@@ -9,9 +9,13 @@ namespace WPFToolkit.Controls
 {
     public class KTextBox : TextBox
     {
+        static KTextBox()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(KTextBox), new System.Windows.FrameworkPropertyMetadata(typeof(KTextBox)));
+        }
+
         public KTextBox()
         {
-            this.Style = Templates.KTextBoxStyle;
         }
     }
 }
