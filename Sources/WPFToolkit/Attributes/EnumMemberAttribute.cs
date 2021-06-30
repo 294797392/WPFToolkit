@@ -16,9 +16,9 @@ namespace WPFToolkit.Attributes
             this.Name = name;
         }
 
-        public EnumMember ToEnumMember(int value)
+        public EnumerationVM ToEnumMember(int value)
         {
-            return new EnumMember()
+            return new EnumerationVM()
             {
                 Name = this.Name,
                 Value = value

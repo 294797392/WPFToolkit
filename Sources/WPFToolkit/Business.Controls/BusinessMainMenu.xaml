@@ -63,7 +63,8 @@
 
     </UserControl.Resources>
 
-    <ListBox x:Name="ListBoxMenu" ItemsSource="{Binding Path=Items}" 
+    <ListBox x:Name="ListBoxMenu"
+             DataContext="{Binding}" ItemsSource="{Binding}" 
              SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}"
              ItemTemplate="{StaticResource ResourceKey=DataTemplateDefault}"
              SelectionChanged="ListBox_SelectionChanged"

@@ -12,6 +12,18 @@ using System.Windows.Media;
 
 namespace WPFToolkit.Controls
 {
+    public delegate void SelectionChangingEventHandler(object sender, SelectionChangingEventArgs e);
+
+    public class SelectionChangingEventArgs : RoutedEventArgs
+    {
+        public Brush SelectedBrush { get; internal set; }
+
+        public SelectionChangingEventArgs()
+        {
+            this.RoutedEvent = KColorPicker.SelectionChangingEvent;
+        }
+    }
+
     /// <summary>
     /// 颜色选择器
     /// 
@@ -72,7 +84,7 @@ namespace WPFToolkit.Controls
 
         // Using a DependencyProperty as the backing store for IsOpened.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsOpenedProperty =
-            DependencyProperty.Register("IsOpened", typeof(bool), typeof(KColorPicker), new PropertyMetadata(false));
+            DependencyProperty.Register("IsOpened", typeof(bool), typeof(KColorPicker), new PropertyMetadata(false, IsOpenedPropertyChangedCallback));
 
 
         public Brush SelectedBrush
@@ -95,6 +107,25 @@ namespace WPFToolkit.Controls
         // Using a DependencyProperty as the backing store for SelectedColor.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedColorProperty =
             DependencyProperty.Register("SelectedColor", typeof(Color), typeof(KColorPicker), new PropertyMetadata(DefaultColor, SelectedColorPropertyChangedCallback));
+
+        #endregion
+
+        #region 路由事件
+
+        /// <summary>
+        ///     An event fired when the selection changes.
+        /// </summary>
+        public static readonly RoutedEvent SelectionChangingEvent = EventManager.RegisterRoutedEvent(
+            "SelectionChanging", RoutingStrategy.Bubble, typeof(SelectionChangingEventHandler), typeof(KColorPicker));
+
+        /// <summary>
+        ///     An event fired when the selection changes.
+        /// </summary>
+        public event SelectionChangingEventHandler SelectionChanging
+        {
+            add { AddHandler(SelectionChangingEvent, value); }
+            remove { RemoveHandler(SelectionChangingEvent, value); }
+        }
 
         #endregion
 
@@ -197,6 +228,12 @@ namespace WPFToolkit.Controls
                 this.SelectedColor = color;
 
                 this.ResetBallPosition(this.s, this.b);
+
+                SelectionChangingEventArgs selectionChanging = new SelectionChangingEventArgs();
+                selectionChanging.Source = this;
+                selectionChanging.SelectedBrush = this.SelectedBrush;
+
+                this.RaiseEvent(selectionChanging);
             }
         }
 
@@ -283,6 +320,45 @@ namespace WPFToolkit.Controls
             me.OnSelectedColorPropertyChanged(e.OldValue, e.NewValue);
         }
 
+        private void OnIsOpenedPropertyChanged(object oldValue, object newValue)
+        {
+            if (newValue == null)
+            {
+                return;
+            }
+
+            bool isOpened = (bool)newValue;
+
+            if (isOpened)
+            {
+                Mouse.Capture(this, CaptureMode.SubTree);
+            }
+            else 
+            {
+                Mouse.Capture(null);
+            }
+        }
+
+        private static void IsOpenedPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            KColorPicker me = d as KColorPicker;
+            me.OnIsOpenedPropertyChanged(e.OldValue, e.NewValue);
+        }
+
         #endregion
+
+        /// <summary>
+        /// When we have capture, all clicks off the popup will have the combobox as the OriginalSource
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnMouseDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseDown(e);
+
+            if (Mouse.Captured == this && e.OriginalSource == this)
+            {
+                this.IsOpened = false;
+            }
+        }
     }
 }

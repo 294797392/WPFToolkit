@@ -33,7 +33,7 @@ namespace WPFToolkit.MarkupExtensions
 
             // TODO：反射信息缓存
 
-            ObservableCollection<EnumMember> result = new ObservableCollection<EnumMember>();
+            ObservableCollection<EnumerationVM> result = new ObservableCollection<EnumerationVM>();
 
             FieldInfo[] fields = this.EnumType.GetFields();
 
@@ -53,7 +53,7 @@ namespace WPFToolkit.MarkupExtensions
                     continue;
                 }
 
-                EnumMember member = attribute.ToEnumMember((int)value);
+                EnumerationVM member = attribute.ToEnumMember((int)value);
                 if (this.EnumMemberConverter != null)
                 {
                     // 如果指定了转换器，那么进行转换
@@ -71,7 +71,7 @@ namespace WPFToolkit.MarkupExtensions
         }
     }
 
-    public class EnumMember : ViewModelBase
+    public class EnumerationVM : ViewModelBase
     {
         /// <summary>
         /// 枚举的值

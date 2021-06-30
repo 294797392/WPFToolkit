@@ -14,6 +14,8 @@ namespace WPFToolkit
     /// HSB颜色模式可以调节颜色的亮度和饱和度
     /// HSB 的 B（明度）控制纯色中混入黑色的量，越往上，值越大，黑色越少，颜色明度越高。
     /// HSB 的 S（饱和度）控制纯色中混入白色的量，越往右，值越大，白色越少，颜色纯度越高。
+    /// 
+    /// HSV和HSB是一样的
     /// </summary>
     public static class ColorConverter
     {

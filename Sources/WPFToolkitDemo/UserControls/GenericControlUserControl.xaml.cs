@@ -37,5 +37,10 @@ namespace WPFToolkitDemo.UserControls
         {
 
         }
+
+        private void KColorPicker_SelectionChanging(object sender, WPFToolkit.Controls.SelectionChangingEventArgs e)
+        {
+            MessageBox.Show("123");
+        }
     }
 }

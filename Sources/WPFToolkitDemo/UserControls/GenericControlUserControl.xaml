@@ -48,8 +48,8 @@
 
                 <kcontrol:KButton Grid.Row="0" Content="Button"/>
                 <kcontrol:KButton Grid.Row="1" Content="Checked Button" CanChecked="True"/>
-                <kcontrol:KColorPicker Grid.Row="2" Margin="3"/>
-                <kcontrol:KColorPicker Grid.Row="3" Margin="3">
+                <kcontrol:KColorPicker Grid.Row="2" Margin="3" />
+                <kcontrol:KColorPicker Grid.Row="3" Margin="3" SelectionChanging="KColorPicker_SelectionChanging">
                     <TextBlock Text="123"/>
                 </kcontrol:KColorPicker>
 

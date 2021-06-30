@@ -68,15 +68,13 @@ namespace WPFToolkit.MVVM
 
         #endregion
 
-
-
         #region 静态方法
 
         private static void LoadChildNodes(TreeNodeViewModel parentNode, List<TreeNodeJSON> childNodes)
         {
             foreach (TreeNodeJSON nodeJson in childNodes)
             {
-                TreeNodeViewModel vm = new TreeNodeViewModel(parentNode.Context, parentNode) 
+                TreeNodeViewModel vm = new TreeNodeViewModel(parentNode.Context, parentNode)
                 {
                     ID = nodeJson.ID,
                     Name = nodeJson.Name,

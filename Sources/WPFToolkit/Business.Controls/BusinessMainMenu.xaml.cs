@@ -129,6 +129,16 @@ namespace WPFToolkit.Business.Controls
             DependencyProperty.Register("SelectedIndex", typeof(int), typeof(BusinessMainMenu), new PropertyMetadata(-1, SelectedIndexPropertyChangedCallback));
 
 
+        public DataTemplate ItemTemplate
+        {
+            get { return (DataTemplate)GetValue(ItemTemplateProperty); }
+            set { SetValue(ItemTemplateProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ItemTemplate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ItemTemplateProperty =
+            DependencyProperty.Register("ItemTemplate", typeof(DataTemplate), typeof(BusinessMainMenu), new PropertyMetadata(null, ItemTemplatePropertyChangedCallback));
+
         #endregion
 
         #region 属性
@@ -161,12 +171,17 @@ namespace WPFToolkit.Business.Controls
 
         private void SwitchContent(int index)
         {
-            if (index > this.ViewModel.Items.Count - 1 || index < 0)
+            if (this.ViewModel.Count == 0)
             {
                 return;
             }
 
-            this.ViewModel.SelectedItem = this.ViewModel.Items[index];
+            if (index > this.ViewModel.Count - 1 || index < 0)
+            {
+                return;
+            }
+
+            this.ViewModel.SelectedItem = this.ViewModel[index];
         }
 
         #endregion
@@ -177,7 +192,7 @@ namespace WPFToolkit.Business.Controls
         {
             if (newValue == null)
             {
-                this.ViewModel.Items.Clear();
+                this.ViewModel.Clear();
                 this.ViewModel.SelectedItem = null;
                 this.ViewModel.SelectedItems.Clear();
             }
@@ -200,7 +215,7 @@ namespace WPFToolkit.Business.Controls
                         EntryClass = menuItem.EntryClass,
                         IconURI = menuItem.Icon
                     };
-                    this.ViewModel.Items.Add(vm);
+                    this.ViewModel.Add(vm);
                 }
             }
         }
@@ -264,6 +279,11 @@ namespace WPFToolkit.Business.Controls
 
         private void OnContentContainerPropertyChanged(object oldValue, object newValue)
         {
+            if (DesignerProperties.GetIsInDesignMode(this))
+            {
+                return;
+            }
+
             if (oldValue != null)
             {
                 ContentControl container = oldValue as ContentControl;
@@ -281,6 +301,21 @@ namespace WPFToolkit.Business.Controls
         {
             BusinessMainMenu me = d as BusinessMainMenu;
             me.OnContentContainerPropertyChanged(e.OldValue, e.NewValue);
+        }
+
+
+        private void OnItemTemplatePropertyChanged(object oldValue, object newValue)
+        {
+            if (newValue != null)
+            {
+                ListBoxMenu.ItemTemplate = newValue as DataTemplate;
+            }
+        }
+
+        private static void ItemTemplatePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            BusinessMainMenu me = d as BusinessMainMenu;
+            me.OnItemTemplatePropertyChanged(e.OldValue, e.NewValue);
         }
 
         #endregion
@@ -334,13 +369,5 @@ namespace WPFToolkit.Business.Controls
         }
 
         #endregion
-    }
-
-    public class BusinessMainMenuItemContainerSelector : ItemContainerTemplateSelector
-    {
-        public override DataTemplate SelectTemplate(object item, ItemsControl parentItemsControl)
-        {
-            return new DataTemplate();
-        }
     }
 }

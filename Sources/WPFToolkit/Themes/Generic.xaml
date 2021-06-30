@@ -10,6 +10,7 @@
 
     <kconv:ColorTextConverter x:Key="ColorTextConverter"/>
     <kconv:NullableVisiblityConverter x:Key="NullableVisiblityConverter"/>
+    <kconv:NullableVisiblityConverter2 x:Key="NullableVisiblityConverter2"/>
 
     <Style TargetType="{x:Type Control}">
         <Setter Property="FontFamily" Value="YaHei"/>
@@ -376,16 +377,19 @@
 
                                 <ContentPresenter Grid.Column="0" x:Name="ContentSite" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,10,0"
                                                   Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" 
-                                                  ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" IsHitTestVisible="False"/>
+                                                  ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" IsHitTestVisible="False"
+                                                  Visibility="{TemplateBinding Placeholder, Converter={StaticResource ResourceKey=NullableVisiblityConverter2}}"/>
 
                                 <ContentPresenter Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,10,0"
                                                   Content="{TemplateBinding Placeholder}" ContentTemplate="{TemplateBinding PlaceholderTemplate}"
-                                                  Visibility="{TemplateBinding Placeholder, Converter={StaticResource ResourceKey=NullableVisiblityConverter}}"/>
+                                                  Visibility="{TemplateBinding Placeholder, Converter={StaticResource ResourceKey=NullableVisiblityConverter}}"
+                                                  IsHitTestVisible="False"/>
 
                             </Grid>
                         </Border>
                         <Popup IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom" x:Name="Popup" Focusable="False" AllowsTransparency="True" PopupAnimation="Fade">
-                            <Grid MaxHeight="{TemplateBinding MaxDropDownHeight}" Width="{TemplateBinding ActualWidth}" x:Name="DropDown" SnapsToDevicePixels="True">
+                            <!--Width="{TemplateBinding ActualWidth}"-->
+                            <Grid MaxHeight="{TemplateBinding MaxDropDownHeight}" Width="Auto" MinWidth="{TemplateBinding ActualWidth}" x:Name="DropDown" SnapsToDevicePixels="True">
                                 <Border Height="Auto" HorizontalAlignment="Stretch" x:Name="PopupBorder" Background="{TemplateBinding SelectionsBackground}" 
                                         BorderBrush="{TemplateBinding SelectionsBorder}" BorderThickness="{TemplateBinding SelectionsThickness}" ClipToBounds="False"
                                         Margin="3" CornerRadius="{TemplateBinding CornerRadius}" Effect="{StaticResource ResourceKey=GLOBAL_ShadowEffect}"/>
@@ -516,18 +520,9 @@
                     </ControlTemplate.Resources>
 
                     <Grid>
-                        <!--Content="{TemplateBinding Content}"-->
-
                         <kcontrol:KButton IsChecked="{Binding Path=IsOpened, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="0"
                                           CanChecked="True" Background="Transparent" Content="{TemplateBinding Content}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}">
-                            <!--<Border CornerRadius="{StaticResource ResourceKey=GLOABL_CornerRadius}" BorderThickness="1" Margin="3"
-                                    BorderBrush="{DynamicResource ResourceKey=BrushBorderHover}" Background="{TemplateBinding SelectedBrush}"
-                                    Visibility="Collapsed">
-                                <Path Width="10" Height="10" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="BtnArrow" Stretch="Uniform" 
-                                      Data="F1 M 301.14,-189.041L 311.57,-189.041L 306.355,-182.942L 301.14,-189.041 Z " Fill="{DynamicResource ResourceKey=BrushBorderBase}"/>
-                            </Border>-->
-                        </kcontrol:KButton>
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
 
                         <Popup IsOpen="{TemplateBinding IsOpened}" Placement="Bottom" x:Name="Popup" Focusable="False" AllowsTransparency="True" PopupAnimation="Fade" StaysOpen="False">
                             <Grid Width="320" Height="220">
