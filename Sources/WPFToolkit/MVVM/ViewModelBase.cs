@@ -27,7 +27,7 @@ namespace WPFToolkit.MVVM
         /// </summary>
         private string description;
 
-        public string Name
+        public virtual string Name
         {
             get { return this.name; }
             set
@@ -37,7 +37,7 @@ namespace WPFToolkit.MVVM
             }
         }
 
-        public string Description
+        public virtual string Description
         {
             get
             {
@@ -50,7 +50,7 @@ namespace WPFToolkit.MVVM
             }
         }
 
-        public object ID
+        public virtual object ID
         {
             get { return this.id; }
             set

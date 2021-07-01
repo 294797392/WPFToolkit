@@ -5,10 +5,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPFToolkit.Business.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             x:Name="UserControl">
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="DataTemplateGeneric">
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=Name, StringFormat={}{0}AAAAAA}"/>
+        </DataTemplate>
+    </UserControl.Resources>
+    
     <Grid>
         <DataGrid x:Name="DataGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
-                  ItemsSource="{Binding Path=Items}" SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                  DataContext="{Binding ElementName=UserControl, Path=ItemsSource}" ItemsSource="{Binding}"
+                  SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             
         </DataGrid>
     </Grid>

@@ -68,13 +68,8 @@
     <Compile Include="Business.Controls\BusinessDataGrid.xaml.cs">
       <DependentUpon>BusinessDataGrid.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Business.Controls\BusinessDataGridItemVM.cs" />
-    <Compile Include="Business.Controls\BusinessDataGridVM.cs" />
     <Compile Include="Business.Controls\BusinessMainMenu.xaml.cs">
       <DependentUpon>BusinessMainMenu.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Business.Controls\BusinessTransfer.xaml.cs">
-      <DependentUpon>BusinessTransfer.xaml</DependentUpon>
     </Compile>
     <Compile Include="ColorConverter.cs" />
     <Compile Include="Controls\KButton.cs" />
@@ -149,7 +144,6 @@
     <Compile Include="ImageUtility.cs" />
     <Compile Include="Extentions\VisualTreeExtentons.cs" />
     <Compile Include="ThemeManager.cs" />
-    <Compile Include="DefaultStyles.cs" />
     <Compile Include="Themes\SharedDictionaryManager.cs" />
     <Compile Include="Windows\SplashScreenWindow.xaml.cs">
       <DependentUpon>SplashScreenWindow.xaml</DependentUpon>
@@ -158,7 +152,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Business.Controls\BusinessDataGrid.json" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -175,10 +168,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Business.Controls\BusinessMainMenu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Business.Controls\BusinessTransfer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

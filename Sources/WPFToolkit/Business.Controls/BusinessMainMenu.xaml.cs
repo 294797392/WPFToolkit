@@ -17,6 +17,7 @@ namespace WPFToolkit.Business.Controls
     /// <summary>
     /// 主菜单业务逻辑控件
     /// </summary>
+    [StyleTypedProperty(Property = "ItemContainerStyle", StyleTargetType = typeof(ListBoxItem))]
     public partial class BusinessMainMenu : UserControl
     {
         internal class MenuItem
@@ -73,6 +74,17 @@ namespace WPFToolkit.Business.Controls
         #endregion
 
         #region 依赖属性
+
+        public Style ItemContainerStyle
+        {
+            get { return (Style)GetValue(ItemContainerStyleProperty); }
+            set { SetValue(ItemContainerStyleProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ItemContainerStyle.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ItemContainerStyleProperty =
+            DependencyProperty.Register("ItemContainerStyle", typeof(Style), typeof(BusinessMainMenu), new PropertyMetadata(null));
+
 
         /// <summary>
         /// 指定显示菜单所对应的界面的区域

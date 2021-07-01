@@ -33,32 +33,9 @@
             </Grid>
         </DataTemplate>
 
-        <Style x:Key="StyleListBoxLocal" TargetType="{x:Type ListBox}" BasedOn="{x:Static tookit:DefaultStyles.DefaultListBoxStyle}">
+        <Style x:Key="StyleListBoxLocal" TargetType="{x:Type ListBox}">
             <Setter Property="BorderBrush" Value="{x:Null}"/>
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="ItemContainerStyle">
-                <Setter.Value>
-                    <Style TargetType="{x:Type ListBoxItem}" BasedOn="{x:Static tookit:DefaultStyles.DefaultListBoxItemStyle}">
-                        <Setter Property="Padding" Value="0,0,0,0"/>
-                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        <Setter Property="BorderBrush" Value="{x:Null}"/>
-                        <Setter Property="BorderThickness" Value="0"/>
-                        <Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushPrimaryText}"/>
-                        <Setter Property="Cursor" Value="Hand"/>
-                        <Setter Property="Height" Value="40"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushPrimary}"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Foreground" Value="{DynamicResource ResourceKey=BrushPrimary}"/>
-                                <!--<Setter Property="Background" Value="{DynamicResource ResourceKey=BrushPrimaryHover}"/>-->
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Setter.Value>
-            </Setter>
         </Style>
 
     </UserControl.Resources>
@@ -67,6 +44,7 @@
              DataContext="{Binding}" ItemsSource="{Binding}" 
              SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}"
              ItemTemplate="{StaticResource ResourceKey=DataTemplateDefault}"
+             ItemContainerStyle="{Binding ElementName=UserControl, Path=ItemContainerStyle}"
              SelectionChanged="ListBox_SelectionChanged"
              Style="{StaticResource ResourceKey=StyleListBoxLocal}">
     </ListBox>

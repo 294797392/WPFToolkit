@@ -24,23 +24,9 @@
         },
 
         {
-            "id": "1",
-            "name": "常用WPF控件",
-            "entry": "WPFToolkitDemo.UserControls.GenericControlUserControl, WPFToolkitDemo",
-            "icon": "pack://application:,,,/WPFToolkit;component/Images/about.png"
-        },
-
-        {
-            "id": "1",
-            "name": "常用WPF控件",
-            "entry": "WPFToolkitDemo.UserControls.GenericControlUserControl, WPFToolkitDemo",
-            "icon": "pack://application:,,,/WPFToolkit;component/Images/about.png"
-        },
-
-        {
-            "id": "1",
-            "name": "常用WPF控件",
-            "entry": "WPFToolkitDemo.UserControls.GenericControlUserControl, WPFToolkitDemo",
+            "id": "4",
+            "name": "BusinessDataGrid",
+            "entry": "WPFToolkitDemo.UserControls.BusinessDataGridDemo, WPFToolkitDemo",
             "icon": "pack://application:,,,/WPFToolkit;component/Images/about.png"
         }
     ]
