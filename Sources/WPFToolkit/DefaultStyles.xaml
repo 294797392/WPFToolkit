@@ -257,4 +257,120 @@
         <Setter Property="BorderThickness" Value="1"/>
     </Style>
 
+
+
+
+    <Style x:Key="StyleDataGridColumnHeader" TargetType="DataGridColumnHeader">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="../Images/datagrid_header_background.png"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+        <Setter Property="BorderBrush" Value="Silver"/>
+        <Setter Property="Padding" Value="0,8,0,8"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGridColumnHeader">
+                    <Grid TextElement.Foreground="{TemplateBinding Foreground}"
+                          TextElement.FontSize="{TemplateBinding FontSize}"
+                          Height="{TemplateBinding Height}">
+                        <Border x:Name="BackgroundBorder" BorderThickness="{TemplateBinding BorderThickness}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                Background="{TemplateBinding Background}"/>
+                        <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  Margin="{TemplateBinding Padding}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="StyleDataGridRow" TargetType="DataGridRow">
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+        <Setter Property="ValidationErrorTemplate" Value="{x:Null}"/>
+        <Style.Triggers>
+            <Trigger Property="AlternationIndex" Value="0" >
+                <Setter Property="Background" Value="White" />
+            </Trigger>
+            <Trigger Property="AlternationIndex" Value="1" >
+                <Setter Property="Background" Value="#f4f4f4"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#8bc5ff"/>
+                <!--<Setter Property="Foreground" Value="Black"/>-->
+                <!--<Setter Property="Background" Value="Silver"/>-->
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="#5ba9f6"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="StyleDataGridCell" TargetType="DataGridCell">
+        <Setter Property="BorderBrush" Value="Silver"/>
+        <Setter Property="BorderThickness" Value="0,0,1,0"/>
+        <Setter Property="Background" Value="{x:Null}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+        <Setter Property="Padding" Value="0,5,0,5"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGridCell">
+                    <Grid Margin="{TemplateBinding Margin}" Background="Transparent"
+                                  VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                  HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                  TextElement.FontSize="{TemplateBinding FontSize}"
+                                  TextOptions.TextFormattingMode="{TemplateBinding TextOptions.TextFormattingMode}">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Foreground" Value="Black"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="StyleDataGrid" TargetType="{x:Type DataGrid}">
+        <Style.Resources>
+            <Style TargetType="{x:Type DataGridRowHeader}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type DataGridRowHeader}">
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Style.Resources>
+        <Setter Property="CellStyle" Value="{StaticResource ResourceKey=StyleDataGridCell}"/>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource ResourceKey=StyleDataGridRow}"/>
+        <Setter Property="ColumnHeaderStyle" Value="{StaticResource ResourceKey=StyleDataGridColumnHeader}"/>
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="GridLinesVisibility" Value="None"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="Background" Value="#f5f5f5"/>
+        <Setter Property="BorderBrush" Value="Silver"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="AlternationCount" Value="2"/>
+    </Style>
+
+
 </ResourceDictionary>

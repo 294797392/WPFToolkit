@@ -9,16 +9,18 @@
              x:Name="UserControl">
 
     <UserControl.Resources>
+
         <DataTemplate x:Key="DataTemplateGeneric">
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=Name, StringFormat={}{0}AAAAAA}"/>
         </DataTemplate>
+
     </UserControl.Resources>
-    
+
     <Grid>
         <DataGrid x:Name="DataGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False"
                   DataContext="{Binding ElementName=UserControl, Path=ItemsSource}" ItemsSource="{Binding}"
-                  SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            
+                  SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  Style="{Binding ElementName=UserControl, Path=DataGridStyle}">
         </DataGrid>
     </Grid>
 </UserControl>
