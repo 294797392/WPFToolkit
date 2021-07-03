@@ -60,17 +60,6 @@ namespace WPFToolkit.Business.Controls
 
         #region 依赖属性
 
-        public Style DataGridStyle
-        {
-            get { return (Style)GetValue(DataGridStyleProperty); }
-            set { SetValue(DataGridStyleProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for DataGridStyle.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty DataGridStyleProperty =
-            DependencyProperty.Register("DataGridStyle", typeof(Style), typeof(BusinessDataGrid), new PropertyMetadata(null));
-
-
         /// <summary>
         /// 每一项的类型
         /// </summary>
