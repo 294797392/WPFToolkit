@@ -15,11 +15,11 @@ namespace WPFToolkit.MVVM
     /// 通用树形列表ViewModel
     /// 项目在开发的时候可以继承这个ViewModel，也可以直接使用该ViewModel
     /// </summary>
-    public class TreeViewModel : ItemsViewModel<TreeNodeViewModel>
+    public class TreeViewModel<TNode> : ViewModelBase where TNode : TreeNodeViewModel
     {
         #region 实例变量
 
-        private Dictionary<object, TreeNodeViewModel> nodeMap;
+        private Dictionary<object, TNode> nodeMap;
 
         #endregion
 
@@ -28,7 +28,7 @@ namespace WPFToolkit.MVVM
         /// <summary>
         /// 树形列表的根节点
         /// </summary>
-        public ObservableCollection<TreeNodeViewModel> Roots { get; private set; }
+        public ObservableCollection<TNode> Roots { get; private set; }
 
         /// <summary>
         /// 存储树形列表上下文信息
@@ -41,8 +41,8 @@ namespace WPFToolkit.MVVM
 
         public TreeViewModel()
         {
-            this.nodeMap = new Dictionary<object, TreeNodeViewModel>();
-            this.Roots = new ObservableCollection<TreeNodeViewModel>();
+            this.nodeMap = new Dictionary<object, TNode>();
+            this.Roots = new ObservableCollection<TNode>();
             this.Context = new TreeViewModelContext();
         }
 
@@ -55,7 +55,7 @@ namespace WPFToolkit.MVVM
         /// </summary>
         public void ExpandNode(string nodeID)
         {
-            TreeNodeViewModel vm;
+            TNode vm;
             if (!this.nodeMap.TryGetValue(nodeID, out vm))
             {
                 // 不存在该节点
@@ -70,71 +70,71 @@ namespace WPFToolkit.MVVM
 
         #region 静态方法
 
-        private static void LoadChildNodes(TreeNodeViewModel parentNode, List<TreeNodeJSON> childNodes)
-        {
-            foreach (TreeNodeJSON nodeJson in childNodes)
-            {
-                TreeNodeViewModel vm = new TreeNodeViewModel(parentNode.Context, parentNode)
-                {
-                    ID = nodeJson.ID,
-                    Name = nodeJson.Name,
-                    IconURI = nodeJson.Icon
-                };
+        //private static void LoadChildNodes(TreeNodeViewModel parentNode, List<TreeNodeJSON> childNodes)
+        //{
+        //    foreach (TreeNodeJSON nodeJson in childNodes)
+        //    {
+        //        TreeNodeViewModel vm = new TreeNodeViewModel(parentNode.Context, parentNode)
+        //        {
+        //            ID = nodeJson.ID,
+        //            Name = nodeJson.Name,
+        //            IconURI = nodeJson.Icon
+        //        };
 
-                parentNode.Children.Add(vm);
+        //        parentNode.Children.Add(vm);
 
-                LoadChildNodes(vm, nodeJson.Children);
-            }
-        }
+        //        LoadChildNodes(vm, nodeJson.Children);
+        //    }
+        //}
 
-        /// <summary>
-        /// 从数据源创建TreeViewModel
-        /// </summary>
-        /// <param name="sourceType"></param>
-        /// <param name="sourceURI"></param>
-        /// <returns></returns>
-        public static TreeViewModel Create(ItemsSourceType sourceType, string sourceURI)
-        {
-            TreeViewJSON tv = null;
+        ///// <summary>
+        ///// 从数据源创建TreeViewModel
+        ///// </summary>
+        ///// <param name="sourceType"></param>
+        ///// <param name="sourceURI"></param>
+        ///// <returns></returns>
+        //public static TreeViewModel<T> Create<T>(ItemsSourceType sourceType, string sourceURI) where T : TreeNodeViewModel
+        //{
+        //    TreeViewJSON tv = null;
 
-            switch (sourceType)
-            {
-                case ItemsSourceType.JsonFile:
-                    {
-                        if (!File.Exists(sourceURI))
-                        {
-                            return null;
-                        }
+        //    switch (sourceType)
+        //    {
+        //        case ItemsSourceType.JsonFile:
+        //            {
+        //                if (!File.Exists(sourceURI))
+        //                {
+        //                    return null;
+        //                }
 
-                        tv = JSONHelper.ParseFile<TreeViewJSON>(sourceURI);
+        //                tv = JSONHelper.ParseFile<TreeViewJSON>(sourceURI);
 
-                        break;
-                    }
+        //                break;
+        //            }
 
-                default:
-                    throw new NotImplementedException();
-            }
+        //        default:
+        //            throw new NotImplementedException();
+        //    }
 
-            TreeViewModelContext context = new TreeViewModelContext();
+        //    TreeViewModelContext context = new TreeViewModelContext();
 
-            TreeViewModel treeVM = new TreeViewModel();
+        //    TreeViewModel<T> treeVM = new TreeViewModel<T>();
 
-            foreach (TreeNodeJSON nodeJson in tv.NodeList)
-            {
-                TreeNodeViewModel vm = new TreeNodeViewModel(context)
-                {
-                    ID = nodeJson.ID,
-                    Name = nodeJson.Name,
-                    IconURI = nodeJson.Icon,
-                };
+        //    foreach (TreeNodeJSON nodeJson in tv.NodeList)
+        //    {
+        //        TreeNodeViewModel vm = new TreeNodeViewModel(context)
+        //        {
+        //            ID = nodeJson.ID,
+        //            Name = nodeJson.Name,
+        //            IconURI = nodeJson.Icon,
+        //        };
 
-                treeVM.Items.Add(vm);
+        //        treeVM.Roots.Add(vm);
 
-                LoadChildNodes(vm, nodeJson.Children);
-            }
+        //        LoadChildNodes(vm, nodeJson.Children);
+        //    }
 
-            return treeVM;
-        }
+        //    return treeVM;
+        //}
 
         #endregion
     }

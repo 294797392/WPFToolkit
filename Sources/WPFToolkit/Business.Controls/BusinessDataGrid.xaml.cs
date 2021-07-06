@@ -42,6 +42,17 @@ namespace WPFToolkit.Business.Controls
     }
 
     /// <summary>
+    /// 表示一个DataGrid的动作
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Method)]
+    public class DataGridActionAttribute : Attribute
+    {
+        public string Name { get; set; }
+
+        public string ImageURI { get; set; }
+    }
+
+    /// <summary>
     /// BusinessDataGrid.xaml 的交互逻辑
     /// </summary>
     public partial class BusinessDataGrid : UserControl
@@ -131,7 +142,7 @@ namespace WPFToolkit.Business.Controls
                     continue;
                 }
 
-                if (property.PropertyType == typeof(int) || property.PropertyType == typeof(double) || 
+                if (property.PropertyType == typeof(int) || property.PropertyType == typeof(double) ||
                     property.PropertyType == typeof(float) || property.PropertyType == typeof(string) ||
                     property.PropertyType == typeof(DateTime))
                 {
@@ -161,6 +172,11 @@ namespace WPFToolkit.Business.Controls
                     DataGrid.Columns.Add(templateColumn);
                 }
             }
+        }
+
+        private void InitializeActions()
+        {
+
         }
 
         #endregion
