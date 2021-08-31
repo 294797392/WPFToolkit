@@ -13,6 +13,8 @@ namespace WPFToolkit.MVVM
     /// </summary>
     public class TreeViewModelContext
     {
+        internal Dictionary<string, TreeNodeViewModel> NodeMap { get; private set; }
+
         /// <summary>
         /// 当前选中的节点
         /// </summary>
@@ -26,6 +28,7 @@ namespace WPFToolkit.MVVM
         public TreeViewModelContext()
         {
             this.SelectedItems = new ObservableCollection<TreeNodeViewModel>();
+            this.NodeMap = new Dictionary<string, TreeNodeViewModel>();
         }
     }
 }

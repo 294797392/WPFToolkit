@@ -90,16 +90,25 @@ namespace WPFToolkit.MVVM
 
         #endregion
 
-        public TreeNodeViewModel(TreeViewModelContext context, TreeNodeViewModel parent = null)
+        public TreeNodeViewModel(TreeViewModelContext context, object data = null)
         {
             this.Context = context;
             this.Children = new ObservableCollection<TreeNodeViewModel>();
-            this.Parent = parent;
+            this.Data = data;
         }
 
-        public TreeNodeViewModel(TreeViewModelContext context, object data, TreeNodeViewModel parent = null) : this(context, parent)
+        public TreeNodeViewModel(TreeNodeViewModel parent, object data = null)
         {
+            this.Context = parent.Context;
+            this.Children = new ObservableCollection<TreeNodeViewModel>();
+            this.Parent = parent;
             this.Data = data;
+        }
+
+        public void AddChildNode(TreeNodeViewModel node)
+        {
+            this.Children.Add(node);
+            this.Context.NodeMap[node.ID.ToString()] = node;
         }
     }
 }

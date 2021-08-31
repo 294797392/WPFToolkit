@@ -7,17 +7,20 @@ using System.Threading.Tasks;
 
 namespace WPFToolkit.MVVM.Internals
 {
-    internal class TreeViewJSON
+    /// <summary>
+    /// 存储数据模型
+    /// </summary>
+    internal class InternalTreeView
     {
         /// <summary>
         /// 节点列表
         /// </summary>
         [JsonProperty("nodes")]
-        public List<TreeNodeJSON> NodeList { get; set; }
+        public List<InternalTreeNode> NodeList { get; set; }
 
-        public TreeViewJSON()
+        public InternalTreeView()
         {
-            this.NodeList = new List<TreeNodeJSON>();
+            this.NodeList = new List<InternalTreeNode>();
         }
     }
 }

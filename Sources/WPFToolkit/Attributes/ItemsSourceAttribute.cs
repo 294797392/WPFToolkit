@@ -11,7 +11,7 @@ namespace WPFToolkit.Attributes
         /// <summary>
         /// 文件数据源
         /// </summary>
-        JsonFile,
+        JSONFile,
     }
 
     public class ItemsSourceAttribute : Attribute

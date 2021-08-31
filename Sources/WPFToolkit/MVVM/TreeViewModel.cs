@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WPFToolkit.Attributes;
 using WPFToolkit.MVVM.Internals;
+using WPFToolkit.Utility;
 
 namespace WPFToolkit.MVVM
 {
@@ -15,11 +16,9 @@ namespace WPFToolkit.MVVM
     /// 通用树形列表ViewModel
     /// 项目在开发的时候可以继承这个ViewModel，也可以直接使用该ViewModel
     /// </summary>
-    public class TreeViewModel<TNode> : ViewModelBase where TNode : TreeNodeViewModel
+    public class TreeViewModel : ViewModelBase
     {
         #region 实例变量
-
-        private Dictionary<object, TNode> nodeMap;
 
         #endregion
 
@@ -28,7 +27,7 @@ namespace WPFToolkit.MVVM
         /// <summary>
         /// 树形列表的根节点
         /// </summary>
-        public ObservableCollection<TNode> Roots { get; private set; }
+        public ObservableCollection<TreeNodeViewModel> Roots { get; private set; }
 
         /// <summary>
         /// 存储树形列表上下文信息
@@ -41,8 +40,7 @@ namespace WPFToolkit.MVVM
 
         public TreeViewModel()
         {
-            this.nodeMap = new Dictionary<object, TNode>();
-            this.Roots = new ObservableCollection<TNode>();
+            this.Roots = new ObservableCollection<TreeNodeViewModel>();
             this.Context = new TreeViewModelContext();
         }
 
@@ -50,13 +48,20 @@ namespace WPFToolkit.MVVM
 
         #region 公开接口
 
+        public void AddRootNode(TreeNodeViewModel root)
+        {
+            this.Roots.Add(root);
+            this.Context.NodeMap[root.ID.ToString()] = root;
+        }
+
         /// <summary>
         /// 展开某个节点
         /// </summary>
+        /// <param name="nodeID">要展开的节点ID</param>
         public void ExpandNode(string nodeID)
         {
-            TNode vm;
-            if (!this.nodeMap.TryGetValue(nodeID, out vm))
+            TreeNodeViewModel vm;
+            if (!this.Context.NodeMap.TryGetValue(nodeID, out vm))
             {
                 // 不存在该节点
                 return;
@@ -66,75 +71,91 @@ namespace WPFToolkit.MVVM
             vm.IsExpanded = true;
         }
 
+        /// <summary>
+        /// 选中某个节点
+        /// </summary>
+        /// <param name="nodeID">要选中的节点ID</param>
+        public void SelectNode(string nodeID)
+        {
+            TreeNodeViewModel vm;
+            if (!this.Context.NodeMap.TryGetValue(nodeID, out vm))
+            {
+                return;
+            }
+
+            vm.IsSelected = true;
+        }
+
         #endregion
 
         #region 静态方法
 
-        //private static void LoadChildNodes(TreeNodeViewModel parentNode, List<TreeNodeJSON> childNodes)
-        //{
-        //    foreach (TreeNodeJSON nodeJson in childNodes)
-        //    {
-        //        TreeNodeViewModel vm = new TreeNodeViewModel(parentNode.Context, parentNode)
-        //        {
-        //            ID = nodeJson.ID,
-        //            Name = nodeJson.Name,
-        //            IconURI = nodeJson.Icon
-        //        };
+        /// <summary>
+        /// 加载子节点
+        /// </summary>
+        /// <param name="parentNode">父节点</param>
+        /// <param name="childNodes">要加载的子节点</param>
+        private static void LoadChildNodes<TNode>(TNode parentNode, List<InternalTreeNode> childNodes) where TNode : TreeNodeViewModel
+        {
+            foreach (InternalTreeNode treeNode in childNodes)
+            {
+                TNode nodeVM = ConfigFactory<TNode>.CreateInstance(typeof(TNode), parentNode, treeNode.Data);
+                nodeVM.ID = treeNode.ID;
+                nodeVM.Name = treeNode.Name;
+                nodeVM.IconURI = treeNode.Icon;
 
-        //        parentNode.Children.Add(vm);
+                parentNode.AddChildNode(nodeVM);
 
-        //        LoadChildNodes(vm, nodeJson.Children);
-        //    }
-        //}
+                LoadChildNodes<TNode>(nodeVM, treeNode.Children);
+            }
+        }
 
-        ///// <summary>
-        ///// 从数据源创建TreeViewModel
-        ///// </summary>
-        ///// <param name="sourceType"></param>
-        ///// <param name="sourceURI"></param>
-        ///// <returns></returns>
-        //public static TreeViewModel<T> Create<T>(ItemsSourceType sourceType, string sourceURI) where T : TreeNodeViewModel
-        //{
-        //    TreeViewJSON tv = null;
+        /// <summary>
+        /// 从数据源创建TreeViewModel
+        /// </summary>
+        /// <param name="sourceType"></param>
+        /// <param name="sourceURI"></param>
+        /// <returns></returns>
+        public static TTreeVM Create<TTreeVM, TNode>(ItemsSourceType sourceType, string sourceURI) where TNode : TreeNodeViewModel where TTreeVM : TreeViewModel
+        {
+            InternalTreeView tv = null;
 
-        //    switch (sourceType)
-        //    {
-        //        case ItemsSourceType.JsonFile:
-        //            {
-        //                if (!File.Exists(sourceURI))
-        //                {
-        //                    return null;
-        //                }
+            switch (sourceType)
+            {
+                case ItemsSourceType.JSONFile:
+                    {
+                        if (!File.Exists(sourceURI))
+                        {
+                            return null;
+                        }
 
-        //                tv = JSONHelper.ParseFile<TreeViewJSON>(sourceURI);
+                        tv = JSONHelper.ParseFile<InternalTreeView>(sourceURI);
 
-        //                break;
-        //            }
+                        break;
+                    }
 
-        //        default:
-        //            throw new NotImplementedException();
-        //    }
+                default:
+                    throw new NotImplementedException();
+            }
 
-        //    TreeViewModelContext context = new TreeViewModelContext();
+            TreeViewModelContext context = new TreeViewModelContext();
 
-        //    TreeViewModel<T> treeVM = new TreeViewModel<T>();
+            TTreeVM treeVM = ConfigFactory<TTreeVM>.CreateInstance(typeof(TTreeVM));
 
-        //    foreach (TreeNodeJSON nodeJson in tv.NodeList)
-        //    {
-        //        TreeNodeViewModel vm = new TreeNodeViewModel(context)
-        //        {
-        //            ID = nodeJson.ID,
-        //            Name = nodeJson.Name,
-        //            IconURI = nodeJson.Icon,
-        //        };
+            foreach (InternalTreeNode treeNode in tv.NodeList)
+            {
+                TNode nodeVM = ConfigFactory<TNode>.CreateInstance(typeof(TNode), context, treeNode.Data);
+                nodeVM.ID = treeNode.ID;
+                nodeVM.Name = treeNode.Name;
+                nodeVM.IconURI = treeNode.Icon;
 
-        //        treeVM.Roots.Add(vm);
+                treeVM.AddRootNode(nodeVM);
 
-        //        LoadChildNodes(vm, nodeJson.Children);
-        //    }
+                LoadChildNodes<TNode>(nodeVM, treeNode.Children);
+            }
 
-        //    return treeVM;
-        //}
+            return treeVM;
+        }
 
         #endregion
     }

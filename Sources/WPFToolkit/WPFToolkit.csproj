@@ -62,15 +62,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AttachedProperty\ItemsBinding.cs" />
     <Compile Include="Attributes\EnumMemberAttribute.cs" />
     <Compile Include="Attributes\ItemsSourceAttribute.cs" />
-    <Compile Include="Business.Controls\BusinessDataGrid.xaml.cs">
-      <DependentUpon>BusinessDataGrid.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Business.Controls\BusinessMainMenu.xaml.cs">
-      <DependentUpon>BusinessMainMenu.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ColorConverter.cs" />
     <Compile Include="Controls\KButton.cs" />
     <Compile Include="Controls\KColorPicker.cs" />
@@ -96,9 +89,6 @@
     <Compile Include="DragDrop\VisualTreeExtensions.cs" />
     <Compile Include="DragDrop\WinformDragDropHelper.cs" />
     <Compile Include="MVVM\BindableCollection.cs" />
-    <Compile Include="MVVM\Internals\TreeNodeJSON.cs" />
-    <Compile Include="MVVM\Internals\TreeViewJSON.cs" />
-    <Compile Include="Business.Controls\IBusinessMainMenuHook.cs" />
     <Compile Include="Controls\PanAndZoomViewer.cs" />
     <Compile Include="Controls\Hotkey.cs" />
     <Compile Include="Converters\NullableVisiblityConverter.cs" />
@@ -118,9 +108,12 @@
     <Compile Include="MVVM\Interactivity\Services\IDialogService.cs" />
     <Compile Include="MVVM\Interactivity\Services\IDispatcherService.cs" />
     <Compile Include="MVVM\Interactivity\Services\IMessageBoxService.cs" />
+    <Compile Include="MVVM\Internals\InternalTreeNode.cs" />
+    <Compile Include="MVVM\Internals\InternalTreeView.cs" />
     <Compile Include="MVVM\ItemViewModel.cs" />
-    <Compile Include="MVVM\ItemsViewModel.cs" />
     <Compile Include="MVVM\ISelectableViewModel.cs" />
+    <Compile Include="MVVM\MenuItemVM.cs" />
+    <Compile Include="MVVM\MenuVM.cs" />
     <Compile Include="MVVM\TreeViewModelContext.cs" />
     <Compile Include="MVVM\TreeNodeViewModel.cs" />
     <Compile Include="MVVM\TreeViewModel.cs" />
@@ -138,8 +131,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Business.Controls\BusinessMainMenuItemVM.cs" />
-    <Compile Include="Business.Controls\BusinessMainMenuVM.cs" />
     <Compile Include="FontUtility.cs" />
     <Compile Include="ImageUtility.cs" />
     <Compile Include="Extentions\VisualTreeExtentons.cs" />
@@ -156,21 +147,9 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Business.Controls\BusinessMainMenu.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Business.Controls\readme.md" />
     <None Include="Windows\readme.md" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Business.Controls\BusinessDataGrid.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Business.Controls\BusinessMainMenu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="DefaultStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
