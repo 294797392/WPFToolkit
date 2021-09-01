@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace WPFToolkit.MVVM
 {
+    /// <summary>
+    /// 表示一个内容控件
+    /// </summary>
     public interface IContentHost
     {
         /// <summary>
@@ -21,9 +24,14 @@ namespace WPFToolkit.MVVM
         void Release();
 
         /// <summary>
-        /// 每次显示在界面上都会触发
+        /// 每次显示在界面上之后都会触发
         /// </summary>
         void OnLoaded();
+
+        /// <summary>
+        /// 每次从界面上移除之前都会触发
+        /// </summary>
+        void OnUnload();
     }
 
     /// <summary>
@@ -48,9 +56,29 @@ namespace WPFToolkit.MVVM
         /// </summary>
         private MenuItemVM previouseSelectedMenu;
 
+        /// <summary>
+        /// 当前的内容是否正在初始化
+        /// </summary>
+        private bool isContentInitializing;
+
         #endregion
 
         #region 属性
+
+        /// <summary>
+        /// 当前的内容是否正在初始化
+        /// 界面上可以通过这个值给用户显示一个“加载中”的界面
+        /// </summary>
+        public bool IsContentInitializing
+        {
+            get { return this.isContentInitializing; }
+            set 
+            {
+                this.isContentInitializing = true;
+                this.OnPropertyChanged(new PropertyChangedEventArgs("IsContentInitializing"));
+            }
+        }
+
 
         /// <summary>
         /// 当前显示的界面
@@ -90,8 +118,17 @@ namespace WPFToolkit.MVVM
                 return;
             }
 
-            // 先清空之前显示的界面
-            this.CurrentContent = null;
+            if (this.CurrentContent != null)
+            {
+                if (this.CurrentContent is IContentHost)
+                {
+                    IContentHost contentHost = this.CurrentContent as IContentHost;
+                    contentHost.OnUnload();
+                }
+
+                // 先移除之前显示的界面
+                this.CurrentContent = null;
+            }
 
             // 开始加载本次选中的菜单界面
             object content;
@@ -108,8 +145,9 @@ namespace WPFToolkit.MVVM
                 }
 
                 this.contentMap[this.SelectedItem.ClassName] = content;
-                this.CurrentContent = content;
             }
+
+            this.CurrentContent = content;
 
             if (content is IContentHost)
             {
@@ -117,6 +155,8 @@ namespace WPFToolkit.MVVM
 
                 if (!this.SelectedItem.IsInitialized)
                 {
+                    this.IsContentInitializing = true;
+
                     try
                     {
                         contentHost.Initialize();
@@ -125,6 +165,10 @@ namespace WPFToolkit.MVVM
                     catch (Exception ex)
                     {
                         logger.Error("初始化Content异常", ex);
+                    }
+                    finally
+                    {
+                        this.IsContentInitializing = false;
                     }
                 }
 
