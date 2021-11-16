@@ -15,12 +15,11 @@ namespace WPFToolkit.Themes
             {
                 if (_sharedDictionary == null)
                 {
-                    _sharedDictionary = new ResourceDictionary() 
+                    _sharedDictionary = new ResourceDictionary()
                     {
-                        Source = new Uri("pack://application:,,,/WPFToolkit;component/Themes/Blue.xaml")
+                        Source = new Uri("pack://application:,,,/WPFToolkit;component/Themes/Blue.xaml"),
                     };
                 }
-
                 return _sharedDictionary;
             }
         }

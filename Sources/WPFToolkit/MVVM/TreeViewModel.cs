@@ -48,10 +48,25 @@ namespace WPFToolkit.MVVM
 
         #region 公开接口
 
+        /// <summary>
+        /// 增加一个根节点
+        /// </summary>
+        /// <param name="root">要增加的根节点</param>
         public void AddRootNode(TreeNodeViewModel root)
         {
             this.Roots.Add(root);
             this.Context.NodeMap[root.ID.ToString()] = root;
+        }
+
+        /// <summary>
+        /// 获取一个节点VM
+        /// </summary>
+        /// <param name="nodeID">要获取的节点的ID</param>
+        /// <param name="node">获取到的节点</param>
+        /// <returns>是否存在节点</returns>
+        public bool TryGetNode(string nodeID, out TreeNodeViewModel node)
+        {
+            return this.Context.NodeMap.TryGetValue(nodeID, out node);
         }
 
         /// <summary>

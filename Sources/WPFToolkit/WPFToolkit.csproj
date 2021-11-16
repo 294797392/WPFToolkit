@@ -102,6 +102,7 @@
     <Compile Include="MVVM\Interactivity\Behavior.cs" />
     <Compile Include="MVVM\Interactivity\Behaviors\EventActionBehavior.cs" />
     <Compile Include="Extentions\ItemsControlExtention.cs" />
+    <Compile Include="MVVM\Interactivity\Behaviors\MenuBehavior.cs" />
     <Compile Include="MVVM\Interactivity\Interaction.cs" />
     <Compile Include="MVVM\Interactivity\Service.cs" />
     <Compile Include="MVVM\Interactivity\Services\IBackgroundTaskService.cs" />

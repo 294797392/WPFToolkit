@@ -30,17 +30,15 @@
         </Style>
     </Window.Style>
 
-
     <Grid>
         <Border Background="White" BorderBrush="Silver" BorderThickness="1" Margin="5" MouseLeftButtonDown="Border_MouseLeftButtonDown"
                 PreviewMouseLeftButtonDown="Border_MouseLeftButtonDown">
             <Border.Effect>
-                <DropShadowEffect Color="Black" ShadowDepth="1" Opacity="0.5" />
+                <DropShadowEffect Color="Black" ShadowDepth="1" Opacity="0.5"/>
             </Border.Effect>
         </Border>
 
-        <ContentControl Content="{Binding ElementName=SplashWindow, Path=ContentControl}"
-                        Margin="5"/>
+        <ContentControl Content="{Binding ElementName=SplashWindow, Path=ContentControl}" Margin="5"/>
 
     </Grid>
 

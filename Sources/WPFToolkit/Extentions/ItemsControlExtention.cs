@@ -240,20 +240,24 @@ namespace WPFToolkit.Extentions
                 FrameworkElement visual = itemsControl.ItemContainerGenerator.ContainerFromIndex(i) as FrameworkElement;
                 if (visual == null)
                 {
-                    // 有可能是使用VirtualizingPanel
+                    // 如果使用了虚拟化的Panel（VirtualizingPanel），那么没渲染到界面上的Item是获取不到的
+                    // 运行到此处说明该Item没有渲染到界面上，直接跳过就可以
                     continue;
                 }
 
-                // 获取左上角坐标点
+                // 获取Item的中点
                 GeneralTransform transform = visual.TransformToAncestor(itemsControl);
-                Point itemPos = transform.Transform(new Point(visual.Width / 2, visual.Height / 2));
+                Point visualCenter = transform.Transform(new Point(visual.Width / 2, visual.Height / 2));
 
-                if (selectionRect.Contains(itemPos))
+                // 判断当前的SelectionArea是否包含了Item的中点
+                if (selectionRect.Contains(visualCenter))
                 {
+                    // 如果包含了那么把Item设置为选中状态
                     Selector.SetIsSelected(visual, true);
                 }
                 else
                 {
+                    // 如果没包含那么设置成非选中状态
                     Selector.SetIsSelected(visual, false);
                 }
 

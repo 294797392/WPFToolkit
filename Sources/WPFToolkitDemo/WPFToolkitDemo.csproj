@@ -61,6 +61,7 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -76,9 +77,6 @@
     </Compile>
     <Compile Include="MVVMDemo.xaml.cs">
       <DependentUpon>MVVMDemo.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\BusinessDataGridDemo.xaml.cs">
-      <DependentUpon>BusinessDataGridDemo.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\GenericControlUserControl.xaml.cs">
       <DependentUpon>GenericControlUserControl.xaml</DependentUpon>
@@ -115,10 +113,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MVVMDemo.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\BusinessDataGridDemo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

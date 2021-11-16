@@ -16,9 +16,14 @@ namespace WPFToolkit.MVVM
         public string ClassName { get; set; }
 
         /// <summary>
+        /// ViewModel的完整类名
+        /// </summary>
+        public string VMClassName { get; set; }
+
+        /// <summary>
         /// 该菜单是否初始化完了
         /// </summary>
-        public bool IsInitialized 
+        public bool IsInitialized
         {
             get { return this.isInitialized; }
             set

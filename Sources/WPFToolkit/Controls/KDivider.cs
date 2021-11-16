@@ -59,13 +59,10 @@ namespace WPFToolkit.Controls
 
 
 
-
-
         public KDivider()
         {
             this.MinHeight = this.Thickness;
         }
-
 
         protected override void OnRender(DrawingContext drawingContext)
         {
