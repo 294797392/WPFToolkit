@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:kcontrol="clr-namespace:WPFToolkit.Controls"
+                    xmlns:Ycontrol="clr-namespace:WPFToolkit.YControls"
                     xmlns:syscore="clr-namespace:System;assembly=mscorlib"
                     xmlns:kconv="clr-namespace:WPFToolkit.Converters">
 
@@ -611,4 +612,44 @@
         </Setter>
     </Style>
 
+    <Style TargetType="{x:Type Ycontrol:YImageButton}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Ycontrol:YImageButton}">
+
+                    <Grid>
+                        <Border x:Name="BorderHover" Background="{TemplateBinding BackgroundHover}" Opacity="0"/>
+                        <Border x:Name="BorderPressed" Background="{TemplateBinding BackgroundPressed}" Opacity="0"/>
+                        <Grid Margin="{TemplateBinding Padding}">
+                            <Image x:Name="ImagePressed" Source="{TemplateBinding ImageURIPressed}" Opacity="0" Stretch="{TemplateBinding Stretch}"/>
+                            <Image x:Name="ImageHover" Source="{TemplateBinding ImageURIHover}" Opacity="0" Stretch="{TemplateBinding Stretch}"/>
+                            <Image x:Name="ImageNormal" Source="{TemplateBinding ImageURI}" Stretch="{TemplateBinding Stretch}"/>
+                        </Grid>
+                        <Border x:Name="BorderDisabled" Visibility="Collapsed" Background="White" Opacity="0.6"/>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Opacity" Value="1" TargetName="ImagePressed"/>
+                            <Setter Property="Opacity" Value="1" TargetName="BorderPressed"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="1" TargetName="ImageHover"/>
+                            <Setter Property="Opacity" Value="1" TargetName="BorderHover"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Visibility" Value="Visible" TargetName="BorderDisabled"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+    
+    
 </ResourceDictionary>

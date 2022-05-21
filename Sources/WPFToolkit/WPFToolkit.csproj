@@ -24,6 +24,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Debug\WPFToolkit.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -65,11 +66,12 @@
     <Compile Include="Attributes\EnumMemberAttribute.cs" />
     <Compile Include="Attributes\ItemsSourceAttribute.cs" />
     <Compile Include="ColorConverter.cs" />
-    <Compile Include="Controls\KButton.cs" />
-    <Compile Include="Controls\KColorPicker.cs" />
-    <Compile Include="Controls\KComboBox.cs" />
-    <Compile Include="Controls\KDivider.cs" />
-    <Compile Include="Controls\KTextBox.cs" />
+    <Compile Include="YControls\KButton.cs" />
+    <Compile Include="YControls\KColorPicker.cs" />
+    <Compile Include="YControls\KComboBox.cs" />
+    <Compile Include="YControls\YDivider.cs" />
+    <Compile Include="YControls\KTextBox.cs" />
+    <Compile Include="YControls\YImageButton.cs" />
     <Compile Include="Converters\ColorTextConverter.cs" />
     <Compile Include="DragDrop\DefaultDragHandler.cs" />
     <Compile Include="DragDrop\DefaultDropHandler.cs" />
@@ -89,8 +91,8 @@
     <Compile Include="DragDrop\VisualTreeExtensions.cs" />
     <Compile Include="DragDrop\WinformDragDropHelper.cs" />
     <Compile Include="MVVM\BindableCollection.cs" />
-    <Compile Include="Controls\PanAndZoomViewer.cs" />
-    <Compile Include="Controls\Hotkey.cs" />
+    <Compile Include="YControls\PanAndZoomViewer.cs" />
+    <Compile Include="YControls\Hotkey.cs" />
     <Compile Include="Converters\NullableVisiblityConverter.cs" />
     <Compile Include="Converters\BooleanVisiblityConverter.cs" />
     <Compile Include="MarkupExtensions\EnumItemsSource.cs" />
@@ -151,7 +153,7 @@
     <None Include="Windows\readme.md" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="DefaultStyles.xaml">
+    <Page Include="ClearDefaultStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>

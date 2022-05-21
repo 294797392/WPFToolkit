@@ -7,14 +7,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace WPFToolkit.Controls
+namespace WPFToolkit.YControls
 {
     /// <summary>
     /// 分割线控件
     /// </summary>
-    public class KDivider : Control
+    public class YDivider : Control
     {
-        private const int DefaultMargin = 3;
+        private const int DefaultMargin = 0;
 
         /// <summary>
         /// 分割线的颜色
@@ -27,7 +27,7 @@ namespace WPFToolkit.Controls
 
         // Using a DependencyProperty as the backing store for Color.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ColorProperty =
-            DependencyProperty.Register("Color", typeof(Brush), typeof(KDivider), new FrameworkPropertyMetadata(Brushes.Black, FrameworkPropertyMetadataOptions.AffectsRender));
+            DependencyProperty.Register("Color", typeof(Brush), typeof(YDivider), new FrameworkPropertyMetadata(Brushes.Black, FrameworkPropertyMetadataOptions.AffectsRender));
 
         /// <summary>
         /// 分割线的方向
@@ -40,7 +40,7 @@ namespace WPFToolkit.Controls
 
         // Using a DependencyProperty as the backing store for Orientation.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty OrientationProperty =
-            DependencyProperty.Register("Orientation", typeof(Orientation), typeof(KDivider), new FrameworkPropertyMetadata(Orientation.Horizontal, FrameworkPropertyMetadataOptions.AffectsRender, OrientationPropertyChangedCallback));
+            DependencyProperty.Register("Orientation", typeof(Orientation), typeof(YDivider), new FrameworkPropertyMetadata(Orientation.Horizontal, FrameworkPropertyMetadataOptions.AffectsRender, OrientationPropertyChangedCallback));
 
 
         /// <summary>
@@ -54,12 +54,12 @@ namespace WPFToolkit.Controls
 
         // Using a DependencyProperty as the backing store for Thickness.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ThicknessProperty =
-            DependencyProperty.Register("Thickness", typeof(int), typeof(KDivider), new FrameworkPropertyMetadata(1, FrameworkPropertyMetadataOptions.AffectsRender));
+            DependencyProperty.Register("Thickness", typeof(int), typeof(YDivider), new FrameworkPropertyMetadata(1, FrameworkPropertyMetadataOptions.AffectsRender));
 
 
 
 
-        public KDivider()
+        public YDivider()
         {
             this.MinHeight = this.Thickness;
         }
@@ -110,7 +110,7 @@ namespace WPFToolkit.Controls
 
         private static void OrientationPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            KDivider me = d as KDivider;
+            YDivider me = d as YDivider;
             me.OnOrientationPropertyChanged(e.OldValue, e.NewValue);
         }
     }

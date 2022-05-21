@@ -53,7 +53,7 @@
                     <TextBlock Text="123"/>
                 </kcontrol:KColorPicker>
 
-                <kcontrol:KDivider Grid.Row="4" Orientation="Vertical" Margin="100"/>
+                <!--<kcontrol:KDivider Grid.Row="4" Orientation="Vertical" Margin="100"/>-->
 
                 <!--<CheckBox Grid.Row="2" Content="CheckBox" IsChecked="True"/>
                 <CheckBox Grid.Row="3" Content="CheckBox - Three State" IsThreeState="True" IsChecked="{x:Null}" />

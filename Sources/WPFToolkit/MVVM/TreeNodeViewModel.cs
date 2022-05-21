@@ -48,7 +48,7 @@ namespace WPFToolkit.MVVM
                     this.isExpanded = value;
                     this.NotifyPropertyChanged("IsExpanded");
 
-                    if (!value && this.Parent != null)
+                    if (value && this.Parent != null)
                     {
                         this.Parent.IsExpanded = value;
                     }
