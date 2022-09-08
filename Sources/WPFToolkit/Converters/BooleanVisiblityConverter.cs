@@ -10,7 +10,8 @@ using System.Windows;
 namespace WPFToolkit.Converters
 {
     /// <summary>
-    /// 布尔值到Visiblity属性的转换
+    /// True转成Visible
+    /// False转成Collapsed
     /// </summary>
     public class BooleanVisiblityConverter : IValueConverter
     {
@@ -23,6 +24,29 @@ namespace WPFToolkit.Converters
 
             bool v = (bool)value;
             return v ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// True转成Collapsed
+    /// False转成Visible
+    /// </summary>
+    public class Boolean2VisibilityConverter2 : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null || !(value is bool))
+            {
+                return Visibility.Visible;
+            }
+
+            bool v = (bool)value;
+            return v ? Visibility.Collapsed : Visibility.Visible;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
