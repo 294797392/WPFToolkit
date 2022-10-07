@@ -97,18 +97,18 @@ namespace WPFToolkit.MVVM
             this.Data = data;
         }
 
-        public TreeNodeViewModel(TreeNodeViewModel parent, object data = null)
-        {
-            this.Context = parent.Context;
-            this.Children = new ObservableCollection<TreeNodeViewModel>();
-            this.Parent = parent;
-            this.Data = data;
-        }
-
         public void AddChildNode(TreeNodeViewModel node)
         {
+            node.Parent = this;
             this.Children.Add(node);
             this.Context.NodeMap[node.ID.ToString()] = node;
+        }
+
+        public void RemoveChildNode(TreeNodeViewModel node)
+        {
+            node.Parent = null;
+            this.Children.Remove(node);
+            this.Context.NodeMap.Remove(node.ID.ToString());
         }
     }
 }
