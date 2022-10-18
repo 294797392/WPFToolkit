@@ -4,6 +4,103 @@
         <name>DotNEToolkit</name>
     </assembly>
     <members>
+        <member name="F:DotNEToolkit.BlockState.Used">
+            <summary>
+            使用中..
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.BlockState.Unused">
+            <summary>
+            未使用..
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.ByteBlock">
+            <summary>
+            存储一段缓存的字节数组
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.ByteBlock.AllocateFromBucket">
+            <summary>
+            该block是否是从bucket里分配的
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.ByteBlock.State">
+            <summary>
+            表示该段内存的状态
+            暂时未用到
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.ByteBlock.Data">
+            <summary>
+            存储该段缓存数据的字节数组的引用
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.ByteBlock.Size">
+            <summary>
+            该段缓存数据的长度
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.ByteBucket.numblk">
+            <summary>
+            当前block的数量
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.ByteBucket.#ctor(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="blockSize">每个内存块的大小</param>
+            <param name="numberOfBlock">为该内存池有多少个内存块</param>
+        </member>
+        <member name="T:DotNEToolkit.BytePool">
+            <summary>
+            Byte数组的缓存池
+            实现思路：
+            预先分配一块超大的byte数组，然后通过数据所在byte数组的偏移量和数据大小来确定每一块数据的位置
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.BytePool.#ctor(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="maxArrayLength">block的最大长度</param>
+            <param name="maxArraysPerBucket">每个bucket里的block的数量，如果这个数量不够用的，那么就直接再开辟一段新的内存空间返回</param>
+        </member>
+        <member name="M:DotNEToolkit.BytePool.Create(System.Int32,System.Int32)">
+            <summary>
+            创建一个新的字节缓存池
+            </summary>        
+            <param name="maxArrayLength">block的最大长度</param>
+            <param name="maxArraysPerBucket">每个bucket里的block的数量，如果这个数量不够用的，那么就直接再开辟一段新的内存空间返回</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.BytePool.SelectBucketIndex(System.Int32)">
+            <summary>
+            根据bufferSize计算bucket的索引
+            </summary>
+            <param name="bufferSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.BytePool.GetMaxSizeForBucket(System.Int32)">
+            <summary>
+            根据bucket索引计算bucket里的每个block的大小
+            </summary>
+            <param name="binIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.BytePool.Obtain(System.Int32)">
+            <summary>
+            从缓存池里获取一个缓存的字节数组
+            如果缓存里没有数据了，那么会自动扩容
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.BytePool.Recycle(DotNEToolkit.ByteBlock)">
+            <summary>
+            回收一个用完了的字节数组
+            </summary>
+            <param name="block"></param>
+        </member>
         <member name="T:DotNEToolkit.Communictions.CommObject">
             <summary>
             通信对象模型
@@ -159,6 +256,66 @@
             解密操作
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:DotNEToolkit.DataModels.ModelBaseInt">
+            <summary>
+            ID是int类型的数据模型
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.DataModels.ModelBaseInt.ID">
+            <summary>
+            唯一编号
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.DataModels.ModelBaseInt.Name">
+            <summary>
+            名字
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.DataModels.ModelBaseInt.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.DataModels.ModelBaseInt.CreationTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.DataModels.ModelBaseInt.Creator">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.DataModels.ModelBase">
+            <summary>
+            通用的数据模型基类
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.DataModels.ModelBase.ID">
+            <summary>
+            唯一编号
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.DataModels.ModelBase.Name">
+            <summary>
+            名字
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.DataModels.ModelBase.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.DataModels.ModelBase.CreationTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.DataModels.ModelBase.Creator">
+            <summary>
+            创建者
+            </summary>
         </member>
         <member name="T:DotNEToolkit.DateTimeFormat">
             <summary>
@@ -870,270 +1027,204 @@
             语法错误状态
             </summary>
         </member>
-        <member name="T:DotNEToolkit.FileItem">
+        <member name="P:DotNEToolkit.AppManifest.ModuleList">
             <summary>
-            存储一个要打包的文件信息
+            配置文件里的所有的列表
             </summary>
         </member>
-        <member name="P:DotNEToolkit.FileItem.Name">
+        <member name="T:DotNEToolkit.ModularApp`2">
             <summary>
-            文件名字
+            封装一个基于模块化（ModuleFactory）实现的App开发框架
+            </summary>
+            <typeparam name="TApp"></typeparam>
+            <typeparam name="TManifest"></typeparam>
+        </member>
+        <member name="P:DotNEToolkit.ModularApp`2.Factory">
+            <summary>
+            模块工厂
             </summary>
         </member>
-        <member name="P:DotNEToolkit.FileItem.Content">
+        <member name="P:DotNEToolkit.ModularApp`2.Manifest">
             <summary>
-            文件内容
+            App的配置文件
             </summary>
         </member>
-        <member name="T:DotNEToolkit.DirectoryItem">
+        <member name="M:DotNEToolkit.ModularApp`2.Initialize">
             <summary>
-            存储一个要打包的目录信息
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.DirectoryItem.BackslashPath">
-            <summary>
-            带有反斜杠的路径
-            SharpZipLib会把带有反斜杠结束的名字当成一个目录来处理
-            所以在把目录写入压缩包的时候要带反斜杠
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.DirectoryItem.Path">
-            <summary>
-            目录名字
-            压缩包里的完整路径
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.DirectoryItem.FileList">
-            <summary>
-            该目录下的所有文件
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.DirectoryItem.Size">
-            <summary>
-            计算目录的总大小
+            初始化App
             </summary>
             <returns></returns>
         </member>
-        <member name="T:DotNEToolkit.FilePackages">
+        <member name="M:DotNEToolkit.ModularApp`2.Release">
             <summary>
-            定义可以打包的文件类型
+            释放App占用的资源
             </summary>
         </member>
-        <member name="F:DotNEToolkit.FilePackages.Zip">
+        <member name="M:DotNEToolkit.ModularApp`2.SaveManifest">
             <summary>
-            Zip压缩包格式的打包
-            后缀名.zip
+            保存Manifest文件
             </summary>
         </member>
-        <member name="F:DotNEToolkit.FilePackages.Stored">
+        <member name="M:DotNEToolkit.ModularApp`2.OnInitialize">
             <summary>
-            不压缩，直接保存
-            当压缩很耗时的时候可以考虑此方法
-            后缀名.zip
-            </summary>
-        </member>
-        <member name="T:DotNEToolkit.FilePackage">
-            <summary>
-            将文件流或者目录打包成一个文件（包括但不限于压缩文件）保存
-            支持流式打包
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.FilePackage.packageFilePath">
-            <summary>
-            最终的压缩包的名字
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.FilePackage.Type">
-            <summary>
-            打包文件的类型
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.FilePackage.Create(System.String,DotNEToolkit.FilePackages)">
-            <summary>
-            创建一个压缩包
-            </summary>
-            <param name="package">要创建的压缩包类型</param>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.FilePackage.PackDir(System.String)">
-            <summary>
-            读取一个本地目录并进行打包
-            </summary>
-            <param name="dir"></param>
-        </member>
-        <member name="M:DotNEToolkit.FilePackage.AppendDirectory(System.Collections.Generic.List{DotNEToolkit.DirectoryItem})">
-            <summary>
-            往一个已经存在的打包文件里追加目录列表
-            </summary>
-            <param name="packagePath">已经存在的打包文件完整路径</param>
-            <param name="dirList">要追加到打包文件里的目录列表</param>
-        </member>
-        <member name="T:DotNEToolkit.ZIPFilePackage">
-            <summary>
-            使用SharpZipLib库实现的文件打包器
-            </summary>
-        </member>
-        <member name="T:DotNEToolkit.Log4net">
-            <summary>
-            提供Log4Net的帮助函数
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.Log4net.InitializeLog4net(System.String)">
-            <summary>
-            初始化Log4net库
-            默认使用程序根目录下的log4net.xml配置文件初始化log4net
-            </summary>
-        </member>
-        <member name="T:DotNEToolkit.Modular.IHostedModule">
-            <summary>
-            表示一个要在其他进程运行的模块
-            在ModuleHost里会通过反射机制创建IHostedModule的实例并调用Initialize方法
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.Modular.IHostedModule.Initialize(System.Collections.IDictionary)">
-            <summary>
-            初始化该模块
-            </summary>
-            <param name="parameters">该模块的参数</param>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Modular.IHostedModule.Release">
-            <summary>
-            释放该模块所占用的资源
-            </summary>
-        </member>
-        <member name="T:DotNEToolkit.Modular.AbstractHostedModule">
-            <summary>
-            运行在ModuleHosted里的模块
-            运行在外部进程的模块基类
-            如果你的模块想运行在外部进程，那么可以实现这个抽象类
-            这个类实现了与主进程通信的功能
-            调用者只需要关心主进程发送过来的命令并处理就可以了
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Modular.AbstractHostedModule.KEY_COMM_TYPE">
-            <summary>
-            进程间通信方式
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.Modular.AbstractHostedModule.OnClientDataReceived(System.Int32,System.Object)">
-            <summary>
-            当收到客户端进程发过来的消息的时候被调用
-            </summary>
-            <param name="cmdType"></param>
-            <param name="cmdParam"></param>
-        </member>
-        <member name="M:DotNEToolkit.Modular.AbstractHostedModule.Send(System.Int32,System.Byte[])">
-            <summary>
-            给外部进程发消息
-            </summary>
-            <param name="data"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Modular.AbstractHostedModule.Send(System.Int32,System.String)">
-            <summary>
-            给外部进程发消息
-            </summary>
-            <param name="data"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Modular.AbstractHostedModule.Send(System.Int32,System.Object)">
-            <summary>
-            给外部进程发消息
-            </summary>
-            <param name="data"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Modular.AbstractHostedModule.OnInitialize(System.Collections.IDictionary)">
-            <summary>
-            初始化子类
-            </summary>
-            <param name="parameters"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Modular.AbstractHostedModule.OnRelease">
-            <summary>
-            释放子类占用的资源
-            </summary>
-        </member>
-        <member name="T:DotNEToolkit.Modular.ModuleHostModule">
-            <summary>
-            一个专门运行ModuleHost的模块
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.Modular.ModuleHostModule.OnInitialize">
-            <summary>
-            初始化ModuleHost
+            子类初始化
             </summary>
             <returns></returns>
         </member>
-        <member name="T:DotNEToolkit.Modular.ModuleHostProxy">
+        <member name="M:DotNEToolkit.ModularApp`2.OnRelease">
             <summary>
-            一个用来和ModuleHost进行通信的代理模块
-            该类维护与远程模块的连接状态
-            调用者只需要关心子进程发送过来的命令并处理就可以了
-            主要的函数：OnDataReceived - 收到子进程发送的消息的时候触发
+            子类释放资源
             </summary>
         </member>
-        <member name="F:DotNEToolkit.Modular.ModuleHostProxy.commClient">
+        <member name="M:DotNEToolkit.ModularApp`2.OnModuleStatusEvent(DotNEToolkit.Modular.IModuleInstance,DotNEToolkit.Modular.ModuleStatus)">
             <summary>
-            用来和ModuleHost模块进行通信的客户端
+            处理模块状态改变事件
+            </summary>
+            <param name="moduleInst"></param>
+            <param name="status">模块状态</param>
+        </member>
+        <member name="M:DotNEToolkit.ModularApp`2.OnModuleInitialized">
+            <summary>
+            处理所有模块都初始化成功的事件
             </summary>
         </member>
-        <member name="M:DotNEToolkit.Modular.ModuleHostProxy.OnDataReceived(System.Int32,System.Object)">
+        <member name="M:DotNEToolkit.ModularApp`2.OnCircularReference(DotNEToolkit.Modular.IModuleInstance)">
             <summary>
-            当收到了ModuleHost发送过来的消息的时候触发
+            当出现模块循环引用的时候触发
             </summary>
-            <param name="cmdType">命令类型</param>
-            <param name="cmdParam">命令参数</param>
+            <param name="moduleInst">存在循环引用的模块</param>
         </member>
-        <member name="M:DotNEToolkit.Modular.ModuleHostProxy.Send(System.Int32,System.Byte[])">
+        <member name="T:DotNEToolkit.Modular.EventableModule">
             <summary>
-            给外部进程发消息
+            实现一个参与事件订阅-发布系统的模块
             </summary>
-            <param name="data"></param>
+        </member>
+        <member name="P:DotNEToolkit.Modular.EventableModule.EventSubscribtions">
+            <summary>
+            存储该模块的事件订阅信息
+            eventType -> 订阅列表
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.Modular.Subscribtion">
+            <summary>
+            用来记录订阅的事件信息
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Modular.Subscribtion.Publisher">
+            <summary>
+            发布事件的对象
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Modular.Subscribtion.Subscriber">
+            <summary>
+            订阅该事件的对象
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Modular.Subscribtion.EventType">
+            <summary>
+            发布的事件类型
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Modular.Subscribtion.EventHandler">
+            <summary>
+            处理该事件的处理器
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Modular.Subscribtion.RollbackHandler">
+            <summary>
+            当事件执行失败的时候，要执行的回滚操作
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.Modular.EventDispatcher">
+            <summary>
+            事件分发器实现了
+            1. 对各个模块之间事件的管理（注册事件，发布事件）
+            2. 事件订阅者可以根据Token订阅不同的事件，当某个事件发布的时候，不会发布给所有的订阅者，而是只有拥有对应Token的订阅者才可以被触发
+            3. 实现了事件触发的优先级顺序，在订阅事件的时候指定该事件触发的优先级，优先级高的订阅先触发
+            
+            老版本的模块事件全部通过ModuleFactory透传到外部，这样会导致几个问题：
+            1. 每次处理模块事件都需要对模块类型进行判断，才能知道是哪个模块触发了事件。要不就得把模块的事件定义成不相同的Id，这样就得知道每个模块的Id的范围，很难管理
+            2. 当模块触发一个事件的时候，所有注册了该事件的订阅者都会处理该事件（即使订阅者不需要处理）
+            3. 事件按照先后顺序执行，无法指定事件的执行顺序
+            
+            使用新的Subscribe - Publish模式来解决上述出现的两个问题
+            
+            一个事件可被多个订阅者订阅
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.Modular.EventDispatcher.SubscribeEvent``1(DotNEToolkit.Modular.ModuleFactory,System.String,DotNEToolkit.Modular.IEventSubscriber,System.Int32,DotNEToolkit.Modular.ModuleEventDlg,DotNEToolkit.Modular.EventRollbackDlg)">
+            <summary>
+            通过模块工厂订阅某个模块的事件
+            </summary>
+            <typeparam name="TPublisher">要订阅的模块的类型</typeparam>
+            <param name="factory">模块工厂</param>
+            <param name="subscriber">订阅者</param>
+            <param name="publisherId">要订阅的模块的Id</param>
+            <param name="eventType">要订阅的事件类型</param>
+            <param name="eventHandler">处理该事件的处理器</param>
+            <param name="rollbackDlg">当事件执行失败的时候，要执行的回滚操作</param>
+        </member>
+        <member name="M:DotNEToolkit.Modular.EventDispatcher.SubscribeEvent``1(DotNEToolkit.Modular.ModuleFactory,DotNEToolkit.Modular.IEventSubscriber,System.Int32,DotNEToolkit.Modular.ModuleEventDlg)">
+            <summary>
+            订阅一个模块的事件
+            </summary>
+            <typeparam name="TPublisher"></typeparam>
+            <param name="factory"></param>
+            <param name="subscriber">订阅者</param>
+            <param name="eventType">要订阅的事件类型</param>
+            <param name="eventHandler">事件处理器</param>
+        </member>
+        <member name="M:DotNEToolkit.Modular.EventDispatcher.SubscribeEvent``1(DotNEToolkit.Modular.EventableModule,System.Int32,DotNEToolkit.Modular.ModuleEventDlg)">
+            <summary>
+            订阅一个模块的事件
+            </summary>
+            <typeparam name="TPublisher"></typeparam>
+            <param name="subscriber">订阅者</param>
+            <param name="eventType">要订阅的事件类型</param>
+            <param name="eventHandler">事件处理器</param>
+        </member>
+        <member name="M:DotNEToolkit.Modular.EventDispatcher.PublishEvent(DotNEToolkit.Modular.EventableModule,System.Int32,System.Object)">
+            <summary>
+            模块发布一个事件
+            </summary>
+            <param name="publisher"></param>
+            <param name="eventType"></param>
+            <param name="eventArgs"></param>
+            <returns>
+            订阅者是否执行成功
+            如果有多个订阅号者，其中一个订阅者执行失败的话就返回失败
+            只有所有的订阅者都执行成功才返回成功
+            </returns>
+        </member>
+        <member name="T:DotNEToolkit.Modular.ModuleEventDlg">
+            <summary>
+            处理模块事件的委托
+            </summary>
+            <param name="sender">发布该事件的模块实例</param>
+            <param name="eventArgs">事件参数</param>
+        </member>
+        <member name="T:DotNEToolkit.Modular.EventRollbackDlg">
+            <summary>
+            当事件执行失败的时候，要执行的回滚操作
+            </summary>
+            <param name="sender"></param>
+            <param name="args"></param>
+        </member>
+        <member name="T:DotNEToolkit.Modular.ModuleExtensions">
+            <summary>
+            模块的附加功能
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.Modular.ModuleExtensions.SetupWCFHttpService``1(DotNEToolkit.Modular.ModuleBase,System.EventHandler,System.EventHandler,System.ServiceModel.Web.WebServiceHost@)">
+            <summary>
+            快速初始化一个WCF WebService
+            </summary>
+            <typeparam name="TServiceContract"></typeparam>
+            <param name="webModule"></param>
+            <param name="openedDlg"></param>
+            <param name="closedDlg"></param>
+            <param name="svchost"></param>
             <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Modular.ModuleHostProxy.Send(System.Int32,System.String)">
-            <summary>
-            给外部进程发消息
-            </summary>
-            <param name="data"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Modular.ModuleHostProxy.Send(System.Int32,System.Object)">
-            <summary>
-            给外部进程发消息
-            </summary>
-            <param name="data"></param>
-            <returns></returns>
-        </member>
-        <member name="T:DotNEToolkit.Modular.ServiceModule">
-            <summary>
-            服务是一个一直在后台默默运行的模块
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.Modular.ServiceModule.Start">
-            <summary>
-            开始运行服务
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Modular.ServiceModule.Stop">
-            <summary>
-            停止运行服务
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.Modular.ServiceModule.OnStart">
-            <summary>
-            在服务开始的时候被调用
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Modular.ServiceModule.OnStop">
-            <summary>
-            在服务结束的时候被调用
-            </summary>
         </member>
         <member name="T:DotNEToolkit.Modular.Attributes.ModuleInputAttribute">
             <summary>
@@ -1240,14 +1331,6 @@
             模块实例公共接口
             </summary>
         </member>
-        <member name="E:DotNEToolkit.Modular.IModuleInstance.PublishEvent">
-            <summary>
-            当前模块有事件的时候触发
-            第一个参数：事件发送者
-            第二个参数：事件类型
-            第三个参数：事件参数（由用户定义）
-            </summary>
-        </member>
         <member name="P:DotNEToolkit.Modular.IModuleInstance.Status">
             <summary>
             模块状态
@@ -1296,12 +1379,14 @@
             表示一个抽象的模块
             </summary>
         </member>
-        <member name="E:DotNEToolkit.Modular.ModuleBase.PublishEvent">
+        <member name="F:DotNEToolkit.Modular.ModuleBase.logger">
             <summary>
-            当前模块有事件触发的时候触发
-            第一个参数：事件发送者
-            第二个参数：事件代码
-            第二个参数：eventXml（由用户定义）
+            日志记录器
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Modular.ModuleBase.References">
+            <summary>
+            该模块引用的其他模块ID
             </summary>
         </member>
         <member name="P:DotNEToolkit.Modular.ModuleBase.Status">
@@ -1347,6 +1432,11 @@
             因为InputParameters参数里有可能有绑定参数，需要动态计算
             </summary>
         </member>
+        <member name="M:DotNEToolkit.Modular.ModuleBase.#ctor">
+            <summary>
+            构造方法
+            </summary>
+        </member>
         <member name="M:DotNEToolkit.Modular.ModuleBase.Initialize(System.Collections.IDictionary)">
             <summary>
             初始化模块
@@ -1377,13 +1467,6 @@
             <param name="key"></param>
             <param name="defaultObject">如果不存在该对象，那么要返回的默认值</param>
             <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Modular.ModuleBase.PubEvent(System.Int32,System.Object)">
-            <summary>
-            发布一个事件，该事件只有订阅了该事件的模块才能收到
-            </summary>
-            <param name="eventType">事件代码</param>
-            <param name="eventData">事件参数</param>
         </member>
         <member name="M:DotNEToolkit.Modular.ModuleBase.OnInitialize">
             <summary>
@@ -1440,6 +1523,12 @@
             避免了每次都要调用LookupModule去查找模块，麻烦
             </summary>
         </member>
+        <member name="P:DotNEToolkit.Modular.ModuleDefinition.References">
+            <summary>
+            该模块所依赖的其他模块ID
+            模块工厂会先初始化依赖的模块
+            </summary>
+        </member>
         <member name="M:DotNEToolkit.Modular.ModuleDefinition.#ctor">
             <summary>
             构造方法
@@ -1464,29 +1553,9 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:DotNEToolkit.Modular.ModuleEvent">
-            <summary>
-            提供一组预定义的模块事件
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Modular.ModuleEvent.MessageEvent">
-            <summary>
-            模块向外部输出消息
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Modular.ModuleEvent.StatusChanged">
-            <summary>
-            模块状态发生改变
-            </summary>
-        </member>
         <member name="T:DotNEToolkit.Modular.ModuleFactory">
             <summary>
             模块工厂
-            
-            功能描述：
-                模块工厂通过读取JSON配置文件，加载JSON配置文件里的所有模块并提供接口获取某个模块
-                自动识别modules.*.json的文件为模块元数据文件
-                ModuleFactory从模块元数据文件里根据MetadataID去查找对应模块的ClassName
             </summary>
         </member>
         <member name="E:DotNEToolkit.Modular.ModuleFactory.Initialized">
@@ -1495,9 +1564,19 @@
             只有在异步加载模块的时候才会触发
             </summary>
         </member>
-        <member name="E:DotNEToolkit.Modular.ModuleFactory.ModuleEvent">
+        <member name="E:DotNEToolkit.Modular.ModuleFactory.ModuleStatusChanged">
             <summary>
-            当模块出发了一个事件的时候触发
+            当模块状态改变的时候触发
+            </summary>
+        </member>
+        <member name="E:DotNEToolkit.Modular.ModuleFactory.CircularReference">
+            <summary>
+            某个模块出现循环引用
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Modular.ModuleFactory.moduleList">
+            <summary>
+            存储已经加载了的模块
             </summary>
         </member>
         <member name="P:DotNEToolkit.Modular.ModuleFactory.MetadataList">
@@ -1505,31 +1584,34 @@
             所有模块的元数据信息
             </summary>
         </member>
-        <member name="P:DotNEToolkit.Modular.ModuleFactory.ModuleList">
+        <member name="M:DotNEToolkit.Modular.ModuleFactory.#ctor">
             <summary>
-            存储已经加载了的模块
+            构造方法
             </summary>
+        </member>
+        <member name="M:DotNEToolkit.Modular.ModuleFactory.InitializeModule(DotNEToolkit.Modular.ModuleBase,System.Int32,DotNEToolkit.Modular.ModuleBase)">
+            <summary>
+            初始化一个模块，会解析依赖项
+            </summary>
+            <param name="moduleInst">要初始化的模块</param>
+            <param name="interval">
+            > 0  : 重新初始化的间隔时间，如果初始化失败，那么会一直初始化
+            = -1 : 失败直接返回，不尝试重新初始化
+            </param>
+            <param name="baseModule">当前初始化的模块</param>
+        </member>
+        <member name="M:DotNEToolkit.Modular.ModuleFactory.CreateModuleInstance(System.Collections.Generic.IEnumerable{DotNEToolkit.Modular.ModuleDefinition})">
+            <summary>
+            创建模块的实例
+            只创建实例，不调用Initialize方法
+            </summary>
+            <param name="initialModules"></param>
+            <returns>返回创建了的模块个数</returns>
         </member>
         <member name="M:DotNEToolkit.Modular.ModuleFactory.LookupModuleMetadatas">
             <summary>
             读取所有的类型定义
             </summary>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Modular.ModuleFactory.InitializeModule(DotNEToolkit.Modular.ModuleBase,System.Int32)">
-            <summary>
-            初始化一个模块，直到该模块初始化成功为止
-            如果初始化失败，那么会一直初始化
-            </summary>
-            <param name="moduleInst">要初始化的模块</param>
-            <param name="interval">重新初始化的间隔时间</param>
-        </member>
-        <member name="M:DotNEToolkit.Modular.ModuleFactory.CreateFactory(System.String)">
-            <summary>
-            根据配置文件加载ModuleFactory
-            同步接口
-            </summary>
-            <param name="moduleFile">模块文件</param>
             <returns></returns>
         </member>
         <member name="M:DotNEToolkit.Modular.ModuleFactory.CreateFactory(System.Collections.Generic.IEnumerable{DotNEToolkit.Modular.ModuleDefinition})">
@@ -1545,11 +1627,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:DotNEToolkit.Modular.ModuleFactory.SetupAsync(System.String,System.Int32)">
-            <summary>
-            异步初始化ModuleFactory
-            </summary>
-        </member>
         <member name="M:DotNEToolkit.Modular.ModuleFactory.SetupModulesAsync(System.Collections.Generic.IEnumerable{DotNEToolkit.Modular.ModuleDefinition},System.Int32)">
             <summary>
             异步加载模块
@@ -1563,7 +1640,7 @@
             <summary>
             同步加载一组组件，加载失败会直接返回，不会尝试重新加载
             </summary>
-            <param name="modules">要加载的模块列表</param>
+            <param name="initialModules">要加载的模块列表</param>
             <returns>是否加载成功</returns>
         </member>
         <member name="M:DotNEToolkit.Modular.ModuleFactory.SetupModule(DotNEToolkit.Modular.ModuleDefinition)">
@@ -1604,19 +1681,6 @@
             </summary>
             <typeparam name="TModuleInstance"></typeparam>
             <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Modular.ModuleFactory.SubclassOf(DotNEToolkit.Modular.ModuleDefinition,System.Type)">
-            <summary>
-            判断某个Module是否派生自baseType
-            </summary>
-            <param name="definition"></param>
-            <param name="baseType"></param>
-            <returns></returns>
-        </member>
-        <member name="T:DotNEToolkit.Modular.ModuleFactoryDescription">
-            <summary>
-            定义ModuleFactory的配置
-            </summary>
         </member>
         <member name="T:DotNEToolkit.Modular.ModuleFlags">
             <summary>
@@ -1664,31 +1728,6 @@
             初始化异常
             </summary>
         </member>
-        <member name="F:DotNEToolkit.Modular.ModuleStatus.StartPending">
-            <summary>
-            服务正在启动
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Modular.ModuleStatus.StopPending">
-            <summary>
-            服务正在启动
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Modular.ModuleStatus.Running">
-            <summary>
-            服务已经启动
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Modular.ModuleStatus.Stopped">
-            <summary>
-            服务已停止
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Modular.ModuleStatus.StartupException">
-            <summary>
-            启动异常
-            </summary>
-        </member>
         <member name="T:DotNEToolkit.Modular.ModuleMetadata">
             <summary>
             存储模块的元数据信息
@@ -1708,6 +1747,245 @@
         <member name="P:DotNEToolkit.Modular.ModuleMetadata.ClassName">
             <summary>
             模块的完整类型名
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.Packaging.FileItem">
+            <summary>
+            存储一个要打包的文件信息
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Packaging.FileItem.Name">
+            <summary>
+            文件名字
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Packaging.FileItem.PathRelativePackage">
+            <summary>
+            在压缩包内的完整路径
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Packaging.FileItem.Content">
+            <summary>
+            文件内容
+            使用Size字段指定内容的长度
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Packaging.FileItem.Size">
+            <summary>
+            文件的真实长度
+            注意该值可以不等于Content的长度
+            写入Size个字节的数据
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Packaging.FileItem.Offset">
+            <summary>
+            文件在Content里的偏移量
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.Packaging.DirectoryItem">
+            <summary>
+            存储一个要打包的目录信息
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Packaging.DirectoryItem.BackslashPath">
+            <summary>
+            带有反斜杠的路径
+            SharpZipLib会把带有反斜杠结束的路径当成压缩包里的一个目录来处理
+            所以在把目录写入压缩包的时候路径要带反斜杠
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Packaging.DirectoryItem.Path">
+            <summary>
+            目录名字
+            压缩包里的完整路径
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Packaging.DirectoryItem.FileList">
+            <summary>
+            该目录下的所有文件
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.Packaging.DirectoryItem.#ctor">
+            <summary>
+            构造方法
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.Packaging.DirectoryItem.Size">
+            <summary>
+            计算目录的总大小
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DotNEToolkit.Packaging.FilePackage">
+            <summary>
+            将文件流或者目录打包成一个文件（包括但不限于压缩文件）保存
+            支持流式打包
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Packaging.FilePackage.packagePath">
+            <summary>
+            最终的压缩包的名字
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Packaging.FilePackage.Type">
+            <summary>
+            打包文件的类型
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.Packaging.FilePackage.Open(System.String,DotNEToolkit.Packaging.FilePackages)">
+            <summary>
+            使用一个空流创建一个压缩包
+            </summary>
+            <param name="packagePath">压缩包的路径，如果没有这个压缩包文件，则会创建一个</param>
+            <param name="package"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.Packaging.FilePackage.Open">
+            <summary>
+            创建一个空的压缩包
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.Packaging.FilePackage.Close">
+            <summary>
+            关闭并保存打包文件
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.Packaging.FilePackage.PackDirectory(System.Collections.Generic.List{DotNEToolkit.Packaging.DirectoryItem})">
+            <summary>
+            往一个已经存在的打包文件里追加目录列表
+            </summary>
+            <param name="dirList">要追加到打包文件里的目录列表</param>
+        </member>
+        <member name="M:DotNEToolkit.Packaging.FilePackage.PackFile(System.Collections.Generic.List{DotNEToolkit.Packaging.FileItem})">
+            <summary>
+            往压缩包里打包文件
+            </summary>
+            <param name="fileList"></param>
+        </member>
+        <member name="M:DotNEToolkit.Packaging.FilePackage.PackDirectory(System.String)">
+            <summary>
+            打包一个目录
+            </summary>
+            <param name="baseDir">要打包的目录</param>
+        </member>
+        <member name="M:DotNEToolkit.Packaging.FilePackage.CreateFile(System.IO.MemoryStream,System.String)">
+            <summary>
+            把一个内存流写到一个文件里
+            </summary>
+            <param name="ms"></param>
+            <param name="filePath"></param>
+        </member>
+        <member name="T:DotNEToolkit.Packaging.FilePackages">
+            <summary>
+            定义可以打包的文件类型
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Packaging.FilePackages.Zip">
+            <summary>
+            Zip压缩包格式的打包
+            后缀名.zip
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Packaging.FilePackages.TarArchive">
+            <summary>
+            tar包
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.Packaging.TARFilePackage">
+            <summary>
+            https://www.moon-soft.com/program/FORMAT/comm/tar.htm
+            https://blog.csdn.net/qq_20553613/article/details/109892160#:~:text=2.2%20tar%E6%96%87%E4%BB%B6%E7%89%B9%E7%82%B9%201,%E4%BB%A5512%E5%AD%97%E8%8A%82%E4%B8%BA%E4%B8%80%E4%B8%AA%E8%AE%B0%E5%BD%95%E5%9D%97%E8%BF%9B%E8%A1%8C%E8%AE%B0%E5%BD%95%E6%95%B0%E6%8D%AE%EF%BC%8C%E4%B8%8D%E8%B6%B3%E4%B8%80%E4%B8%AA%E8%AE%B0%E5%BD%95%E5%9D%97%E7%9A%84%E4%BB%A50%E5%A1%AB%E5%85%85%202%20%E4%BB%A5%E2%80%9C%E6%96%87%E4%BB%B6%E5%A4%B4%2B%E6%9C%89%E6%95%88%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E2%80%9D%E6%A0%BC%E5%BC%8F%E5%AD%98%E5%82%A8
+            一个空文件打包后为512*3字节，包括一个tar结构头，一个全零的block存储文件内容，一个全零的tar结构
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.Packaging.ZIPFilePackage">
+            <summary>
+            使用SharpZipLib库实现的文件打包器
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.ImageCodec">
+            <summary>
+            一个图像编/解码器
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.ImageCodec.BMPCodec">
+            <summary>
+            BMP文件格式编解码器
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.ImageCodec.Codecs.BMP">
+            <summary>
+            BMP格式
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.ImageCodec.Codecs.PNG">
+            <summary>
+            PNG压缩格式
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.ImageCodec.Codecs.JPEG">
+            <summary>
+            JPEG压缩格式
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.ImageCodec.PixelFormats">
+            <summary>
+            定义图片的像素格式
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.ImageCodec.PixelFormats.Gray8">
+            <summary>
+            单色，8位索引图
+            图像数据指向调色板的索引序号
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.ImageCodec.Type">
+            <summary>
+            编码器所支持的格式
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.ImageCodec.Encode(System.Byte[],System.Byte[],System.Int32,System.Int32,DotNEToolkit.ImageCodec.PixelFormats)">
+            <summary>
+            对一段图像原始数据进行编码
+            </summary>
+            <param name="buffer">
+            要编码到的内存缓冲区
+            注意：外部要开批足够的缓冲区，Encode内部不检查缓冲区的长度
+            </param>
+            <param name="rawData">图像原始数据</param>
+            <param name="width">图像宽度</param>
+            <param name="height">图像高度</param>
+            <param name="rawFormat">原始数据的像素格式</param>
+            <returns>返回大于0表示编码后的图片文件的大小，小于0表示错误码</returns>
+        </member>
+        <member name="F:DotNEToolkit.BMPImageCodec.Gray8ColorPlate">
+            <summary>
+            8位索引图使用的调色板信息
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.BMPImageCodec.GetBitsPerPixel(DotNEToolkit.ImageCodec.PixelFormats)">
+            <summary>
+            获取某种格式里每个像素的位数
+            </summary>
+            <param name="format"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.BMPImageCodec.GetColorPlate(DotNEToolkit.ImageCodec.PixelFormats)">
+            <summary>
+            获取某个格式使用的调色板信息
+            </summary>
+            <param name="format"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DotNEToolkit.Log4net">
+            <summary>
+            提供Log4Net的帮助函数
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.Log4net.InitializeLog4net(System.String)">
+            <summary>
+            初始化Log4net库
+            默认使用程序根目录下的log4net.xml配置文件初始化log4net
             </summary>
         </member>
         <member name="T:DotNEToolkit.MySQLInstaller">
@@ -1742,97 +2020,23 @@
             卸载Mysql Windows服务
             </summary>
         </member>
-        <member name="T:DotNEToolkit.ProcessComm.NamedPipeCommClient">
+        <member name="T:DotNEToolkit.Objects">
             <summary>
-            使用WCF NamedPipe进行进程间通信的客户端
+            Object类型的扩展
             </summary>
         </member>
-        <member name="F:DotNEToolkit.ProcessComm.NamedPipeCommClient.serviceChannel">
+        <member name="M:DotNEToolkit.Objects.Copy``1(``0)">
             <summary>
-            与服务端进程进行通信的通道
+            复制一个一模一样的对象
+            如果被复制的对象里有引用类型，那么也会重新创建一个新的对象引用
             </summary>
-        </member>
-        <member name="F:DotNEToolkit.ProcessComm.NamedPipeCommClient.namedPipeHost">
-            <summary>
-            用来接受服务端连接的ServiceHost
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.ProcessComm.NamedPipeCommClient.SendBytes(System.Int32,System.Byte[])">
-            <summary>
-            当服务端发送数据过来的时候触发
-            </summary>
-            <param name="data"></param>
-        </member>
-        <member name="M:DotNEToolkit.ProcessComm.INamedPipeChannel.SendBytes(System.Int32,System.Byte[])">
-            <summary>
-            向对方发送消息
-            </summary>
-            <param name="cmdParam">要发送的消息</param>
-        </member>
-        <member name="T:DotNEToolkit.ProcessComm.INamedPipeServiceChannel">
-            <summary>
-            客户端访问服务器使用的接口
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.ProcessComm.INamedPipeServiceChannel.Connect">
-            <summary>
-            客户端连接服务端
-            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="source"></param>
             <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.ProcessComm.INamedPipeServiceChannel.Disconnect">
-            <summary>
-            客户端断开与服务端的连接
-            </summary>
-        </member>
-        <member name="T:DotNEToolkit.ProcessComm.INamedPipeClientChannel">
-            <summary>
-            服务器访问客户端使用的接口
-            </summary>
-        </member>
-        <member name="T:DotNEToolkit.ProcessComm.NamedPipeCommSvc">
-            <summary>
-            使用WCF NamedPipe实现的IPC服务端
-            
-            参考：https://www.cnblogs.com/zhili/p/WCFCallbackOperacation.html
-            
-            WCF支持服务将调用返回给它的客户端。
-            在回调期间，服务成为了客户端，而客户端成为了服务。
-            在WCF中，并不是所有的绑定都支持回调操作，只有具有双向能力的绑定才能够用于回调。
-            例如，HTTP本质上是与连接无关的，所以它不能用于回调，因此我们不能基于basicHttpBinding和wsHttpBinding绑定使用回调。
-            WCF为NetTcpBinding和NetNamedPipeBinding提供了对回调的支持，因为TCP和IPC协议都支持双向通信。
-            为了让Http支持回调，WCF提供了WsDualHttpBinding绑定，它实际上设置了两个Http通道：一个用于从客户端到服务的调用，另一个用于服务到客户端的调用。
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.ProcessComm.NamedPipeCommSvc.Send(System.Int32,System.Byte[])">
-            <summary>
-            向客户端发消息
-            </summary>
-            <param name="data"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.ProcessComm.NamedPipeCommSvc.Connect">
-            <summary>
-            客户端连接的时候触发
-            如果客户端连接，那么说明客户端此时也启动了一个NamedPipeServiceHost
-            那么此时服务端就可以连接客户端的ServiceHost，实现双向通信的功能
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.ProcessComm.NamedPipeCommSvc.Disconnect">
-            <summary>
-            客户端断开连接的时候触发
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.ProcessComm.NamedPipeCommSvc.SendBytes(System.Int32,System.Byte[])">
-            <summary>
-            客户端有数据发送过来的时候触发
-            </summary>
-            <param name="data"></param>
         </member>
         <member name="E:DotNEToolkit.ProcessComm.ProcessCommClient.StatusChanged">
             <summary>
-            当客户端的连接状态改变的时候触发
+            进程间通信对象的状态改变的时候触发
             </summary>
         </member>
         <member name="P:DotNEToolkit.ProcessComm.ProcessCommClient.Status">
@@ -1840,12 +2044,7 @@
             客户端的当前状态
             </summary>
         </member>
-        <member name="P:DotNEToolkit.ProcessComm.ProcessCommClient.ServiceURI">
-            <summary>
-            要连接的服务端的地址
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.ProcessComm.ProcessCommClient.Initialize">
+        <member name="M:DotNEToolkit.ProcessComm.ProcessCommClient.Initialize(System.String)">
             <summary>
             初始化IPC
             </summary>
@@ -1856,7 +2055,7 @@
             释放资源
             </summary>
         </member>
-        <member name="M:DotNEToolkit.ProcessComm.ProcessCommClient.Connect">
+        <member name="M:DotNEToolkit.ProcessComm.ProcessCommClient.Connect(System.String)">
             <summary>
             连接IPC进程
             </summary>
@@ -1867,21 +2066,15 @@
             与IPC进程断开连接
             </summary>
         </member>
-        <member name="T:DotNEToolkit.ProcessComm.CommClientStates">
+        <member name="T:DotNEToolkit.ProcessComm.CommStates">
             <summary>
             定义通信客户端的状态
             </summary>
         </member>
-        <member name="F:DotNEToolkit.ProcessComm.CommClientStates.ConnectFailed">
+        <member name="F:DotNEToolkit.ProcessComm.CommStates.ConnectFailed">
             <summary>
             连接失败
             </summary>
-        </member>
-        <member name="M:DotNEToolkit.ProcessComm.ProcessCommFactory.CreateNamedPipeServiceHost``1(System.String,System.Object)">
-            <summary>
-            创建一个WCF NamedPipe服务主机
-            </summary>
-            <returns></returns>
         </member>
         <member name="T:DotNEToolkit.ProcessComm.ProcessCommObject">
             <summary>
@@ -1917,33 +2110,6 @@
             <param name="cmdType">命令类型</param>
             <param name="cmdParams">字节数组类型的命令参数</param>
             <returns></returns>
-        </member>
-        <member name="P:DotNEToolkit.ProcessComm.ProcessCommSvc.URI">
-            <summary>
-            该服务端的地址
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.ProcessComm.ProcessCommSvc.Initialize">
-            <summary>
-            初始化IPC
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.ProcessComm.ProcessCommSvc.Release">
-            <summary>
-            释放资源
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.ProcessComm.ProcessCommSvc.Start">
-            <summary>
-            运行IPC服务
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.ProcessComm.ProcessCommSvc.Stop">
-            <summary>
-            停止运行IPC服务
-            </summary>
         </member>
         <member name="T:DotNEToolkit.ProcessComm.ProcessCommTypes">
             <summary>
@@ -3255,36 +3421,6 @@
             <param name="args"></param>
             <returns></returns>
         </member>
-        <member name="T:DotNEToolkit.DataModels.ModelBase">
-            <summary>
-            通用的数据模型基类
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.DataModels.ModelBase.ID">
-            <summary>
-            唯一编号
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.DataModels.ModelBase.Name">
-            <summary>
-            名字
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.DataModels.ModelBase.Description">
-            <summary>
-            描述
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.DataModels.ModelBase.CreationTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.DataModels.ModelBase.Creator">
-            <summary>
-            创建者
-            </summary>
-        </member>
         <member name="F:DotNEToolkit.Extentions.HexNumberOptions.None">
             <summary>
             没有选项
@@ -3400,6 +3536,13 @@
             </summary>
             <param name="size">以字节为单位的大小</param>
             <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.DirectoryExtentions.CopyDirectory(System.String,System.String)">
+            <summary>
+            拷贝目录及目录下的子目录和文件
+            </summary>
+            <param name="sourceDir">要拷贝的目录</param>
+            <param name="destDir">拷贝到的目标目录</param>
         </member>
         <member name="T:DotNEToolkit.Streams">
             <summary>
@@ -3628,6 +3771,15 @@
             <param name="pattern"></param>
             <returns></returns>
         </member>
+        <member name="M:DotNEToolkit.JSONHelper.Parse``1(System.String,``0)">
+            <summary>
+            
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <param name="json"></param>
+            <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
         <member name="M:DotNEToolkit.JSONHelper.ParseFile``1(System.String)">
             <summary>
             把一个json文件序列化成C#对象
@@ -3635,17 +3787,26 @@
             如果该函数对异常做处理，那么调用者可能不知道出现异常的详细原因
             </summary>
             <typeparam name="TResult">要序列化成的对象类型</typeparam>
-            <param name="jsonFile">要序列化的json文件的路径</param>
+            <param name="filePath">要序列化的json文件的路径</param>
             <returns>如果序列化失败，那么返回空</returns>
         </member>
-        <member name="M:DotNEToolkit.JSONHelper.WriteFile``1(System.String,``0)">
+        <member name="M:DotNEToolkit.JSONHelper.ParseFile``1(System.String,``0)">
+            <summary>
+            
+            </summary>
+            <typeparam name="TResult"></typeparam>
+            <param name="filePath"></param>
+            <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.JSONHelper.Object2File``1(System.String,``0)">
             <summary>
             把一个C#对象序列化成JSON格式并写入到一个文件里
             该函数不会返回错误码，由调用者去截取异常并处理
             </summary>
-            <typeparam name="TSource"></typeparam>
-            <param name="jsonFile"></param>
-            <param name="obj"></param>
+            <typeparam name="TObject">要写入的对象类型</typeparam>
+            <param name="filePath">要保存的文件路径</param>
+            <param name="obj">要写入的对象实例</param>
         </member>
         <member name="T:DotNEToolkit.JSONDatabase">
             <summary>
@@ -3811,6 +3972,14 @@
             提供进程相关的帮助函数
             </summary>
         </member>
+        <member name="M:DotNEToolkit.Processes.WaitForMainWindowHandleCreated(System.Diagnostics.Process,System.Int32)">
+            <summary>
+            等待某个进程的主窗口句柄创建成功
+            </summary>
+            <param name="proc"></param>
+            <param name="timeout"></param>
+            <returns></returns>
+        </member>
         <member name="M:DotNEToolkit.Processes.ClearExisting(System.Diagnostics.Process)">
             <summary>
             清空某个进程里的输出缓冲区里的数据
@@ -3836,9 +4005,9 @@
             DotNEToolkit的返回值
             </summary>
         </member>
-        <member name="F:DotNEToolkit.DotNETCode.SUCCESS">
+        <member name="F:DotNEToolkit.DotNETCode.UNKNOWN_EXCEPTION">
             <summary>
-            成功
+            异常
             </summary>
         </member>
         <member name="F:DotNEToolkit.DotNETCode.FAILED">
@@ -3846,9 +4015,9 @@
             失败
             </summary>
         </member>
-        <member name="F:DotNEToolkit.DotNETCode.UNKNOWN_EXCEPTION">
+        <member name="F:DotNEToolkit.DotNETCode.SUCCESS">
             <summary>
-            异常
+            成功
             </summary>
         </member>
         <member name="F:DotNEToolkit.DotNETCode.LOAD_CONFIG_FAILED">
@@ -3894,6 +4063,16 @@
         <member name="F:DotNEToolkit.DotNETCode.SYS_ERROR">
             <summary>
             调用API失败
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.DotNETCode.PARSE_CONFIG_FAILED">
+            <summary>
+            解析配置文件失败
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.DotNETCode.MODULE_CIRCULAR_REFERENCE">
+            <summary>
+            模块与模块之间存在循环依赖关系
             </summary>
         </member>
         <member name="F:DotNEToolkit.DotNETCode.JSON_INVALID_FORMAT">
@@ -3956,18 +4135,6 @@
             表示一个单例对象
             </summary>
             <typeparam name="T">单例类的类型</typeparam>
-        </member>
-        <member name="M:DotNEToolkit.SingletonObject`1.Initialize">
-            <summary>
-            单例对象初始化
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.SingletonObject`1.Release">
-            <summary>
-            释放单例对象占用的资源
-            </summary>
-            <returns></returns>
         </member>
         <member name="T:DotNEToolkit.TcpFramework.IDataResolver">
             <summary>
@@ -4709,6 +4876,53 @@
             根据当前记录重试上次的任务
             </summary>
             <param name="session"></param>
+        </member>
+        <member name="F:DotNEToolkit.Iphlpapi.TCP_TABLE_CLASS.TCP_TABLE_BASIC_ALL">
+            <summary>
+            MIB_TCPTABLE
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Iphlpapi.TCP_TABLE_CLASS.TCP_TABLE_OWNER_MODULE_ALL">
+            <summary>
+            MIB_TCPTABLE_OWNER_MODULE
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Iphlpapi.TCP_TABLE_CLASS.TCP_TABLE_OWNER_PID_ALL">
+            <summary>
+            MIB_TCPTABLE_OWNER_PID
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Iphlpapi.MIB_TCPTABLE_OWNER_MODULE.dwNumEntries">
+            <summary>
+            The number of MIB_TCPROW_OWNER_MODULE elements in the table.
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Iphlpapi.MIB_TCPTABLE_OWNER_MODULE.table">
+            <summary>
+            Array of MIB_TCPROW_OWNER_MODULE structures returned by a call to GetExtendedTcpTable.
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.Kernel32.LoadLibrary(System.String)">
+            <summary>
+            加载动态链接库
+            </summary>
+            <param name="dllToLoad">dll文件名</param>
+            <returns>dll模块指针</returns>
+        </member>
+        <member name="M:DotNEToolkit.Kernel32.GetProcAddress(System.IntPtr,System.String)">
+            <summary>
+            获取函数指针
+            </summary>
+            <param name="hModule">dll模块指针</param>
+            <param name="procedureName">方法名</param>
+            <returns>函数指针</returns>
+        </member>
+        <member name="M:DotNEToolkit.Kernel32.FreeLibrary(System.IntPtr)">
+            <summary>
+            释放动态链接库
+            </summary>
+            <param name="hModule">dll模块指针</param>
+            <returns>释放释放成功</returns>
         </member>
         <member name="M:DotNEToolkit.Win32APIHelper.GetWindowText(System.IntPtr,System.Int32,System.Int32)">
             <summary>

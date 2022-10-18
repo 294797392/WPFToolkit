@@ -13,6 +13,9 @@ namespace WPFToolkit.MVVM
     /// </summary>
     public class TreeViewModelContext
     {
+        /// <summary>
+        /// 存储所有节点列表
+        /// </summary>
         internal Dictionary<string, TreeNodeViewModel> NodeMap { get; private set; }
 
         /// <summary>
@@ -25,9 +28,15 @@ namespace WPFToolkit.MVVM
         /// </summary>
         public ObservableCollection<TreeNodeViewModel> SelectedItems { get; internal set; }
 
+        /// <summary>
+        /// 当前选中的节点集合
+        /// </summary>
+        public ObservableCollection<TreeNodeViewModel> CheckedItems { get; internal set; }
+
         public TreeViewModelContext()
         {
             this.SelectedItems = new ObservableCollection<TreeNodeViewModel>();
+            this.CheckedItems = new ObservableCollection<TreeNodeViewModel>();
             this.NodeMap = new Dictionary<string, TreeNodeViewModel>();
         }
     }

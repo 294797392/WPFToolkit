@@ -88,7 +88,40 @@ namespace WPFToolkit.MVVM
             }
         }
 
+        /// <summary>
+        /// 设置是否选中当前节点
+        /// 如果是选中，那么该操作会对上级节点进行递归选中
+        /// </summary>
+        public override bool IsChecked
+        {
+            get { return this.isChecked; }
+            set
+            {
+                if (this.isChecked != value)
+                {
+                    this.isChecked = value;
+                    this.NotifyPropertyChanged("IsChecked");
+
+                    if (value)
+                    {
+                        this.Context.CheckedItems.Add(this);
+
+                        if (this.Parent != null)
+                        {
+                            this.Parent.IsChecked = true;
+                        }
+                    }
+                    else
+                    {
+                        this.Context.CheckedItems.Remove(this);
+                    }
+                }
+            }
+        }
+
         #endregion
+
+        #region 构造方法
 
         public TreeNodeViewModel(TreeViewModelContext context, object data = null)
         {
@@ -97,6 +130,14 @@ namespace WPFToolkit.MVVM
             this.Data = data;
         }
 
+        #endregion
+
+        #region 公开接口
+
+        /// <summary>
+        /// 增加一个子节点
+        /// </summary>
+        /// <param name="node">要增加的子节点</param>
         public void AddChildNode(TreeNodeViewModel node)
         {
             node.Parent = this;
@@ -104,11 +145,17 @@ namespace WPFToolkit.MVVM
             this.Context.NodeMap[node.ID.ToString()] = node;
         }
 
+        /// <summary>
+        /// 删除一个子节点
+        /// </summary>
+        /// <param name="node">要删除的子节点</param>
         public void RemoveChildNode(TreeNodeViewModel node)
         {
             node.Parent = null;
             this.Children.Remove(node);
             this.Context.NodeMap.Remove(node.ID.ToString());
         }
+
+        #endregion
     }
 }

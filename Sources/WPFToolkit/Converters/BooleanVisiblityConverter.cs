@@ -13,7 +13,7 @@ namespace WPFToolkit.Converters
     /// True转成Visible
     /// False转成Collapsed
     /// </summary>
-    public class BooleanVisiblityConverter : IValueConverter
+    public class BooleanVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -36,7 +36,7 @@ namespace WPFToolkit.Converters
     /// True转成Collapsed
     /// False转成Visible
     /// </summary>
-    public class Boolean2VisibilityConverter2 : IValueConverter
+    public class BooleanVisibilityConverter2 : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

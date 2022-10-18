@@ -19,6 +19,8 @@ namespace WPFToolkit.MVVM
 
         protected bool isExpanded;
 
+        protected bool isChecked;
+
         #endregion
 
         #region 属性
@@ -64,6 +66,22 @@ namespace WPFToolkit.MVVM
                 {
                     this.isExpanded = value;
                     this.NotifyPropertyChanged("IsExpanded");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 节点是否被勾选（当节点带有CheckBox的时候）
+        /// </summary>
+        public virtual bool IsChecked
+        {
+            get { return this.isChecked; }
+            set
+            {
+                if (this.isChecked != value)
+                {
+                    this.isChecked = value;
+                    this.NotifyPropertyChanged("IsChecked");
                 }
             }
         }
