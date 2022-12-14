@@ -1,0 +1,41 @@
+﻿{
+    "menus": [
+        {
+            "id": "1",
+            "name": "菜单1",
+            "entry": "WPFToolkitDemo.UserControls.GenericControlUserControl, WPFToolkitDemo",
+            "icon": "pack://application:,,,/WPFToolkit;component/Images/about.png",
+            "child": [
+                {
+                    "id": "1-1",
+                    "name": "菜单1-1",
+                    "entry": "",
+                    "icon": ""
+                }
+            ]
+        },
+
+        {
+            "id": "2",
+            "name": "下拉列表 - KComboBox",
+            "description": "当选项过多时，使用下拉菜单展示并选择内容。",
+            "entry": "WPFToolkitDemo.UserControls.KComboBoxDemo, WPFToolkitDemo",
+            "icon": "pack://application:,,,/WPFToolkit;component/Images/about.png"
+        },
+
+        {
+            "id": "3",
+            "name": "按钮 - KButton",
+            "description": "拥有多种形态可自由切换的按钮。",
+            "entry": "WPFToolkitDemo.UserControls.KButtonDemo, WPFToolkitDemo",
+            "icon": "pack://application:,,,/WPFToolkit;component/Images/about.png"
+        },
+
+        {
+            "id": "4",
+            "name": "BusinessDataGrid",
+            "entry": "WPFToolkitDemo.UserControls.BusinessDataGridDemo, WPFToolkitDemo",
+            "icon": "pack://application:,,,/WPFToolkit;component/Images/about.png"
+        }
+    ]
+}

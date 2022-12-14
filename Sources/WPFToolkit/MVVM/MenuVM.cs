@@ -1,7 +1,9 @@
 ﻿using DotNEToolkit;
 using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -14,7 +16,7 @@ namespace WPFToolkit.MVVM
     /// <summary>
     /// 定义配置文件里的菜单模型
     /// </summary>
-    internal class MenuDefinition
+    public class MenuDefinition
     {
         /// <summary>
         /// 菜单ID
@@ -37,7 +39,7 @@ namespace WPFToolkit.MVVM
         /// <summary>
         /// ViewModel类名
         /// </summary>
-        [JsonProperty("vmclsName")]
+        [JsonProperty("vmClassName")]
         public string VMClassName { get; set; }
 
         /// <summary>
@@ -45,6 +47,21 @@ namespace WPFToolkit.MVVM
         /// </summary>
         [JsonProperty("icon")]
         public string Icon { get; set; }
+
+        /// <summary>
+        /// 子菜单
+        /// </summary>
+        [JsonProperty("child")]
+        public List<MenuDefinition> Children { get; private set; }
+
+        [JsonProperty("userData")]
+        internal IDictionary UserData { get; set; }
+
+        public MenuDefinition()
+        {
+            this.Children = new List<MenuDefinition>();
+            this.UserData = new Dictionary<string, object>();
+        }
     }
 
     /// <summary>
@@ -76,7 +93,7 @@ namespace WPFToolkit.MVVM
     /// <summary>
     /// 菜单ViewModel
     /// </summary>
-    public class MenuVM : BindableCollection<MenuItemVM>
+    public class MenuVM : ViewModelBase
     {
         #region 类变量
 
@@ -86,8 +103,9 @@ namespace WPFToolkit.MVVM
 
         #region 实例变量
 
-        private Dictionary<string, FrameworkElement> contentMap;
-
+        /// <summary>
+        /// 当前选中的页面
+        /// </summary>
         private FrameworkElement currentContent;
 
         /// <summary>
@@ -100,9 +118,29 @@ namespace WPFToolkit.MVVM
         /// </summary>
         private bool isContentLoading;
 
+        private MenuItemVM selectedMenu;
+
         #endregion
 
         #region 属性
+
+        /// <summary>
+        /// 当前选中的菜单
+        /// </summary>
+        public MenuItemVM SelectedMenu
+        {
+            get { return this.selectedMenu; }
+            set
+            {
+                this.selectedMenu = value;
+                this.NotifyPropertyChanged("SelectedMenu");
+            }
+        }
+
+        /// <summary>
+        /// 所有的菜单列表
+        /// </summary>
+        public ObservableCollection<MenuItemVM> MenuItems { get; private set; }
 
         /// <summary>
         /// 当前的内容是否正在初始化
@@ -114,7 +152,7 @@ namespace WPFToolkit.MVVM
             set
             {
                 this.isContentLoading = true;
-                this.OnPropertyChanged(new PropertyChangedEventArgs("IsContentLoading"));
+                this.NotifyPropertyChanged("IsContentLoading");
             }
         }
 
@@ -127,7 +165,7 @@ namespace WPFToolkit.MVVM
             set
             {
                 this.currentContent = value;
-                this.OnPropertyChanged(new PropertyChangedEventArgs("CurrentContent"));
+                this.NotifyPropertyChanged("CurrentContent");
             }
         }
 
@@ -137,21 +175,31 @@ namespace WPFToolkit.MVVM
 
         public MenuVM()
         {
-            this.contentMap = new Dictionary<string, FrameworkElement>();
+            this.MenuItems = new ObservableCollection<MenuItemVM>();
         }
 
         #endregion
 
         #region 公开接口
 
+        public void Initialize(string filePath)
+        {
+            this.ParseMenuDefinition(filePath);
+        }
+
         public void InvokeWhenSelectionChanged()
         {
-            if (this.SelectedItem == null)
+            if (this.SelectedMenu == null)
             {
                 return;
             }
 
-            if (this.SelectedItem == this.previouseSelectedMenu)
+            if (string.IsNullOrEmpty(this.SelectedMenu.ClassName))
+            {
+                return;
+            }
+
+            if (this.SelectedMenu == this.previouseSelectedMenu)
             {
                 return;
             }
@@ -165,18 +213,21 @@ namespace WPFToolkit.MVVM
                 this.CurrentContent = null;
             }
 
+            FrameworkElement content = this.SelectedMenu.Content;
+            ViewModelBase contentVM = this.SelectedMenu.ContentVM;
+
             // 开始加载本次选中的菜单界面
-            FrameworkElement content;
-            if (!this.contentMap.TryGetValue(this.SelectedItem.ClassName, out content))
+            if (content == null)
             {
                 try
                 {
-                    content = ConfigFactory<FrameworkElement>.CreateInstance(this.SelectedItem.ClassName);
+                    content = ConfigFactory<FrameworkElement>.CreateInstance(this.SelectedMenu.ClassName);
 
                     // 如果存在ViewModel，那么实例化ViewModel并绑定
-                    if (!string.IsNullOrEmpty(this.SelectedItem.VMClassName))
+                    if (!string.IsNullOrEmpty(this.SelectedMenu.VMClassName))
                     {
-                        content.DataContext = ConfigFactory<ViewModelBase>.CreateInstance(this.SelectedItem.VMClassName);
+                        contentVM = ConfigFactory<ViewModelBase>.CreateInstance(this.SelectedMenu.VMClassName);
+                        content.DataContext = contentVM;
                     }
                 }
                 catch (Exception ex)
@@ -185,15 +236,16 @@ namespace WPFToolkit.MVVM
                     return;
                 }
 
-                this.contentMap[this.SelectedItem.ClassName] = content;
+                this.SelectedMenu.Content = content;
+                this.SelectedMenu.ContentVM = contentVM;
             }
 
-            this.CurrentContent = content;
+            this.CurrentContent = this.SelectedMenu.Content;
 
             // 优先处理DataContent是IContentHost的情况
-            if (content.DataContext is IContentHook)
+            if (contentVM is IContentHook)
             {
-                IContentHook contentHost = content.DataContext as IContentHook;
+                IContentHook contentHost = contentVM as IContentHook;
 
                 this.ProcessContentLoaded(contentHost);
             }
@@ -205,10 +257,14 @@ namespace WPFToolkit.MVVM
                 this.ProcessContentLoaded(contentHost);
             }
 
-            this.previouseSelectedMenu = this.SelectedItem;
+            this.previouseSelectedMenu = this.SelectedMenu;
         }
 
-        public void ParseMenuDefinition(string filePath)
+        #endregion
+
+        #region 实例方法
+
+        private void ParseMenuDefinition(string filePath)
         {
             if (!File.Exists(filePath))
             {
@@ -230,20 +286,14 @@ namespace WPFToolkit.MVVM
 
             foreach (MenuDefinition menu in menus)
             {
-                this.Add(new MenuItemVM()
-                {
-                    ID = menu.ID,
-                    Name = menu.Name,
-                    ClassName = menu.ClassName,
-                    VMClassName = menu.VMClassName,
-                    IconURI = menu.Icon
-                });
+                MenuItemVM menuItem = new MenuItemVM(menu);
+                
+                this.MenuItems.Add(menuItem);
+                
+                // 递归加载子菜单
+                this.LoadSubMenus(menuItem, menu.Children);
             }
         }
-
-        #endregion
-
-        #region 实例方法
 
         private void ProcessContentLoaded(IContentHook contentHost)
         {
@@ -252,10 +302,10 @@ namespace WPFToolkit.MVVM
             try
             {
                 // 如果界面还没初始化，那么初始化
-                if (!this.SelectedItem.IsInitialized)
+                if (!this.SelectedMenu.IsInitialized)
                 {
                     contentHost.Initialize();
-                    this.SelectedItem.IsInitialized = true;
+                    this.SelectedMenu.IsInitialized = true;
                 }
 
                 // 初始化完后再触发OnLoaded事件
@@ -282,6 +332,21 @@ namespace WPFToolkit.MVVM
             {
                 IContentHook contentHost = this.CurrentContent as IContentHook;
                 contentHost.OnUnload();
+            }
+        }
+
+        /// <summary>
+        /// 递归加载子菜单
+        /// </summary>
+        /// <param name="parentMenu"></param>
+        /// <param name="childMenus"></param>
+        private void LoadSubMenus(MenuItemVM parentMenu, List<MenuDefinition> childMenus)
+        {
+            foreach (MenuDefinition menu in childMenus)
+            {
+                MenuItemVM menuItem = new MenuItemVM(menu);
+                parentMenu.MenuItems.Add(menuItem);
+                this.LoadSubMenus(parentMenu, menu.Children);
             }
         }
 

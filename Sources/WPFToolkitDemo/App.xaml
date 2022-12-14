@@ -5,8 +5,10 @@
 
     <Application.Resources>
         <ResourceDictionary>
-            
-            
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/WPFToolkit;component/ClearDefaultStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
             <Style x:Key="StyleTextBlockTitle" TargetType="{x:Type TextBlock}">
                 <Setter Property="FontSize" Value="24"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>

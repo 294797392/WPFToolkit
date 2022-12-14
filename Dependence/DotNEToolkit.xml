@@ -101,104 +101,6 @@
             </summary>
             <param name="block"></param>
         </member>
-        <member name="T:DotNEToolkit.Communictions.CommObject">
-            <summary>
-            通信对象模型
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Communictions.CommObject.EVENT_DATA_RECEIVED">
-            <summary>
-            当收到消息的时候触发
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Communictions.CommObject.EVENT_STATUS_CHANGED">
-            <summary>
-            当连接状态改变的时候触发
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Communictions.CommObject.newline">
-            <summary>
-            在读取或写入一行数据的时候使用的换行符
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.Communictions.CommObject.IsOpened">
-            <summary>
-            判断IO设备是否已经打开
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Communictions.CommObject.Open">
-            <summary>
-            打开一个IO设备
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Communictions.CommObject.Close">
-            <summary>
-            关闭IO设备
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Communictions.CommObject.ReadLine">
-            <summary>
-            从通信设备里读取一行数据
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Communictions.CommObject.WriteLine(System.String)">
-            <summary>
-            向通信设备里写入一行数据
-            </summary>
-            <param name="line"></param>
-        </member>
-        <member name="M:DotNEToolkit.Communictions.CommObject.ReadBytes(System.Int32)">
-            <summary>
-            从通信设备里读取一段数据
-            </summary>
-            <param name="size">要读取的数据大小</param>
-            <returns>读取的字节数</returns>
-        </member>
-        <member name="M:DotNEToolkit.Communictions.CommObject.WriteBytes(System.Byte[])">
-            <summary>
-            向通信设备里写入一段数据
-            </summary>
-            <param name="bytes"></param>
-        </member>
-        <member name="T:DotNEToolkit.Communictions.CommObjectFactory">
-            <summary>
-            创建通信对象的工厂
-            </summary>
-        </member>
-        <member name="T:DotNEToolkit.Communictions.CommTypes">
-            <summary>
-            定义通信对象的类型
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Communictions.CommTypes.SerialPort">
-            <summary>
-            串口通信设备
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Communictions.CommTypes.TcpClient">
-            <summary>
-            TCP客户端设备
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Communictions.CommTypes.TcpService">
-            <summary>
-            TCP服务
-            </summary>
-        </member>
-        <member name="T:DotNEToolkit.Communictions.SerialPortCommObject">
-            <summary>
-            封装串口通信对象
-            </summary>
-        </member>
-        <member name="T:DotNEToolkit.Communictions.TcpClientCommObject">
-            <summary>
-            封装Tcp客户端通信对象
-            </summary>
-        </member>
         <member name="T:DotNEToolkit.Crypto.CRC">
             <summary>
             CRC校验
@@ -256,6 +158,48 @@
             解密操作
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:DotNEToolkit.CSV">
+            <summary>
+            提供操作CSV格式文件的方法
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.CSV.TableData2CSV(System.String,DotNEToolkit.TableData)">
+            <summary>
+            把TableData保存成一个CSV文件
+            </summary>
+            <param name="tableData"></param>
+            <param name="csvPath"></param>
+        </member>
+        <member name="M:DotNEToolkit.CSV.CSV2TableData(System.String)">
+            <summary>
+            CSV格式的字符串转成DataTable
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.CSV.CSVFile2TableData(System.String)">
+            <summary>
+            CSV文件转成DataTable
+            </summary>
+            <param name="csvFile"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.CSV.CSV2Excel(System.String,System.String,DotNEToolkit.Excels.WriteOptions)">
+            <summary>
+            把CSV文件转换成Excel
+            </summary>
+            <param name="csvPath"></param>
+            <param name="excelPath"></param>
+            <param name="options">写入Excel文件的选项</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.CSV.CSVContent2Excel(System.String,System.String,DotNEToolkit.Excels.WriteOptions)">
+            <summary>
+            把CSV文件内容转换成Excel
+            </summary>
+            <param name="csvText"></param>
+            <param name="excelPath"></param>
+            <param name="options">写入Excel文件的选项</param>
         </member>
         <member name="T:DotNEToolkit.DataModels.ModelBaseInt">
             <summary>
@@ -325,6 +269,16 @@
         <member name="F:DotNEToolkit.DateTimeFormat.yyyyMMddhhmmss">
             <summary>
             格式化成202008180927的格式
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.DbConnectionString">
+            <summary>
+            定义各种数据库连接字符串模板
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.DbConnectionString.MysqlFormat">
+            <summary>
+            Mysql格式的数据库连接字符串模板
             </summary>
         </member>
         <member name="F:DotNEToolkit.DirectSound.DSBCAPS.DSBCAPS_LOCHARDWARE">
@@ -542,60 +496,57 @@
             <param name="g"></param>
             <param name=""></param>
         </member>
-        <member name="P:DotNEToolkit.Excels.Attributes.ExcelColumnAttribute.Name">
+        <member name="T:DotNEToolkit.Excel">
             <summary>
-            列名字
+            封装Excel文件的导入，导出功能
             </summary>
         </member>
-        <member name="P:DotNEToolkit.Excels.Attributes.ExcelColumnAttribute.Type">
+        <member name="M:DotNEToolkit.Excel.Excel2TableData(System.String)">
             <summary>
-            列的数据类型
+            Excel文件转换成TableData
             </summary>
+            <param name="excelPath">要转换的Excel文件的完整路径</param>
+            <returns></returns>
         </member>
-        <member name="T:DotNEToolkit.Excels.ExcelCell">
+        <member name="M:DotNEToolkit.Excel.Excel2CSV(System.String,System.String)">
             <summary>
-            表示Exce里的一个单元格的信息
+            Excel文件转换成CSV
             </summary>
+            <param name="excelPath">要转换的Excel文件的完整路径</param>
+            <param name="csvPath">要保存的CSV文件的完整路径</param>
         </member>
-        <member name="T:DotNEToolkit.Excels.ExcelCellTypes">
+        <member name="M:DotNEToolkit.Excel.TableData2Excel(System.String,DotNEToolkit.TableData,DotNEToolkit.Excels.WriteOptions,System.String,DotNEToolkit.Excels.ExcelVersions)">
             <summary>
-            表示Excel里的Cell的类型
+            TableData转成Excel文件
             </summary>
+            <param name="excelPath"></param>
+            <param name="tableData"></param>
+            <param name="options"></param>
+            <param name="sheetName"></param>
+            <param name="version"></param>
+            <returns></returns>
         </member>
-        <member name="F:DotNEToolkit.Excels.ExcelCellTypes.Null">
+        <member name="M:DotNEToolkit.Excel.DataTable2Excel(System.String,System.Data.DataTable,DotNEToolkit.Excels.WriteOptions,System.String,DotNEToolkit.Excels.ExcelVersions)">
             <summary>
-            是一个空值
+            DataTable转成Excel文件
             </summary>
+            <param name="excelPath"></param>
+            <param name="table"></param>
+            <param name="options"></param>
+            <param name="sheetName"></param>
+            <param name="version"></param>
+            <returns></returns>
         </member>
-        <member name="F:DotNEToolkit.Excels.ExcelCellTypes.Numberic">
+        <member name="M:DotNEToolkit.Excel.Array2Excel(System.String,System.Object[0:,0:],DotNEToolkit.Excels.WriteOptions,System.String,DotNEToolkit.Excels.ExcelVersions)">
             <summary>
-            数字类型
+            把一个二维数组写到Excel里
             </summary>
-        </member>
-        <member name="F:DotNEToolkit.Excels.ExcelCellTypes.String">
-            <summary>
-            字符串类型
-            </summary>
-        </member>
-        <member name="T:DotNEToolkit.Excels.ExcelRow">
-            <summary>
-            表示Excel里的某一行
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.Excels.ExcelRow.Cells">
-            <summary>
-            这一行里一共多少列有数据
-            </summary>
-        </member>
-        <member name="T:DotNEToolkit.Excels.ExcelSheet">
-            <summary>
-            表示一个Excel的工作表
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.Excels.ExcelSheet.Rows">
-            <summary>
-            工作表里的所有的行数据
-            </summary>
+            <param name="excelPath"></param>
+            <param name="array">一维是行，二维是列</param>
+            <param name="options"></param>
+            <param name="sheetName"></param>
+            <param name="version"></param>
+            <returns></returns>
         </member>
         <member name="F:DotNEToolkit.Excels.ExcelVersions.Xls">
             <summary>
@@ -605,17 +556,6 @@
         <member name="F:DotNEToolkit.Excels.ExcelVersions.Xlsx">
             <summary>
             Excel 2007版本
-            </summary>
-        </member>
-        <member name="T:DotNEToolkit.Excels.IExcelObject">
-            <summary>
-            表示一个可以保存为Excel文件的对象
-            或者表示一个可以从Excel文件读取的一个对象
-            </summary>
-        </member>
-        <member name="T:DotNEToolkit.Excels.IExcelRow">
-            <summary>
-            表示Excel里的一行
             </summary>
         </member>
         <member name="T:DotNEToolkit.Excels.ReadOptions">
@@ -633,20 +573,16 @@
             保留Excel里的空列（会保存一个空对象在ExcelRow里）
             </summary>
         </member>
-        <member name="T:DotNEToolkit.Excel">
+        <member name="F:DotNEToolkit.Excels.WriteOptions.CreateNew">
             <summary>
-            封装Excel文件的导入，导出功能
+            创建一个新文件并写入
+            如果源文件存在，那么覆盖源文件
             </summary>
         </member>
-        <member name="M:DotNEToolkit.Excel.QuickWrite(System.String,System.Object[0:,0:],System.String,DotNEToolkit.Excels.ExcelVersions)">
+        <member name="F:DotNEToolkit.Excels.WriteOptions.Append">
             <summary>
-            把一个二维数组写到Excel里
+            向源文件追加新文件
             </summary>
-            <param name="filePath"></param>
-            <param name="excelData">一维是行，二维是列</param>
-            <param name="sheetName"></param>
-            <param name="version"></param>
-            <returns></returns>
         </member>
         <member name="T:DotNEToolkit.Expressions.AccessMember">
             <summary>
@@ -922,7 +858,15 @@
             </summary>
             <param name="expression"></param>
         </member>
-        <!-- 对于成员“M:DotNEToolkit.Expressions.ExpressionParser.Evaluate(DotNEToolkit.Expressions.Expression,DotNEToolkit.Expressions.IEvaluationContext)”忽略有格式错误的 XML 注释 -->
+        <member name="M:DotNEToolkit.Expressions.ExpressionParser.Evaluate(DotNEToolkit.Expressions.Expression,DotNEToolkit.Expressions.IEvaluationContext)">
+            <summary>
+            对表达式树进行求值
+            从树形结构的儿子节点递归计算表达式的值，直到把根节点的值计算出来
+            </summary>
+            <param name="parent">要计算的表达式根节点</param>
+            <param name="context">计算表达式的时候需要的额外数据</param>
+            <returns>返回null则表示失败，否则成功</returns>
+        </member>
         <member name="M:DotNEToolkit.Expressions.ExpressionParser.TryGetEvaluator(System.String,System.Collections.Generic.List{DotNEToolkit.Expressions.ExpressionDefinition},System.Collections.Generic.Dictionary{System.String,DotNEToolkit.Expressions.Evaluators.ExpressionEvaluator})">
             <summary>
             从指定的表达式定义列表和表达式求值程序池里查找一个表达式求值程序
@@ -1027,174 +971,473 @@
             语法错误状态
             </summary>
         </member>
-        <member name="P:DotNEToolkit.AppManifest.ModuleList">
+        <member name="E:DotNEToolkit.Media.MediaPlay.StatusChanged">
             <summary>
-            配置文件里的所有的列表
+            播放器状态发生改变的时候触发
             </summary>
         </member>
-        <member name="T:DotNEToolkit.ModularApp`2">
+        <member name="P:DotNEToolkit.Media.MediaPlay.Format">
             <summary>
-            封装一个基于模块化（ModuleFactory）实现的App开发框架
+            该播放器支持的格式
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.Media.MediaPlay.Start">
+            <summary>
+            开始播放
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.Media.MediaPlay.Stop">
+            <summary>
+            停止播放
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.Media.MediaPlayFactory">
+            <summary>
+            创建返回值是MediaPlay的播放器实例
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.MediaPlayStatus.Timeout">
+            <summary>
+            播放超时
+            播放在线音视频的时候触发
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.MediaPlayStatus.Completed">
+            <summary>
+            播放结束
+            播放本地音视频文件的时候触发
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.Media.MediaRecord.Start">
+            <summary>
+            开始录制
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.Media.MediaRecord.Stop">
+            <summary>
+            结束录制
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.Media.RealtimeStream.Read(System.Int32,System.Byte[]@)">
+            <summary>
+            从缓冲区里拿到小于等于requestSize长度的数据
+            如果缓冲区里没有数据，那么会返回false，否则返回true
+            注意buffer的长度有可能比requestSize小
+            </summary>
+            <param name="requestSize">要获取的数据长度</param>
+            <param name="buffer">存储视频数据的缓冲区</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.Media.RealtimeStream.ReadAll">
+            <summary>
+            一次性读取缓冲区里的所有数据
+            如果缓冲区里没有数据，那么返回null
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.Media.RealtimeStream.Write(System.Byte[])">
+            <summary>
+            把数据写入缓冲区
+            </summary>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:DotNEToolkit.Media.RealtimeStream.Read(System.Int32,System.Int32,System.Byte[]@)">
+            <summary>
+            使用一个超时时间读取数据
+            </summary>
+            <param name="requestSize"></param>
+            <param name="timeout"></param>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DotNEToolkit.Media.Video.libvlcPlay">
+            <summary>
+            封装vlc视频播放器
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.Media.Video.VideoPlay">
+            <summary>
+            封装实时视频播放器
+            
+            1. 视频缓冲区管理
+            外部调用的时候，只需要调用PuhData和RequestData就可以了
+            当外部调用者收到了视频流的时候，调用PutData把视频流放入缓冲区
+            播放器会自动使用缓冲区里的视频流数据
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.Video.VideoPlay.DefaultTimeout">
+            <summary>
+            默认的播放超时时间是5秒钟
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.Video.VideoPlay.EV_TIMEOUT">
+            <summary>
+            视频播放超时
+            当播放的是实时流的时候，才可能会触发这个事件
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.Video.VideoPlay.EV_EOF">
+            <summary>
+            视频播放结束
+            当播放的是文件的时候，才可能会触发这个事件
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.Video.VideoPlay.timeout">
+            <summary>
+            播放超时时间
+            如果超过这个时间还是没有取到视频流，那么默认超时，采取的操作是关闭播放器
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Media.Video.VideoPlay.Hwnd">
+            <summary>
+            渲染视频的窗口句柄
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.Media.Video.VideoPlay.Write(System.Byte[])">
+            <summary>
+            写入媒体数据
+            </summary>
+            <param name="videoData"></param>
+        </member>
+        <member name="T:DotNEToolkit.Media.Video.VideoPlayType">
+            <summary>
+            播放器类型
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.Video.VideoPlayType.libvlc">
+            <summary>
+            使用libvlc播放
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.Media.AVFormats">
+            <summary>
+            定义音视频格式
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.AVFormats.Unkown">
+            <summary>
+            未知格式
+            播放器会自动检测
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.AVFormats.H264">
+            <summary>
+            H264视频格式
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.AVFormats.PCM">
+            <summary>
+            PCM音频原始数据格式
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.AVFormats.G711_ALAW">
+            <summary>
+            G711音频编码方式
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.Media.Audio.AudioPlay">
+            <summary>
+            一个简单的PCM播放器
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Media.Audio.AudioPlay.Channel">
+            <summary>
+            采样通道数
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Media.Audio.AudioPlay.SamplesPerSec">
+            <summary>
+            采样率
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Media.Audio.AudioPlay.BitsPerSample">
+            <summary>
+            每个采样大小是16位
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Media.Audio.AudioPlay.BlockAlign">
+            <summary>
+            块对齐, 每个采样的字节数
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Media.Audio.AudioPlay.BytesPerSec">
+            <summary>
+            一秒钟音频所占空间大小
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Media.Audio.AudioPlay.BufferSize">
+            <summary>
+            捕获缓冲区大小和播放缓冲区大小
+            缓冲区里的数据是一秒钟的音频数据
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.Media.Audio.AudioPlay.PlayFile(System.String)">
+            <summary>
+            播放一个音频文件
+            该方法是同步方法，会阻塞当前线程直到音频文件播放完了为止
+            </summary>
+            <param name="fileURI">要播放的音频文件的地址</param>
+        </member>
+        <member name="T:DotNEToolkit.Media.Audio.AudioPlayType">
+            <summary>
+            录音机类型
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.Audio.AudioPlayType.DirectSound">
+            <summary>
+            使用DirectSound播放音频你
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.Audio.AudioPlayType.libvlc">
+            <summary>
+            使用libvlc播放音频
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.Media.Audio.AudioRecordType">
+            <summary>
+            录音机类型
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.Audio.AudioRecordType.DirectSound">
+            <summary>
+            使用DirectSound录音
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.Audio.AudioRecordType.WaveAPI">
+            <summary>
+            使用waveIn API录音
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.Media.Audio.AudioRecordFactory">
+            <summary>
+            录音机工厂
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.Media.Audio.WaveAPIRecord">
+            <summary>
+            使用waveIn API开发的录音程序
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.Audio.WaveAPIRecord.free_pwh">
+            <summary>
+            WaveHeader指针
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.Audio.WaveAPIRecord.hwi">
+            <summary>
+            WaveIn Hwnd
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.Media.Audio.AudioDevice">
+            <summary>
+            表示一个声卡设备
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Media.Audio.AudioDevice.Name">
+            <summary>
+            声卡设备的显示名字
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.Media.Audio.AudioRecord">
+            <summary>
+            一个录制PCM音频的录音机
+            </summary>
+        </member>
+        <member name="E:DotNEToolkit.Media.Audio.AudioRecord.DataReceived">
+            <summary>
+            录到了数据会触发
+            </summary>
+        </member>
+        <member name="E:DotNEToolkit.Media.Audio.AudioRecord.Failed">
+            <summary>
+            当录音过程中遇到错误的时候触发
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.Audio.AudioRecord.filePath">
+            <summary>
+            要保存的音频文件路径
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.Audio.AudioRecord.fileStream">
+            <summary>
+            保存的音频流文件
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.Audio.AudioRecord.usedDevice">
+            <summary>
+            当前正在使用的声卡设备
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Media.Audio.AudioRecord.Channel">
+            <summary>
+            采样通道数
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Media.Audio.AudioRecord.SamplesPerSec">
+            <summary>
+            采样率
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Media.Audio.AudioRecord.BitsPerSample">
+            <summary>
+            每个采样大小是16位
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Media.Audio.AudioRecord.BlockAlign">
+            <summary>
+            块对齐, 每个采样的字节数
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Media.Audio.AudioRecord.BytesPerSec">
+            <summary>
+            一秒钟音频所占空间大小
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Media.Audio.AudioRecord.BufferSize">
+            <summary>
+            捕获缓冲区大小和播放缓冲区大小
+            缓冲区里的数据是一秒钟的音频数据
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.Media.Audio.AudioRecord.Start">
+            <summary>
+            开始录音
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.Media.Audio.AudioRecord.Stop">
+            <summary>
+            停止录音
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.Media.Audio.AudioRecord.GetAudioDevices">
+            <summary>
+            枚举系统里所有的录音设备（可以录音的声卡）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.Media.Audio.AudioRecord.SetRecordFile(System.String)">
+            <summary>
+            设置录音文件的保存路径
+            </summary>
+            <param name="filePath"></param>
+        </member>
+        <member name="M:DotNEToolkit.Media.Audio.AudioRecord.SetAudioDevice(DotNEToolkit.Media.Audio.AudioDevice)">
+            <summary>
+            设置录音程序使用的声卡
+            </summary>
+            <param name="device"></param>
+        </member>
+        <member name="T:DotNEToolkit.Media.Audio.DirectSoundRecord">
+            <summary>
+            DirectSound录音出来的数据是小尾端的数据
+            无符号16位数据
+            大尾端就是高位在低地址，小尾端就是低位在低地址。
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Media.Audio.DirectSoundRecord.DirectSoundAudioDevice.ID">
+            <summary>
+            设备的GUID
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.Audio.DirectSoundRecord.NotifyEvents">
+            <summary>
+            音频缓冲区通知对象的个数
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.Audio.DirectSoundRecord.dsc8">
+            <summary>
+            IDirectSoundCapture8
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.Audio.DirectSoundRecord.dscb8">
+            <summary>
+            IDirectSoundCaptureBuffer8
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.Media.PCMFormats">
+            <summary>
+            规定PCM数据的存储格式
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.PCMFormats.S16_LE">
+            <summary>
+            有符号16位整数，小尾端
+            DirectSound默认存储方式
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Media.PCMFormats.S16_BE">
+            <summary>
+            有符号16位整数，大尾端
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.Media.AudioUtils">
+            <summary>
+            提供音频数据相关的工具函数
+            
+            分贝是一个相对量，相对于某一个标准值的倍数取对数，得到的就是贝尔Bell，分贝则是贝尔的十分之一。比如以10为标准，那么1000就是2Bell，也就是20dB。
+            计算分贝的公式：10 * log10(x / std)
+            
+            PCM数据存储格式：
+            1. 8位单声道：
+            2. 8位双声道：
+            3. 16位单声道：
+            4. 16位双声道：
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.Media.AudioUtils.CalculateDb(System.Byte[],System.Int32,DotNEToolkit.Media.PCMFormats,System.Collections.Generic.List{System.Double}@)">
+            <summary>
+            计算音频数据的dbFS值
+            </summary>
+            <param name="channels">PCM数据</param>
+            <param name="pcm">通道数</param>
+            <param name="formats">PCM数据存储方式</param>
+            <param name="volume">声音音量，百分比单位</param>
+            <returns></returns>
+        </member>
+        <member name="T:DotNEToolkit.Media.G711">
+            <summary>
+            提供G711数据编解码函数
+            
+            https://www.jianshu.com/p/33cba1a821d0
+            g711a输入的是13位（S16的高13位），这种格式是经过特别设计的，便于数字设备进行快速运算。
+            G711的内容是将14bit(uLaw)或者13bit(aLaw)采样的PCM数据编码成8bit的数据流，播放的时候在将此8bit的数据还原成14bit或者13bit进行播放，不同于MPEG这种对于整体或者一段数据进行考虑再进行编解码的做法，G711是波形编解码算法，就是一个sample对应一个编码，所以压缩比固定为：
+            8/14 = 57% (uLaw)
+            8/13 = 62% (aLaw)
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.Media.G711.Alaw2PCM(System.Byte[])">
+            <summary>
+            alaw转PCM
+            </summary>
+            <param name="alaw"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.Media.G711.Ulaw2PCM(System.Byte[])">
+            <summary>
+            ulaw转PCM
+            </summary>
+            <param name="ulaw"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DotNEToolkit.Modular.AppModule`2">
+            <summary>
+            实现一个ModularApp里的Module
             </summary>
             <typeparam name="TApp"></typeparam>
             <typeparam name="TManifest"></typeparam>
         </member>
-        <member name="P:DotNEToolkit.ModularApp`2.Factory">
+        <member name="P:DotNEToolkit.Modular.AppModule`2.App">
             <summary>
-            模块工厂
+            该Module所属的App
             </summary>
         </member>
-        <member name="P:DotNEToolkit.ModularApp`2.Manifest">
+        <member name="P:DotNEToolkit.Modular.AppModule`2.AppManifest">
             <summary>
-            App的配置文件
+            该Module所属的AppManifest
             </summary>
-        </member>
-        <member name="M:DotNEToolkit.ModularApp`2.Initialize">
-            <summary>
-            初始化App
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.ModularApp`2.Release">
-            <summary>
-            释放App占用的资源
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.ModularApp`2.SaveManifest">
-            <summary>
-            保存Manifest文件
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.ModularApp`2.OnInitialize">
-            <summary>
-            子类初始化
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.ModularApp`2.OnRelease">
-            <summary>
-            子类释放资源
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.ModularApp`2.OnModuleStatusEvent(DotNEToolkit.Modular.IModuleInstance,DotNEToolkit.Modular.ModuleStatus)">
-            <summary>
-            处理模块状态改变事件
-            </summary>
-            <param name="moduleInst"></param>
-            <param name="status">模块状态</param>
-        </member>
-        <member name="M:DotNEToolkit.ModularApp`2.OnModuleInitialized">
-            <summary>
-            处理所有模块都初始化成功的事件
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.ModularApp`2.OnCircularReference(DotNEToolkit.Modular.IModuleInstance)">
-            <summary>
-            当出现模块循环引用的时候触发
-            </summary>
-            <param name="moduleInst">存在循环引用的模块</param>
-        </member>
-        <member name="T:DotNEToolkit.Modular.EventableModule">
-            <summary>
-            实现一个参与事件订阅-发布系统的模块
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.Modular.EventableModule.EventSubscribtions">
-            <summary>
-            存储该模块的事件订阅信息
-            eventType -> 订阅列表
-            </summary>
-        </member>
-        <member name="T:DotNEToolkit.Modular.Subscribtion">
-            <summary>
-            用来记录订阅的事件信息
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.Modular.Subscribtion.Publisher">
-            <summary>
-            发布事件的对象
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.Modular.Subscribtion.Subscriber">
-            <summary>
-            订阅该事件的对象
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.Modular.Subscribtion.EventType">
-            <summary>
-            发布的事件类型
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.Modular.Subscribtion.EventHandler">
-            <summary>
-            处理该事件的处理器
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.Modular.Subscribtion.RollbackHandler">
-            <summary>
-            当事件执行失败的时候，要执行的回滚操作
-            </summary>
-        </member>
-        <member name="T:DotNEToolkit.Modular.EventDispatcher">
-            <summary>
-            事件分发器实现了
-            1. 对各个模块之间事件的管理（注册事件，发布事件）
-            2. 事件订阅者可以根据Token订阅不同的事件，当某个事件发布的时候，不会发布给所有的订阅者，而是只有拥有对应Token的订阅者才可以被触发
-            3. 实现了事件触发的优先级顺序，在订阅事件的时候指定该事件触发的优先级，优先级高的订阅先触发
-            
-            老版本的模块事件全部通过ModuleFactory透传到外部，这样会导致几个问题：
-            1. 每次处理模块事件都需要对模块类型进行判断，才能知道是哪个模块触发了事件。要不就得把模块的事件定义成不相同的Id，这样就得知道每个模块的Id的范围，很难管理
-            2. 当模块触发一个事件的时候，所有注册了该事件的订阅者都会处理该事件（即使订阅者不需要处理）
-            3. 事件按照先后顺序执行，无法指定事件的执行顺序
-            
-            使用新的Subscribe - Publish模式来解决上述出现的两个问题
-            
-            一个事件可被多个订阅者订阅
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.Modular.EventDispatcher.SubscribeEvent``1(DotNEToolkit.Modular.ModuleFactory,System.String,DotNEToolkit.Modular.IEventSubscriber,System.Int32,DotNEToolkit.Modular.ModuleEventDlg,DotNEToolkit.Modular.EventRollbackDlg)">
-            <summary>
-            通过模块工厂订阅某个模块的事件
-            </summary>
-            <typeparam name="TPublisher">要订阅的模块的类型</typeparam>
-            <param name="factory">模块工厂</param>
-            <param name="subscriber">订阅者</param>
-            <param name="publisherId">要订阅的模块的Id</param>
-            <param name="eventType">要订阅的事件类型</param>
-            <param name="eventHandler">处理该事件的处理器</param>
-            <param name="rollbackDlg">当事件执行失败的时候，要执行的回滚操作</param>
-        </member>
-        <member name="M:DotNEToolkit.Modular.EventDispatcher.SubscribeEvent``1(DotNEToolkit.Modular.ModuleFactory,DotNEToolkit.Modular.IEventSubscriber,System.Int32,DotNEToolkit.Modular.ModuleEventDlg)">
-            <summary>
-            订阅一个模块的事件
-            </summary>
-            <typeparam name="TPublisher"></typeparam>
-            <param name="factory"></param>
-            <param name="subscriber">订阅者</param>
-            <param name="eventType">要订阅的事件类型</param>
-            <param name="eventHandler">事件处理器</param>
-        </member>
-        <member name="M:DotNEToolkit.Modular.EventDispatcher.SubscribeEvent``1(DotNEToolkit.Modular.EventableModule,System.Int32,DotNEToolkit.Modular.ModuleEventDlg)">
-            <summary>
-            订阅一个模块的事件
-            </summary>
-            <typeparam name="TPublisher"></typeparam>
-            <param name="subscriber">订阅者</param>
-            <param name="eventType">要订阅的事件类型</param>
-            <param name="eventHandler">事件处理器</param>
-        </member>
-        <member name="M:DotNEToolkit.Modular.EventDispatcher.PublishEvent(DotNEToolkit.Modular.EventableModule,System.Int32,System.Object)">
-            <summary>
-            模块发布一个事件
-            </summary>
-            <param name="publisher"></param>
-            <param name="eventType"></param>
-            <param name="eventArgs"></param>
-            <returns>
-            订阅者是否执行成功
-            如果有多个订阅号者，其中一个订阅者执行失败的话就返回失败
-            只有所有的订阅者都执行成功才返回成功
-            </returns>
         </member>
         <member name="T:DotNEToolkit.Modular.ModuleEventDlg">
             <summary>
@@ -1361,11 +1604,10 @@
             所属的工厂
             </summary>
         </member>
-        <member name="M:DotNEToolkit.Modular.IModuleInstance.Initialize(System.Collections.IDictionary)">
+        <member name="M:DotNEToolkit.Modular.IModuleInstance.Initialize">
             <summary>
             初始化模块
             </summary>
-            <param name="parameters">模块的输入参数</param>
             <returns></returns>
         </member>
         <member name="M:DotNEToolkit.Modular.IModuleInstance.Release">
@@ -1382,11 +1624,6 @@
         <member name="F:DotNEToolkit.Modular.ModuleBase.logger">
             <summary>
             日志记录器
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.Modular.ModuleBase.References">
-            <summary>
-            该模块引用的其他模块ID
             </summary>
         </member>
         <member name="P:DotNEToolkit.Modular.ModuleBase.Status">
@@ -1428,8 +1665,6 @@
         <member name="P:DotNEToolkit.Modular.ModuleBase.InputParameters">
             <summary>
             模块的输入参数
-            不要使用这个参数去获取配置参数，而是使用Initialize方法里穿进去的parameter去获取配置参数
-            因为InputParameters参数里有可能有绑定参数，需要动态计算
             </summary>
         </member>
         <member name="M:DotNEToolkit.Modular.ModuleBase.#ctor">
@@ -1437,11 +1672,10 @@
             构造方法
             </summary>
         </member>
-        <member name="M:DotNEToolkit.Modular.ModuleBase.Initialize(System.Collections.IDictionary)">
+        <member name="M:DotNEToolkit.Modular.ModuleBase.Initialize">
             <summary>
             初始化模块
             </summary>
-            <param name="parameters">模块参数</param>
             <returns></returns>
         </member>
         <member name="M:DotNEToolkit.Modular.ModuleBase.Release">
@@ -1450,22 +1684,13 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:DotNEToolkit.Modular.ModuleBase.GetInputValue``1(System.String,``0)">
+        <member name="M:DotNEToolkit.Modular.ModuleBase.GetParameter``1(System.String,``0)">
             <summary>
-            从InputParameter里读取一个对象
+            读取该模块的输入参数
             </summary>
             <typeparam name="T"></typeparam>
             <param name="key"></param>
             <param name="defaultValue"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Modular.ModuleBase.GetInputObject``1(System.String,``0)">
-            <summary>
-            从InputParameter里读取一个JSON对象
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="key"></param>
-            <param name="defaultObject">如果不存在该对象，那么要返回的默认值</param>
             <returns></returns>
         </member>
         <member name="M:DotNEToolkit.Modular.ModuleBase.OnInitialize">
@@ -1523,12 +1748,6 @@
             避免了每次都要调用LookupModule去查找模块，麻烦
             </summary>
         </member>
-        <member name="P:DotNEToolkit.Modular.ModuleDefinition.References">
-            <summary>
-            该模块所依赖的其他模块ID
-            模块工厂会先初始化依赖的模块
-            </summary>
-        </member>
         <member name="M:DotNEToolkit.Modular.ModuleDefinition.#ctor">
             <summary>
             构造方法
@@ -1567,11 +1786,6 @@
         <member name="E:DotNEToolkit.Modular.ModuleFactory.ModuleStatusChanged">
             <summary>
             当模块状态改变的时候触发
-            </summary>
-        </member>
-        <member name="E:DotNEToolkit.Modular.ModuleFactory.CircularReference">
-            <summary>
-            某个模块出现循环引用
             </summary>
         </member>
         <member name="F:DotNEToolkit.Modular.ModuleFactory.moduleList">
@@ -1614,17 +1828,26 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:DotNEToolkit.Modular.ModuleFactory.CreateFactory(System.Collections.Generic.IEnumerable{DotNEToolkit.Modular.ModuleDefinition})">
-            <summary>
-            创建一个模块工厂并同步初始化模块实例
-            </summary>
-            <param name="initialModules">要初始化的模块实例</param>
-            <returns></returns>
-        </member>
         <member name="M:DotNEToolkit.Modular.ModuleFactory.CreateFactory">
             <summary>
             创建一个空的工厂
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.Modular.ModuleFactory.CreateFactory(System.Collections.Generic.IEnumerable{DotNEToolkit.Modular.ModuleDefinition})">
+            <summary>
+            创建一个模块工厂并同步初始化模块实例
+            如果初始化某个模块失败，那么返回null
+            只有当所有模块都初始化成功后才会返回true
+            </summary>
+            <param name="initialModules">要初始化的模块实例</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.Modular.ModuleFactory.CreateFactory2(System.Collections.Generic.IEnumerable{DotNEToolkit.Modular.ModuleDefinition})">
+            <summary>
+            创建一个模块工厂，创建模块实例，但是不初始化它
+            </summary>
+            <param name="initialModules"></param>
             <returns></returns>
         </member>
         <member name="M:DotNEToolkit.Modular.ModuleFactory.SetupModulesAsync(System.Collections.Generic.IEnumerable{DotNEToolkit.Modular.ModuleDefinition},System.Int32)">
@@ -1635,36 +1858,6 @@
             <param name="initialModules"></param>
             <param name="interval">自动重连模块的间隔时间</param>
             <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Modular.ModuleFactory.SetupModules(System.Collections.Generic.IEnumerable{DotNEToolkit.Modular.ModuleDefinition})">
-            <summary>
-            同步加载一组组件，加载失败会直接返回，不会尝试重新加载
-            </summary>
-            <param name="initialModules">要加载的模块列表</param>
-            <returns>是否加载成功</returns>
-        </member>
-        <member name="M:DotNEToolkit.Modular.ModuleFactory.SetupModule(DotNEToolkit.Modular.ModuleDefinition)">
-            <summary>
-            同步加载一个模块，如果加载失败则直接返回
-            不会尝试重新加载
-            </summary>
-            <param name="module"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Modular.ModuleFactory.CreateModule``1(DotNEToolkit.Modular.ModuleDefinition)">
-            <summary>
-            根据模块定义创建一个模块实例
-            但是不初始化它
-            如果要创建并初始化，那么请调用SetupModule
-            </summary>
-            <param name="module">模块定义</param>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Modular.ModuleFactory.ReleaseModule(System.String)">
-            <summary>
-            删除并释放某个模块
-            </summary>
-            <param name="moduleID"></param>
         </member>
         <member name="M:DotNEToolkit.Modular.ModuleFactory.LookupModule``1(System.String)">
             <summary>
@@ -1691,11 +1884,13 @@
             <summary>
             模块被禁用
             告诉ModuleFactory不要加载该模块
+            该模块不会被加到缓存里
             </summary>
         </member>
-        <member name="F:DotNEToolkit.Modular.ModuleFlags.WaitableTask">
+        <member name="F:DotNEToolkit.Modular.ModuleFlags.NotInitial">
             <summary>
-            该模块是一个可等待的任务
+            不初始化
+            该模块会被加到缓存里，但是不调用初始化
             </summary>
         </member>
         <member name="T:DotNEToolkit.Modular.ModuleStatus">
@@ -1749,6 +1944,142 @@
             模块的完整类型名
             </summary>
         </member>
+        <member name="T:DotNEToolkit.AppManifest">
+            <summary>
+            App清单文件
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.AppManifest.ModuleList">
+            <summary>
+            配置文件里的所有的模块列表
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.AppManifest.AppModuleList">
+            <summary>
+            所有AppModule模块列表
+            暂时没实现
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.ModularApp`2">
+            <summary>
+            封装一个基于模块化（ModuleFactory）实现的App开发框架
+            </summary>
+            <typeparam name="TApp"></typeparam>
+            <typeparam name="TManifest"></typeparam>
+        </member>
+        <member name="P:DotNEToolkit.ModularApp`2.AppModules">
+            <summary>
+            暂时没实现
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.ModularApp`2.Factory">
+            <summary>
+            模块工厂
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.ModularApp`2.Manifest">
+            <summary>
+            App的配置文件
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.ModularApp`2.Initialize">
+            <summary>
+            初始化App
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.ModularApp`2.Initialize(System.String)">
+            <summary>
+            指定一个配置文件的路径初始化App
+            </summary>
+            <param name="configFile">App配置文件路径</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.ModularApp`2.Initialize(`1)">
+            <summary>
+            使用AppManifest的实例初始化App
+            </summary>
+            <param name="manifest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.ModularApp`2.Release">
+            <summary>
+            释放App占用的资源
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.ModularApp`2.SaveManifest">
+            <summary>
+            保存Manifest文件
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.ModularApp`2.OnInitialize">
+            <summary>
+            子类初始化
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.ModularApp`2.OnRelease">
+            <summary>
+            子类释放资源
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.ModularApp`2.OnModuleStatusEvent(DotNEToolkit.Modular.IModuleInstance,DotNEToolkit.Modular.ModuleStatus)">
+            <summary>
+            处理模块状态改变事件
+            </summary>
+            <param name="moduleInst"></param>
+            <param name="status">模块状态</param>
+        </member>
+        <member name="M:DotNEToolkit.ModularApp`2.OnModuleInitialized">
+            <summary>
+            处理所有模块都初始化成功的事件
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.ModularApp`2.OnCircularReference(DotNEToolkit.Modular.IModuleInstance)">
+            <summary>
+            当出现模块循环引用的时候触发
+            </summary>
+            <param name="moduleInst">存在循环引用的模块</param>
+        </member>
+        <member name="T:DotNEToolkit.Packaging.BINFilePackage">
+            <summary>
+            把所有的数据打包成一个文件
+            并生成一个索引文件用来保存每个小文件的描述信息
+            
+            Index文件格式：
+            |-------------|
+            | header size |   -> 4字节
+            |-------------|
+            |  file name  |   -> \0结尾, UTF8编码
+            |-------------|
+            
+            
+            目录项格式：
+            |-------------|
+            |   offset    |   -> 8字节
+            |-------------|
+            |  file name  |   -> \0结尾, UTF8编码
+            |-------------|
+            
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Packaging.BINFilePackage.Capacity">
+            <summary>
+            文件的总大小字节数
+            会预先在磁盘里分配Capacity大小的文件
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Packaging.BINFilePackage.IndexPath">
+            <summary>
+            索引文件的路径
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.Packaging.BINFilePackage.CreateIndexFile">
+            <summary>
+            创建一个新的索引文件
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:DotNEToolkit.Packaging.FileItem">
             <summary>
             存储一个要打包的文件信息
@@ -1762,6 +2093,7 @@
         <member name="P:DotNEToolkit.Packaging.FileItem.PathRelativePackage">
             <summary>
             在压缩包内的完整路径
+            包含文件名
             </summary>
         </member>
         <member name="P:DotNEToolkit.Packaging.FileItem.Content">
@@ -1832,7 +2164,7 @@
             打包文件的类型
             </summary>
         </member>
-        <member name="M:DotNEToolkit.Packaging.FilePackage.Open(System.String,DotNEToolkit.Packaging.FilePackages)">
+        <member name="M:DotNEToolkit.Packaging.FilePackage.Create(System.String,DotNEToolkit.Packaging.FilePackages)">
             <summary>
             使用一个空流创建一个压缩包
             </summary>
@@ -1891,11 +2223,29 @@
             tar包
             </summary>
         </member>
+        <member name="F:DotNEToolkit.Packaging.FilePackages.Binary">
+            <summary>
+            把所有的数据打包成一个文件
+            </summary>
+        </member>
         <member name="T:DotNEToolkit.Packaging.TARFilePackage">
             <summary>
             https://www.moon-soft.com/program/FORMAT/comm/tar.htm
             https://blog.csdn.net/qq_20553613/article/details/109892160#:~:text=2.2%20tar%E6%96%87%E4%BB%B6%E7%89%B9%E7%82%B9%201,%E4%BB%A5512%E5%AD%97%E8%8A%82%E4%B8%BA%E4%B8%80%E4%B8%AA%E8%AE%B0%E5%BD%95%E5%9D%97%E8%BF%9B%E8%A1%8C%E8%AE%B0%E5%BD%95%E6%95%B0%E6%8D%AE%EF%BC%8C%E4%B8%8D%E8%B6%B3%E4%B8%80%E4%B8%AA%E8%AE%B0%E5%BD%95%E5%9D%97%E7%9A%84%E4%BB%A50%E5%A1%AB%E5%85%85%202%20%E4%BB%A5%E2%80%9C%E6%96%87%E4%BB%B6%E5%A4%B4%2B%E6%9C%89%E6%95%88%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E2%80%9D%E6%A0%BC%E5%BC%8F%E5%AD%98%E5%82%A8
             一个空文件打包后为512*3字节，包括一个tar结构头，一个全零的block存储文件内容，一个全零的tar结构
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Packaging.TARFilePackage.DefaultWriteBufferSize">
+            <summary>
+            默认的每次写入tar包的大小
+            默认是2M
+            这个值越大，磁盘的写入速度越高
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Packaging.TARFilePackage.WriteBufferSize">
+            <summary>
+            每次写入文件的大小
+            单位字节
             </summary>
         </member>
         <member name="T:DotNEToolkit.Packaging.ZIPFilePackage">
@@ -2217,292 +2567,6 @@
             <summary>
             重置指针状态
             </summary>
-        </member>
-        <member name="T:DotNEToolkit.Media.AudioPlay">
-            <summary>
-            一个简单的PCM播放器
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.Media.AudioPlay.Channel">
-            <summary>
-            采样通道数
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.Media.AudioPlay.SamplesPerSec">
-            <summary>
-            采样率
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.Media.AudioPlay.BitsPerSample">
-            <summary>
-            每个采样大小是16位
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.Media.AudioPlay.BlockAlign">
-            <summary>
-            块对齐, 每个采样的字节数
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.Media.AudioPlay.BytesPerSec">
-            <summary>
-            一秒钟音频所占空间大小
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.Media.AudioPlay.BufferSize">
-            <summary>
-            捕获缓冲区大小和播放缓冲区大小
-            缓冲区里的数据是一秒钟的音频数据
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.Media.AudioPlay.PlayFile(System.String)">
-            <summary>
-            播放一个音频文件
-            该方法是同步方法，会阻塞当前线程直到音频文件播放完了为止
-            </summary>
-            <param name="fileURI">要播放的音频文件的地址</param>
-        </member>
-        <member name="T:DotNEToolkit.Media.AudioPlayType">
-            <summary>
-            录音机类型
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Media.AudioPlayType.DirectSound">
-            <summary>
-            使用DirectSound录音
-            </summary>
-        </member>
-        <member name="T:DotNEToolkit.Media.AudioRecordType">
-            <summary>
-            录音机类型
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Media.AudioRecordType.DirectSound">
-            <summary>
-            使用DirectSound录音
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Media.AudioRecordType.WaveAPI">
-            <summary>
-            使用waveIn API录音
-            </summary>
-        </member>
-        <member name="T:DotNEToolkit.Media.AudioRecordFactory">
-            <summary>
-            录音机工厂
-            </summary>
-        </member>
-        <member name="T:DotNEToolkit.Media.PCMFormats">
-            <summary>
-            规定PCM数据的存储格式
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Media.PCMFormats.S16_LE">
-            <summary>
-            有符号16位整数，小尾端
-            DirectSound默认存储方式
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Media.PCMFormats.S16_BE">
-            <summary>
-            有符号16位整数，大尾端
-            </summary>
-        </member>
-        <member name="T:DotNEToolkit.Media.Audio">
-            <summary>
-            提供音频数据相关的工具函数
-            
-            分贝是一个相对量，相对于某一个标准值的倍数取对数，得到的就是贝尔Bell，分贝则是贝尔的十分之一。比如以10为标准，那么1000就是2Bell，也就是20dB。
-            计算分贝的公式：10 * log10(x / std)
-            
-            PCM数据存储格式：
-            1. 8位单声道：
-            2. 8位双声道：
-            3. 16位单声道：
-            4. 16位双声道：
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.Media.Audio.CalculateDb(System.Byte[],System.Int32,DotNEToolkit.Media.PCMFormats,System.Collections.Generic.List{System.Double}@)">
-            <summary>
-            计算音频数据的dbFS值
-            </summary>
-            <param name="channels">PCM数据</param>
-            <param name="pcm">通道数</param>
-            <param name="formats">PCM数据存储方式</param>
-            <param name="volume">声音音量，百分比单位</param>
-            <returns></returns>
-        </member>
-        <member name="T:DotNEToolkit.Media.G711">
-            <summary>
-            提供G711数据编解码函数
-            
-            https://www.jianshu.com/p/33cba1a821d0
-            g711a输入的是13位（S16的高13位），这种格式是经过特别设计的，便于数字设备进行快速运算。
-            G711的内容是将14bit(uLaw)或者13bit(aLaw)采样的PCM数据编码成8bit的数据流，播放的时候在将此8bit的数据还原成14bit或者13bit进行播放，不同于MPEG这种对于整体或者一段数据进行考虑再进行编解码的做法，G711是波形编解码算法，就是一个sample对应一个编码，所以压缩比固定为：
-            8/14 = 57% (uLaw)
-            8/13 = 62% (aLaw)
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.Media.G711.Alaw2PCM(System.Byte[])">
-            <summary>
-            alaw转PCM
-            </summary>
-            <param name="alaw"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Media.G711.Ulaw2PCM(System.Byte[])">
-            <summary>
-            ulaw转PCM
-            </summary>
-            <param name="ulaw"></param>
-            <returns></returns>
-        </member>
-        <member name="T:DotNEToolkit.Media.WaveAPIRecord">
-            <summary>
-            使用waveIn API开发的录音程序
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Media.WaveAPIRecord.free_pwh">
-            <summary>
-            WaveHeader指针
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Media.WaveAPIRecord.hwi">
-            <summary>
-            WaveIn Hwnd
-            </summary>
-        </member>
-        <member name="T:DotNEToolkit.Media.AudioDevice">
-            <summary>
-            表示一个声卡设备
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.Media.AudioDevice.Name">
-            <summary>
-            声卡设备的显示名字
-            </summary>
-        </member>
-        <member name="T:DotNEToolkit.Media.AudioRecord">
-            <summary>
-            一个录制PCM音频的录音机
-            </summary>
-        </member>
-        <member name="E:DotNEToolkit.Media.AudioRecord.DataReceived">
-            <summary>
-            录到了数据会触发
-            </summary>
-        </member>
-        <member name="E:DotNEToolkit.Media.AudioRecord.Failed">
-            <summary>
-            当录音过程中遇到错误的时候触发
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Media.AudioRecord.filePath">
-            <summary>
-            要保存的音频文件路径
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Media.AudioRecord.fileStream">
-            <summary>
-            保存的音频流文件
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Media.AudioRecord.usedDevice">
-            <summary>
-            当前正在使用的声卡设备
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.Media.AudioRecord.Channel">
-            <summary>
-            采样通道数
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.Media.AudioRecord.SamplesPerSec">
-            <summary>
-            采样率
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.Media.AudioRecord.BitsPerSample">
-            <summary>
-            每个采样大小是16位
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.Media.AudioRecord.BlockAlign">
-            <summary>
-            块对齐, 每个采样的字节数
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.Media.AudioRecord.BytesPerSec">
-            <summary>
-            一秒钟音频所占空间大小
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.Media.AudioRecord.BufferSize">
-            <summary>
-            捕获缓冲区大小和播放缓冲区大小
-            缓冲区里的数据是一秒钟的音频数据
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.Media.AudioRecord.Start">
-            <summary>
-            开始录音
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Media.AudioRecord.Stop">
-            <summary>
-            停止录音
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.Media.AudioRecord.GetAudioDevices">
-            <summary>
-            枚举系统里所有的录音设备（可以录音的声卡）
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Media.AudioRecord.SetRecordFile(System.String)">
-            <summary>
-            设置录音文件的保存路径
-            </summary>
-            <param name="filePath"></param>
-        </member>
-        <member name="M:DotNEToolkit.Media.AudioRecord.SetAudioDevice(DotNEToolkit.Media.AudioDevice)">
-            <summary>
-            设置录音程序使用的声卡
-            </summary>
-            <param name="device"></param>
-        </member>
-        <member name="T:DotNEToolkit.Media.DirectSoundRecord">
-            <summary>
-            DirectSound录音出来的数据是小尾端的数据
-            无符号16位数据
-            大尾端就是高位在低地址，小尾端就是低位在低地址。
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.Media.DirectSoundRecord.DirectSoundAudioDevice.ID">
-            <summary>
-            设备的GUID
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Media.DirectSoundRecord.NotifyEvents">
-            <summary>
-            音频缓冲区通知对象的个数
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Media.DirectSoundRecord.dsc8">
-            <summary>
-            IDirectSoundCapture8
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Media.DirectSoundRecord.dscb8">
-            <summary>
-            IDirectSoundCaptureBuffer8
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.Networks.GetMACAddress">
-            <summary>
-            获取所有网卡的MAC地址
-            </summary>
-            <returns></returns>
         </member>
         <member name="T:DotNEToolkit.Numberics">
             <summary>
@@ -3544,46 +3608,81 @@
             <param name="sourceDir">要拷贝的目录</param>
             <param name="destDir">拷贝到的目标目录</param>
         </member>
-        <member name="T:DotNEToolkit.Streams">
+        <member name="T:DotNEToolkit.Utility.NetworkUtils">
+            <summary>
+            提供网络相关的帮助函数
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.Utility.NetworkUtils.GetBroadcastAddresses">
+            <summary>
+            获取所有网卡的IPv4广播地址
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.Utility.NetworkUtils.GetMACAddress">
+            <summary>
+            获取所有网卡的MAC地址
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DotNEToolkit.Utility.ReflectionUtils">
+            <summary>
+            反射工具函数
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.Utility.ReflectionUtils.GetPropertyAttribute``1(System.Type)">
+            <summary>
+            获取某个类里的所有公开属性的某个特定类型的特性
+            </summary>
+            <typeparam name="TAttribute"></typeparam>
+            <param name="classType">要获取的类的类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.Utility.ReflectionUtils.GetPropertyAttribute``2">
+            <summary>
+            获取某个类里的所有公开属性的某个特定类型的特性
+            </summary>
+            <typeparam name="TAttribute">要获取的特性的类型</typeparam>
+            <typeparam name="TClass"></typeparam>
+            <returns>所有属性的特性集合</returns>
+        </member>
+        <member name="M:DotNEToolkit.Utility.ReflectionUtils.GetClassAttribute``2">
+            <summary>
+            获取某个类上的自定义特性
+            </summary>
+            <typeparam name="TAttribute"></typeparam>
+            <typeparam name="TClass"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:DotNEToolkit.StreamUtils">
             <summary>
             封装对流的一些操作
             </summary>
         </member>
-        <member name="F:DotNEToolkit.Streams.BufferSize">
-            <summary>
-            一次读取1024个字节
-            </summary>
-        </member>
-        <member name="M:DotNEToolkit.Streams.ReadFull(System.IO.Stream,System.Int64)">
+        <member name="M:DotNEToolkit.StreamUtils.ReadFull(System.IO.Stream,System.Byte[])">
             <summary>
             从流中读取数据，一直读满size个字节为止
             </summary>
             <param name="stream"></param>
-            <param name="size"></param>
+            <param name="bytes"></param>
             <returns></returns>
         </member>
-        <member name="M:DotNEToolkit.Streams.ReadFull(System.Func{System.Byte[],System.Int32,System.Int32,System.Int32},System.Int32)">
-            <summary>
-            读取指定大小的数据
-            </summary>
-            <param name="readFunc"></param>
-            <param name="howMuch">要读取的字节数</param>
-            <returns></returns>
-        </member>
-        <member name="T:DotNEToolkit.Sockets">
+        <member name="T:DotNEToolkit.SocketUtils">
             <summary>
             封装可以快速操作Socket的方法
             </summary>
         </member>
-        <member name="M:DotNEToolkit.Sockets.ReceiveFull(System.Net.Sockets.Socket,System.Byte[])">
+        <member name="M:DotNEToolkit.SocketUtils.ReceiveFull(System.Net.Sockets.Socket,System.Byte[],System.Int32)">
             <summary>
             读取一段完整的数据
+            注意当该函数返回false的时候，应该关闭Socket
             </summary>
             <param name="socket"></param>
             <param name="data"></param>
+            <param name="timeout">超时时间，如果超过此时间还没有收到完整的数据，那么就返回false</param>
             <returns></returns>
         </member>
-        <member name="M:DotNEToolkit.Sockets.SendFull(System.Net.Sockets.Socket,System.Byte[])">
+        <member name="M:DotNEToolkit.SocketUtils.SendFull(System.Net.Sockets.Socket,System.Byte[])">
             <summary>
             发送一段完整的数据
             </summary>
@@ -3717,7 +3816,28 @@
             </summary>
             <param name="chars">返回不完整的行的数据</param>
         </member>
-        <member name="M:DotNEToolkit.Collections.GetValue``1(System.Collections.IDictionary,System.String)">
+        <member name="M:DotNEToolkit.CollectionUtils.GetValue``1(System.Collections.IDictionary,System.Object,``0)">
+            <summary>
+            把字典里的数据转成对应类型的数据
+            支持把枚举字符串和枚举值转换成枚举类型
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="settings"></param>
+            <param name="key"></param>
+            <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.CollectionUtils.GetJSONValue``1(System.Collections.IDictionary,System.String,``0)">
+            <summary>
+            从字典里获取JSON格式化的数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="parameters"></param>
+            <param name="key"></param>
+            <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.CollectionUtils.GetValue``1(System.Collections.IDictionary,System.String)">
             <summary>
             如果不存在对应的Key，那么直接抛异常
             </summary>
@@ -3726,18 +3846,7 @@
             <param name="key"></param>
             <returns></returns>
         </member>
-        <member name="M:DotNEToolkit.Collections.GetJSONObject``1(System.Collections.IDictionary,System.String,``0)">
-            <summary>
-            从一个字典里获取一个JSON格式的对象
-            如果不存在该参数或者序列化失败, 那么返回defaultValue
-            </summary>
-            <typeparam name="TValue"></typeparam>
-            <param name="parameters"></param>
-            <param name="key"></param>
-            <param name="defaultValue"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DotNEToolkit.Collections.Join(System.Collections.Generic.IEnumerable{System.String},System.String)">
+        <member name="M:DotNEToolkit.CollectionUtils.Join(System.Collections.Generic.IEnumerable{System.String},System.String)">
             <summary>
             把字符串数组中的所有元素放入一个字符串。
             </summary>
@@ -3745,7 +3854,7 @@
             <param name="separator">指定要使用的分隔符</param>
             <returns></returns>
         </member>
-        <member name="M:DotNEToolkit.Collections.HasDuplicated(System.Collections.Generic.List{System.String})">
+        <member name="M:DotNEToolkit.CollectionUtils.HasDuplicated(System.Collections.Generic.List{System.String})">
             <summary>
             判断一个集合里是否有重复元素
             </summary>
@@ -3773,7 +3882,7 @@
         </member>
         <member name="M:DotNEToolkit.JSONHelper.Parse``1(System.String,``0)">
             <summary>
-            
+            把一个JSON字符串转换成一个JSON对象
             </summary>
             <typeparam name="TResult"></typeparam>
             <param name="json"></param>
@@ -3792,11 +3901,31 @@
         </member>
         <member name="M:DotNEToolkit.JSONHelper.ParseFile``1(System.String,``0)">
             <summary>
-            
+            把一个文件序列化成JSON对象
             </summary>
             <typeparam name="TResult"></typeparam>
             <param name="filePath"></param>
             <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.JSONHelper.File2Object``1(System.String,``0)">
+            <summary>
+            把一个文件序列化成JSON对象
+            如果解析失败, 不会抛异常, 会返回defaultObject
+            </summary>
+            <typeparam name="TObject"></typeparam>
+            <param name="filePath"></param>
+            <param name="defaultObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.JSONHelper.File2Object``1(System.String)">
+            <summary>
+            把一个json文件序列化成C#对象
+            该函数不会对异常做处理，异常由调用者截获并处理
+            如果该函数对异常做处理，那么调用者可能不知道出现异常的详细原因
+            </summary>
+            <typeparam name="TObject"></typeparam>
+            <param name="filePath"></param>
             <returns></returns>
         </member>
         <member name="M:DotNEToolkit.JSONHelper.Object2File``1(System.String,``0)">
@@ -4110,18 +4239,55 @@
             初始化IHostedModule失败
             </summary>
         </member>
-        <member name="T:DotNEToolkit.Reflections">
+        <member name="T:DotNEToolkit.SDK.libvlc.libvlc_media_open_cb">
             <summary>
-            反射工具函数
+            
             </summary>
+            <param name="opaque">private pointer as passed to libvlc_media_new_callbacks()</param>
+            <param name="datap">storage space for a private data pointer [OUT]</param>
+            <param name="sizep">byte length of the bitstream or UINT64_MAX if unknown [OUT]</param>
+            <returns>
+            0 on success, non-zero on error. In case of failure, the other
+            callbacks will not be invoked and any value stored in *datap and *sizep is
+            discarded.
+            </returns>
         </member>
-        <member name="M:DotNEToolkit.Reflections.GetClassAttribute``2">
+        <member name="T:DotNEToolkit.SDK.libvlc.libvlc_media_read_cb">
             <summary>
-            获取某个类上的自定义特性
+            
             </summary>
-            <typeparam name="TAttribute"></typeparam>
-            <typeparam name="TClass"></typeparam>
-            <returns></returns>
+            <param name="opaque">private pointer as set by the @ref libvlc_media_open_cb callback</param>
+            <param name="buf">start address of the buffer to read data into</param>
+            <param name="len">bytes length of the buffer</param>
+            <remarks>
+            If no data is immediately available, then the callback should sleep.
+            </remarks>
+            <returns>
+            strictly positive number of bytes read, 0 on end-of-stream, or -1 on non-recoverable error
+            </returns>
+        </member>
+        <member name="T:DotNEToolkit.SDK.libvlc.libvlc_media_seek_cb">
+            <summary>
+            Callback prototype to seek a custom bitstream input media.
+            </summary>
+            <param name="opaque">private pointer as set by the @ref libvlc_media_open_cb callback</param>
+            <param name="offset">absolute byte offset to seek to</param>
+            <returns>0 on success, -1 on error.</returns>
+        </member>
+        <member name="T:DotNEToolkit.SDK.libvlc.libvlc_media_close_cb">
+            <summary>
+            Callback prototype to seek a custom bitstream input media.
+            </summary>
+            <param name="opaque">private pointer as set by the @ref libvlc_media_open_cb callback</param>
+        </member>
+        <member name="M:DotNEToolkit.SDK.libvlc.libvlc_video_set_scale(System.IntPtr,System.Single)">
+            <summary>
+            Set the video scaling factor。
+            Zero is a special value; it will adjust the video to the output
+            window/drawable(in windowed mode) or the entire screen.
+            </summary>
+            <param name="player"></param>
+            <param name="f_factor"></param>
         </member>
         <member name="M:DotNEToolkit.SDK.libvlc.QuickPlay(System.String,System.IntPtr)">
             <summary>
@@ -4135,6 +4301,147 @@
             表示一个单例对象
             </summary>
             <typeparam name="T">单例类的类型</typeparam>
+        </member>
+        <member name="T:DotNEToolkit.CellSpan">
+            <summary>
+            指定某个单元格的跨行方式
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.CellSpan.None">
+            <summary>
+            不跨行
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.CellSpan.RowSpan">
+            <summary>
+            跨行
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.CellSpan.ColSpan">
+            <summary>
+            跨列
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.CellData">
+            <summary>
+            存储一个单元格的数据
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.CellData.Row">
+            <summary>
+            该单元格所在行
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.CellData.Column">
+            <summary>
+            单元格所在列
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.CellData.Value">
+            <summary>
+            单元格的值
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.CellData.SpanType">
+            <summary>
+            单元格的跨行或跨列方式
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.CellData.Span">
+            <summary>
+            单元格跨了几个单元格
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.CellData.#ctor">
+            <summary>
+            创建一个空的CellData
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.TableData">
+            <summary>
+            描述表格类型的数据
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.TableData.IsEmpty">
+            <summary>
+            返回该TableData是否为空
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.TableData.Set(System.Int32,System.Int32,System.Object)">
+            <summary>
+            设置某个单元格的值
+            如果重复设置，那么会覆盖之前的值
+            </summary>
+            <param name="row"></param>
+            <param name="col"></param>
+            <param name="value">该单元格的值</param>
+        </member>
+        <member name="M:DotNEToolkit.TableData.Set(System.Int32,System.Int32,DotNEToolkit.CellSpan,System.Int32,System.Object)">
+            <summary>
+            设置某个跨行或者跨列单元格的值
+            如果重复设置，那么会覆盖之前的值
+            </summary>
+            <param name="row"></param>
+            <param name="col"></param>
+            <param name="spanType"></param>
+            <param name="span"></param>
+            <param name="value">该单元格的值</param>
+        </member>
+        <member name="M:DotNEToolkit.TableData.Get(System.Int32,System.Int32)">
+            <summary>
+            读取某个单元格的值
+            </summary>
+            <param name="row"></param>
+            <param name="col"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.TableData.Clear(System.Int32,System.Int32)">
+            <summary>
+            清除指定的单元格
+            </summary>
+            <param name="row">单元格所在行</param>
+            <param name="col">单元格所在列</param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.TableData.GetRows">
+            <summary>
+            获取最后一行的位置
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.TableData.GetColumns">
+            <summary>
+            获取最后一列的位置
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.TableData.GetRows(System.Int32)">
+            <summary>
+            获取某一列的最后一个行的位置
+            </summary>
+            <param name="column"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.TableData.GetColumns(System.Int32)">
+            <summary>
+            获取某一行的最后一列的位置
+            </summary>
+            <param name="row"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.TableData.Merge(DotNEToolkit.TableData)">
+            <summary>
+            和tableData合并
+            把tableData追加到该tableData下面
+            </summary>
+            <param name="tableData">要合并的tableData</param>
+        </member>
+        <member name="M:DotNEToolkit.TableData.Create">
+            <summary>
+            创建一个TableData的实例
+            </summary>
+            <returns>TableData实例</returns>
         </member>
         <member name="T:DotNEToolkit.TcpFramework.IDataResolver">
             <summary>
