@@ -21,6 +21,8 @@ namespace WPFToolkit.MVVM
 
         protected bool isChecked;
 
+        protected bool isVisible;
+
         #endregion
 
         #region 属性
@@ -83,6 +85,19 @@ namespace WPFToolkit.MVVM
                     this.isChecked = value;
                     this.NotifyPropertyChanged("IsChecked");
                 }
+            }
+        }
+
+        /// <summary>
+        /// 是否显示该节点
+        /// </summary>
+        public bool IsVisible
+        {
+            get { return this.isVisible; }
+            set
+            {
+                this.isVisible = value;
+                this.NotifyPropertyChanged("IsVisible");
             }
         }
 
