@@ -66,7 +66,9 @@
     <Compile Include="Attributes\EnumMemberAttribute.cs" />
     <Compile Include="Attributes\ItemsSourceAttribute.cs" />
     <Compile Include="ColorConverter.cs" />
-    <Compile Include="Controls\AVGPanel.cs" />
+    <Compile Include="Panels\AVGPanel.cs" />
+    <Compile Include="Panels\CircularPanel.cs" />
+    <Compile Include="Utils\ControlUtils.cs" />
     <Compile Include="YControls\KButton.cs" />
     <Compile Include="YControls\KColorPicker.cs" />
     <Compile Include="YControls\KComboBox.cs" />
@@ -104,7 +106,7 @@
     <Compile Include="MVVM\IExpandableViewModel.cs" />
     <Compile Include="MVVM\Interactivity\Behavior.cs" />
     <Compile Include="MVVM\Interactivity\Behaviors\EventActionBehavior.cs" />
-    <Compile Include="Extentions\ItemsControlExtention.cs" />
+    <Compile Include="Utils\ItemsControlUtils.cs" />
     <Compile Include="MVVM\Interactivity\Behaviors\MenuBehavior.cs" />
     <Compile Include="MVVM\Interactivity\Interaction.cs" />
     <Compile Include="MVVM\Interactivity\Service.cs" />
@@ -137,7 +139,7 @@
     </Compile>
     <Compile Include="FontUtility.cs" />
     <Compile Include="ImageUtility.cs" />
-    <Compile Include="Extentions\VisualTreeExtentons.cs" />
+    <Compile Include="Utils\VisualTreeUtils.cs" />
     <Compile Include="ThemeManager.cs" />
     <Compile Include="Themes\SharedDictionaryManager.cs" />
     <Compile Include="Windows\SplashScreenWindow.xaml.cs">

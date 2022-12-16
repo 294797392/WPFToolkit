@@ -10,7 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace WPFToolkit.Extentions
+namespace WPFToolkit.Utils
 {
     public class SelectionCompletedEventArgs : RoutedEventArgs
     {
@@ -73,7 +73,7 @@ namespace WPFToolkit.Extentions
     /// 
     /// 注意，如果ItemsControl开启了虚拟化支持，那么请设置：VirtualizingPanel.ScrollUnit="Pixel"，不然获取不到ScrollViewer所滚动的距离
     /// </summary>
-    public class ItemsControlExtention : DependencyObject
+    public class ItemsControlUtils : DependencyObject
     {
         #region AutoBringIntoView
 
@@ -90,7 +90,7 @@ namespace WPFToolkit.Extentions
         /// <summary>
         /// 当列表项被选中的时候，是否自动让滚动条滚动到列表项可见区域
         /// </summary>
-        public static readonly DependencyProperty AutoBringIntoViewProperty = DependencyProperty.RegisterAttached("AutoBringIntoView", typeof(bool), typeof(ItemsControlExtention), new PropertyMetadata(false, AutoBringIntoViewChangedCallback));
+        public static readonly DependencyProperty AutoBringIntoViewProperty = DependencyProperty.RegisterAttached("AutoBringIntoView", typeof(bool), typeof(ItemsControlUtils), new PropertyMetadata(false, AutoBringIntoViewChangedCallback));
 
         private static void AutoBringIntoViewChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -154,7 +154,7 @@ namespace WPFToolkit.Extentions
             obj.SetValue(SelectionAreaProperty, value);
         }
 
-        public static readonly DependencyProperty SelectionAreaProperty = DependencyProperty.RegisterAttached("SelectionArea", typeof(SelectionArea), typeof(ItemsControlExtention), new PropertyMetadata(null, SelectionAreaPropertyChangedCallback));
+        public static readonly DependencyProperty SelectionAreaProperty = DependencyProperty.RegisterAttached("SelectionArea", typeof(SelectionArea), typeof(ItemsControlUtils), new PropertyMetadata(null, SelectionAreaPropertyChangedCallback));
 
         private static void SelectionAreaPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

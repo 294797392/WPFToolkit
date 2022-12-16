@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:demo="clr-namespace:WPFToolkitDemo"
         xmlns:demouc="clr-namespace:WPFToolkitDemo.UserControls"
-        xmlns:ext="clr-namespace:WPFToolkit.Extentions;assembly=WPFToolkit"
         xmlns:Ycontrol="clr-namespace:WPFToolkit.YControls;assembly=WPFToolkit"
         mc:Ignorable="d"
         Title="MainWindow" Height="1000" Width="1000">
