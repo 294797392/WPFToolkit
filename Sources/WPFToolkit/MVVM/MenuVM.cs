@@ -187,8 +187,10 @@ namespace WPFToolkit.MVVM
             this.ParseMenuDefinition(filePath);
         }
 
-        public void InvokeWhenSelectionChanged()
+        public void InvokeWhenSelectionChanged(MenuItemVM selectedMenu)
         {
+            this.SelectedMenu = selectedMenu;
+
             if (this.SelectedMenu == null)
             {
                 return;
@@ -258,6 +260,11 @@ namespace WPFToolkit.MVVM
             }
 
             this.previouseSelectedMenu = this.SelectedMenu;
+        }
+
+        public void InvokeWhenSelectionChanged()
+        {
+            this.InvokeWhenSelectionChanged(this.SelectedMenu);
         }
 
         #endregion
