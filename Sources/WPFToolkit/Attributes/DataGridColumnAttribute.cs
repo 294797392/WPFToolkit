@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace WPFToolkit.Attributes
 {
@@ -29,9 +30,16 @@ namespace WPFToolkit.Attributes
         /// </summary>
         public string DataTemplateURI { get; set; }
 
+        /// <summary>
+        /// 列宽度
+        /// 默认平分
+        /// </summary>
+        public DataGridLength Width { get; set; }
+
         public DataGridColumnAttribute(string title)
         {
             this.Title = title;
+            this.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
         }
     }
 }

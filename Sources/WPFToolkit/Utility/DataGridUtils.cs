@@ -64,7 +64,7 @@ namespace WPFToolkit.Utility
                     // 创建模板类型的数据
                     DataGridTemplateColumn templateColumn = new DataGridTemplateColumn();
                     templateColumn.Header = attribute.Title;
-                    templateColumn.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
+                    templateColumn.Width = attribute.Width;
                     templateColumn.CellTemplate = string.IsNullOrEmpty(attribute.DataTemplateURI) ? null : dataGrid.FindResource(attribute.DataTemplateURI) as DataTemplate;
 
                     dataGrid.Columns.Add(templateColumn);
