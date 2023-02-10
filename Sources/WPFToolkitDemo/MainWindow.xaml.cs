@@ -15,11 +15,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPFToolkit;
+using WPFToolkit.Attributes;
 using WPFToolkit.Utility;
 using WPFToolkit.Windows;
 
 namespace WPFToolkitDemo
 {
+    public class A
+    {
+        [DataGridColumn("名字", DataTemplateURI = "DataTemplate1")]
+        public string Name { get; set; }
+
+        [DataGridColumn("编号", DataTemplateURI = "DataTemplate1")]
+        public string ID { get; set; }
+    }
+
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
@@ -30,6 +40,17 @@ namespace WPFToolkitDemo
             InitializeComponent();
 
             ThemeManager.ApplyDefaultTheme();
+
+            List<A> list = new List<A>();
+            for (int i = 0; i < 100; i++)
+            {
+                A a = new A();
+                a.Name = Guid.NewGuid().ToString();
+                a.ID = Guid.NewGuid().ToString();
+                list.Add(a);
+            }
+
+            DataGrid1.ItemsSource = list;
         }
     }
 }
