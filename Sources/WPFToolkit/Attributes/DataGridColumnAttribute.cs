@@ -32,14 +32,19 @@ namespace WPFToolkit.Attributes
 
         /// <summary>
         /// 列宽度
-        /// 默认平分
         /// </summary>
-        public DataGridLength Width { get; set; }
+        public double Width { get; set; }
+
+        /// <summary>
+        /// 列宽度类型
+        /// </summary>
+        public DataGridLengthUnitType WidthUnitType { get; set; }
 
         public DataGridColumnAttribute(string title)
         {
             this.Title = title;
-            this.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
+            this.Width = 1;
+            this.WidthUnitType = DataGridLengthUnitType.Star;
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using DotNEToolkit.Utility;
 using WPFToolkit.Attributes;
 
@@ -15,6 +16,27 @@ namespace WPFToolkit.Utility
     /// </summary>
     public class DataGridUtils : DependencyObject
     {
+        #region 类方法
+
+        private static DataTemplate CreateDefaultDataTemplate(string propertyName)
+        {
+            DataTemplate dataTemplate = new DataTemplate();
+
+            FrameworkElementFactory grid = new FrameworkElementFactory(typeof(Grid));
+
+            FrameworkElementFactory textBlock = new FrameworkElementFactory(typeof(TextBlock));
+            textBlock.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
+            textBlock.SetValue(TextBlock.HorizontalAlignmentProperty, HorizontalAlignment.Center);
+            textBlock.SetBinding(TextBlock.TextProperty, new Binding(propertyName));
+            grid.AppendChild(textBlock);
+
+            dataTemplate.VisualTree = grid;
+
+            return dataTemplate;
+        }
+
+        #endregion
+
         public static bool GetAutoGenerateColumn(DependencyObject obj)
         {
             return (bool)obj.GetValue(AutoGenerateColumnProperty);
@@ -48,6 +70,15 @@ namespace WPFToolkit.Utility
             {
                 // 一项的数据类型
                 Type itemType = GetAutoGenerateColumnDataType(dataGrid);
+                if (itemType == null)
+                {
+                    // 如果没设置数据类型，那么取项里的第一个数据类型
+                    if (dataGrid.Items.Count == 0)
+                    {
+                        return;
+                    }
+                    itemType = dataGrid.Items[0].GetType();
+                }
 
                 // 反射获取所有带有DataGridColumn特性的属性
                 List<PropertyAttribute<DataGridColumnAttribute>> properties = ReflectionUtils.GetPropertyAttribute<DataGridColumnAttribute>(itemType);
@@ -64,8 +95,20 @@ namespace WPFToolkit.Utility
                     // 创建模板类型的数据
                     DataGridTemplateColumn templateColumn = new DataGridTemplateColumn();
                     templateColumn.Header = attribute.Title;
-                    templateColumn.Width = attribute.Width;
-                    templateColumn.CellTemplate = string.IsNullOrEmpty(attribute.DataTemplateURI) ? null : dataGrid.FindResource(attribute.DataTemplateURI) as DataTemplate;
+                    templateColumn.Width = new DataGridLength(attribute.Width, attribute.WidthUnitType);
+
+                    // 设置DataTemplate
+                    DataTemplate dataTemplate = null;
+                    if (!string.IsNullOrEmpty(attribute.DataTemplateURI))
+                    {
+                        dataTemplate = dataGrid.TryFindResource(attribute.DataTemplateURI) as DataTemplate;
+                    }
+                    if (dataTemplate == null)
+                    {
+                        dataTemplate = CreateDefaultDataTemplate(property.Property.Name);
+                    }
+
+                    templateColumn.CellTemplate = dataTemplate;
 
                     dataGrid.Columns.Add(templateColumn);
                 }

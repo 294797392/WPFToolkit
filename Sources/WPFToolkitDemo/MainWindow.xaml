@@ -65,12 +65,12 @@
         <DataGrid x:Name="DataGrid1" 
                   AutoGenerateColumns="False" IsReadOnly="True"
                   utility:DataGridUtils.AutoGenerateColumn="True"
-                  utility:DataGridUtils.AutoGenerateColumnDataType="{x:Type demo:A}">
-            <DataGrid.Resources>
+                  >
+            <!--<DataGrid.Resources>
                 <DataTemplate x:Key="DataTemplate1">
                     <TextBlock Text="{Binding Path=Name}"/>
                 </DataTemplate>
-            </DataGrid.Resources>
+            </DataGrid.Resources>-->
         </DataGrid>
 
     </Grid>
