@@ -16,41 +16,55 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPFToolkit;
 using WPFToolkit.Attributes;
+using WPFToolkit.MVVM;
 using WPFToolkit.Utility;
 using WPFToolkit.Windows;
 
 namespace WPFToolkitDemo
 {
-    public class A
-    {
-        [DataGridColumn("名字", DataTemplateURI = "DataTemplate1")]
-        public string Name { get; set; }
-
-        [DataGridColumn("编号", DataTemplateURI = "DataTemplate1")]
-        public string ID { get; set; }
-    }
-
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MenuVM menuVM;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            ThemeManager.ApplyDefaultTheme();
+            this.InitializeWindow();
+        }
 
-            List<A> list = new List<A>();
-            for (int i = 0; i < 100; i++)
+        private void InitializeWindow()
+        {
+            this.menuVM = new MenuVM();
+            this.menuVM.Initialize("menu.json");
+            ListBoxMenuItems.DataContext = this.menuVM;
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0)
             {
-                A a = new A();
-                a.Name = Guid.NewGuid().ToString();
-                a.ID = Guid.NewGuid().ToString();
-                list.Add(a);
+                MenuItemVM selectedMenu = e.AddedItems[0] as MenuItemVM;
+                if (selectedMenu.MenuItems.Count > 0)
+                {
+                    MenuItemVM firstSelectedMenu = selectedMenu.MenuItems.FirstOrDefault(v => v.IsSelected);
+                    if (firstSelectedMenu != null)
+                    {
+                        this.menuVM.InvokeWhenSelectionChanged(firstSelectedMenu);
+                    }
+                    else
+                    {
+                        selectedMenu.MenuItems[0].IsSelected = true;
+                    }
+                }
+                else
+                {
+                    this.menuVM.InvokeWhenSelectionChanged(selectedMenu);
+                }
             }
-
-            DataGrid1.ItemsSource = list;
         }
     }
 }

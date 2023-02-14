@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace WPFToolkit.Controls
+namespace WPFToolkit.Panels
 {
     /// <summary>
     /// 一个可以根据内容平分高度的面板
