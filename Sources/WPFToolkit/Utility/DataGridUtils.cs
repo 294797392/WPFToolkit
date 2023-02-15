@@ -18,7 +18,7 @@ namespace WPFToolkit.Utility
     {
         #region 类方法
 
-        private static DataTemplate CreateDefaultDataTemplate(string propertyName)
+        private static DataTemplate CreateDefaultDataTemplate(PropertyAttribute<DataGridColumnAttribute> attribute)
         {
             DataTemplate dataTemplate = new DataTemplate();
 
@@ -26,8 +26,8 @@ namespace WPFToolkit.Utility
 
             FrameworkElementFactory textBlock = new FrameworkElementFactory(typeof(TextBlock));
             textBlock.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
-            textBlock.SetValue(TextBlock.HorizontalAlignmentProperty, HorizontalAlignment.Center);
-            textBlock.SetBinding(TextBlock.TextProperty, new Binding(propertyName));
+            textBlock.SetValue(TextBlock.HorizontalAlignmentProperty, attribute.Attribute.HorizontalContentAlignment);
+            textBlock.SetBinding(TextBlock.TextProperty, new Binding(attribute.Attribute.Title));
             grid.AppendChild(textBlock);
 
             dataTemplate.VisualTree = grid;
@@ -87,8 +87,10 @@ namespace WPFToolkit.Utility
                     return;
                 }
 
+                List<PropertyAttribute<DataGridColumnAttribute>> orderedProperties = properties.OrderBy(v => v.Attribute.Index).ToList();
+
                 // 遍历并动态生成列
-                foreach (PropertyAttribute<DataGridColumnAttribute> property in properties)
+                foreach (PropertyAttribute<DataGridColumnAttribute> property in orderedProperties)
                 {
                     DataGridColumnAttribute attribute = property.Attribute;
 
@@ -105,7 +107,7 @@ namespace WPFToolkit.Utility
                     }
                     if (dataTemplate == null)
                     {
-                        dataTemplate = CreateDefaultDataTemplate(property.Property.Name);
+                        dataTemplate = CreateDefaultDataTemplate(property);
                     }
 
                     templateColumn.CellTemplate = dataTemplate;

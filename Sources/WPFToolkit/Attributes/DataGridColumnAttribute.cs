@@ -15,6 +15,11 @@ namespace WPFToolkit.Attributes
     public class DataGridColumnAttribute : Attribute
     {
         /// <summary>
+        /// 该列的索引
+        /// </summary>
+        public int Index { get; set; }
+
+        /// <summary>
         /// 列标题
         /// </summary>
         public string Title { get; set; }
@@ -40,11 +45,17 @@ namespace WPFToolkit.Attributes
         /// </summary>
         public DataGridLengthUnitType WidthUnitType { get; set; }
 
+        /// <summary>
+        /// 该列里的水平对齐方式
+        /// </summary>
+        public HorizontalAlignment HorizontalContentAlignment { get; set; }
+
         public DataGridColumnAttribute(string title)
         {
             this.Title = title;
             this.Width = 1;
             this.WidthUnitType = DataGridLengthUnitType.Star;
+            this.HorizontalContentAlignment = HorizontalAlignment.Center;
         }
     }
 }

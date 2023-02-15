@@ -30,7 +30,7 @@ namespace WPFToolkitDemo.UserControls
         private void InitializeUserControl()
         {
             List<string> items = new List<string>();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 0; i++)
             {
                 items.Add(i.ToString());
             }

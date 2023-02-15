@@ -11,13 +11,13 @@ namespace WPFToolkit.Panels
 {
     public class CircularPanel : Panel
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="availableSize">FrameworkElement所测量到的可供Panel使用的空间大小</param>
+        /// <returns></returns>
         protected override Size MeasureOverride(Size availableSize)
         {
-            if (base.InternalChildren.Count == 0)
-            {
-                return availableSize;
-            }
-
             Size size = new Size();
 
             foreach (UIElement element in base.InternalChildren)
@@ -27,28 +27,18 @@ namespace WPFToolkit.Panels
                 size.Height += element.DesiredSize.Height;
             }
 
+            Console.WriteLine("MeasureW = {0}, MeasureH = {1}", size.Width, size.Height);
+
             return size;
-        }
-
-        protected override void OnRender(DrawingContext dc)
-        {
-            base.OnRender(dc);
-
-            Console.WriteLine("W = {0}, H = {1}", this.RenderSize.Width, this.RenderSize.Height);
         }
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            if (base.InternalChildren.Count == 0)
-            {
-                return finalSize;
-            }
-
             double offsetX = finalSize.Width / 2;
             double offsetY = finalSize.Height / 2;
             double diameter = Math.Min(finalSize.Width, finalSize.Height);
             double radius = diameter / 2;
-            double anglePerStation = 360 / base.InternalChildren.Count;
+            double anglePerStation = base.InternalChildren.Count == 0 ? 0 : 360 / base.InternalChildren.Count;
             int childIndex = 0;
 
             foreach (UIElement element in base.InternalChildren)
@@ -64,7 +54,7 @@ namespace WPFToolkit.Panels
                 x += offsetX;
                 y += offsetY;
 
-                Console.WriteLine("X = {0}, Y = {1}", x, y);
+                //Console.WriteLine("X = {0}, Y = {1}", x, y);
 
                 Rect position = new Rect(x, y, element.DesiredSize.Width, element.DesiredSize.Height);
                 element.Arrange(position);
@@ -72,7 +62,16 @@ namespace WPFToolkit.Panels
                 childIndex++;
             }
 
+            Console.WriteLine("ArrangeW = {0}, ArrangeH = {1}", finalSize.Width, finalSize.Height);
+
             return finalSize;
+        }
+
+        protected override void OnRender(DrawingContext dc)
+        {
+            base.OnRender(dc);
+
+            Console.WriteLine("RenderW = {0}, RenderH = {1}", this.RenderSize.Width, this.RenderSize.Height);
         }
     }
 }
