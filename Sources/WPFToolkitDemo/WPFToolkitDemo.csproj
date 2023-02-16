@@ -81,6 +81,9 @@
     <Compile Include="UserControls\CircularPanelUserControl.xaml.cs">
       <DependentUpon>CircularPanelUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\DataGridUtilsUserControl.xaml.cs">
+      <DependentUpon>DataGridUtilsUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\GenericControlUserControl.xaml.cs">
       <DependentUpon>GenericControlUserControl.xaml</DependentUpon>
     </Compile>
@@ -120,6 +123,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\CircularPanelUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\DataGridUtilsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

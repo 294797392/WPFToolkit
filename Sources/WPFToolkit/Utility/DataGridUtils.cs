@@ -27,7 +27,7 @@ namespace WPFToolkit.Utility
             FrameworkElementFactory textBlock = new FrameworkElementFactory(typeof(TextBlock));
             textBlock.SetValue(TextBlock.VerticalAlignmentProperty, VerticalAlignment.Center);
             textBlock.SetValue(TextBlock.HorizontalAlignmentProperty, attribute.Attribute.HorizontalContentAlignment);
-            textBlock.SetBinding(TextBlock.TextProperty, new Binding(attribute.Attribute.Title));
+            textBlock.SetBinding(TextBlock.TextProperty, new Binding(attribute.Property.Name));
             grid.AppendChild(textBlock);
 
             dataTemplate.VisualTree = grid;
