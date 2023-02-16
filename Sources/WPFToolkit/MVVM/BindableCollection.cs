@@ -18,10 +18,32 @@ namespace WPFToolkit.MVVM
 
         private T selectedItem;
         private ObservableCollection<T> selectedItems;
+        private string id;
+        private string name;
 
         #endregion
 
         #region 属性
+
+        public string ID
+        {
+            get { return this.id; }
+            set
+            {
+                this.id = value;
+                base.OnPropertyChanged(new PropertyChangedEventArgs("ID"));
+            }
+        }
+
+        public string Name
+        {
+            get { return this.name; }
+            set
+            {
+                this.name = value;
+                base.OnPropertyChanged(new PropertyChangedEventArgs("Name"));
+            }
+        }
 
         /// <summary>
         /// 当前选中的项

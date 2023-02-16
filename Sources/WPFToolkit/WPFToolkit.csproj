@@ -67,6 +67,7 @@
     <Compile Include="Attributes\EnumMemberAttribute.cs" />
     <Compile Include="Attributes\ItemsSourceAttribute.cs" />
     <Compile Include="ColorConverter.cs" />
+    <Compile Include="Controls\TreeListView\TreeListView.cs" />
     <Compile Include="Panels\AVGPanel.cs" />
     <Compile Include="Panels\CircularPanel.cs" />
     <Compile Include="Utility\ControlUtils.cs" />
@@ -164,6 +165,10 @@
     <Page Include="ClearDefaultStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="Controls\TreeListView\Template.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Blue.xaml">
       <SubType>Designer</SubType>
