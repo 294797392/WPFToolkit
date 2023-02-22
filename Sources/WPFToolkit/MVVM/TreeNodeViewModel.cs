@@ -21,6 +21,8 @@ namespace WPFToolkit.MVVM
 
         /// <summary>
         /// 该节点下的子节点列表
+        /// 不要使用Children.Add和Children.Remove去增加和删除子节点
+        /// 请调用AddChildNode和RemoveChildNode方法去增加和删除子节点
         /// </summary>
         public ObservableCollection<TreeNodeViewModel> Children { get; private set; }
 
@@ -119,6 +121,19 @@ namespace WPFToolkit.MVVM
             }
         }
 
+        public override bool IsVisible
+        {
+            get 
+            {
+                return this.isVisible;
+            }
+            set 
+            {
+                this.isVisible = value;
+                this.NotifyPropertyChanged("IsVisible");
+            }
+        }
+
         #endregion
 
         #region 构造方法
@@ -128,6 +143,10 @@ namespace WPFToolkit.MVVM
             this.Context = context;
             this.Children = new ObservableCollection<TreeNodeViewModel>();
             this.Data = data;
+            this.IsVisible = true;
+            this.IsChecked = false;
+            this.IsSelected = false;
+            this.IsExpanded = false;
         }
 
         #endregion
@@ -142,7 +161,7 @@ namespace WPFToolkit.MVVM
         {
             node.Parent = this;
             this.Children.Add(node);
-            this.Context.NodeMap[node.ID.ToString()] = node;
+            this.Context.AddNode(node);
         }
 
         /// <summary>
@@ -153,8 +172,14 @@ namespace WPFToolkit.MVVM
         {
             node.Parent = null;
             this.Children.Remove(node);
-            this.Context.NodeMap.Remove(node.ID.ToString());
+            this.Context.RemoveNode(node.ID.ToString());
         }
+
+        /// <summary>
+        /// 当子节点加载完毕的时候触发
+        /// </summary>
+        public virtual void OnInitialized()
+        { }
 
         #endregion
     }

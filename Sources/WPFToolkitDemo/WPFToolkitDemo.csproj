@@ -93,6 +93,9 @@
     <Compile Include="UserControls\KComboBoxDemo.xaml.cs">
       <DependentUpon>KComboBoxDemo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\TreeListViewUserControl.xaml.cs">
+      <DependentUpon>TreeListViewUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\EnumItemsSourceVM.cs" />
     <Compile Include="VisualTreeExtentionsDemo.xaml.cs">
       <DependentUpon>VisualTreeExtentionsDemo.xaml</DependentUpon>
@@ -139,6 +142,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\KComboBoxDemo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TreeListViewUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

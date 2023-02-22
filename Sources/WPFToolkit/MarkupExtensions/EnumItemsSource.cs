@@ -20,22 +20,29 @@ namespace WPFToolkit.MarkupExtensions
         public Type EnumType { get; set; }
 
         /// <summary>
+        /// 枚举类型的名字
+        /// 优先使用EnumTypeName进行反射
+        /// </summary>
+        public string EnumTypeName { get; set; }
+
+        /// <summary>
         /// 对值进行转换的转换器
         /// </summary>
         public IValueConverter EnumMemberConverter { get; set; }
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            if (this.EnumType == null || !this.EnumType.IsEnum)
+            Type enumType = this.GetEnumType();
+            if (enumType == null)
             {
                 return null;
             }
 
             // TODO：反射信息缓存
 
-            ObservableCollection<EnumerationVM> result = new ObservableCollection<EnumerationVM>();
+            ObservableCollection<EnumMemberVM> result = new ObservableCollection<EnumMemberVM>();
 
-            FieldInfo[] fields = this.EnumType.GetFields();
+            FieldInfo[] fields = enumType.GetFields();
 
             foreach (FieldInfo field in fields)
             {
@@ -46,14 +53,14 @@ namespace WPFToolkit.MarkupExtensions
                     continue;
                 }
 
-                object value = Enum.Parse(this.EnumType, field.Name);
+                object value = Enum.Parse(enumType, field.Name);
                 if (value == null)
                 {
                     // 枚举类型和名字不匹配
                     continue;
                 }
 
-                EnumerationVM member = attribute.ToEnumMember((int)value);
+                EnumMemberVM member = attribute.ToEnumMember((int)value);
                 if (this.EnumMemberConverter != null)
                 {
                     // 如果指定了转换器，那么进行转换
@@ -69,9 +76,26 @@ namespace WPFToolkit.MarkupExtensions
 
             return result;
         }
+
+        private Type GetEnumType()
+        {
+            if (!string.IsNullOrEmpty(this.EnumTypeName))
+            {
+                return Type.GetType(this.EnumTypeName);
+            }
+            else
+            {
+                if (this.EnumType == null || !this.EnumType.IsEnum)
+                {
+                    return null;
+                }
+
+                return this.EnumType;
+            }
+        }
     }
 
-    public class EnumerationVM : ViewModelBase
+    public class EnumMemberVM : ViewModelBase
     {
         /// <summary>
         /// 枚举的值

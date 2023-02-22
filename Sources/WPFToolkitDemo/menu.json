@@ -15,5 +15,14 @@
         "className": "WPFToolkitDemo.UserControls.DataGridUtilsUserControl, WPFToolkitDemo",
         "child": [
         ]
+    },
+
+    {
+        "id": "3",
+        "name": "TreeListView",
+        "icon": "pack://application:,,,/HMIClient;component/Images/page.png",
+        "className": "WPFToolkitDemo.UserControls.TreeListViewUserControl, WPFToolkitDemo",
+        "child": [
+        ]
     }
 ]

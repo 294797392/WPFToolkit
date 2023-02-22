@@ -303,8 +303,66 @@
                                 BorderBrush="{TemplateBinding BorderBrush}" 
                                 Background="{TemplateBinding Background}"/>
                         <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
-                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                  Margin="{TemplateBinding Padding}"/>
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}"/>
+
+                        <!-- 加Thumb控件可以拖动列头的宽度 -->
+                        <Thumb Name="PART_LeftHeaderGripper" HorizontalAlignment="Left">
+                            <Thumb.Style>
+                                <Style TargetType="Thumb">
+                                    <Style.Resources>
+                                        <ResourceDictionary />
+                                    </Style.Resources>
+                                    <Setter Property="FrameworkElement.Width" Value="8"/>
+                                    <Setter Property="Panel.Background">
+                                        <Setter.Value>
+                                            <SolidColorBrush>#00FFFFFF</SolidColorBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="FrameworkElement.Cursor">
+                                        <Setter.Value>
+                                            <Cursor>SizeWE</Cursor>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Control.Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Thumb">
+                                                <Border Padding="{TemplateBinding Control.Padding}" Background="{TemplateBinding Panel.Background}" />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Thumb.Style>
+                        </Thumb>
+                        <Thumb Name="PART_RightHeaderGripper" HorizontalAlignment="Right">
+                            <Thumb.Style>
+                                <Style TargetType="Thumb">
+                                    <Style.Resources>
+                                        <ResourceDictionary />
+                                    </Style.Resources>
+                                    <Setter Property="FrameworkElement.Width" Value="8">
+                                    </Setter>
+                                    <Setter Property="Panel.Background">
+                                        <Setter.Value>
+                                            <SolidColorBrush>#00FFFFFF</SolidColorBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="FrameworkElement.Cursor">
+                                        <Setter.Value>
+                                            <Cursor>SizeWE</Cursor>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Control.Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Thumb">
+                                                <Border Padding="{TemplateBinding Control.Padding}" Background="{TemplateBinding Panel.Background}" />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Thumb.Style>
+                        </Thumb>
+
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

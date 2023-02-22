@@ -18,6 +18,22 @@ namespace WPFToolkit.MVVM
     /// </summary>
     public class TreeViewModel : ViewModelBase
     {
+        /// <summary>
+        /// 指定某个动作的选项
+        /// </summary>
+        public enum ActionOptions
+        {
+            /// <summary>
+            /// 没有选项
+            /// </summary>
+            None,
+
+            /// <summary>
+            /// 递归对子节点执行同样的动作
+            /// </summary>
+            Recursion
+        }
+
         #region 实例变量
 
         #endregion
@@ -34,10 +50,25 @@ namespace WPFToolkit.MVVM
         /// </summary>
         public TreeViewModelContext Context { get; private set; }
 
+        /// <summary>
+        /// 指定当对某个节点的IsVisible属性改变的时候，是否要递归对子节点也调用
+        /// </summary>
+        public ActionOptions IsVisibleOptions
+        {
+            get { return this.Context.IsVisibleOptions; }
+            set
+            {
+                this.Context.IsVisibleOptions = value;
+            }
+        }
+
         #endregion
 
         #region 构造方法
 
+        /// <summary>
+        /// 构造方法
+        /// </summary>
         public TreeViewModel()
         {
             this.Roots = new ObservableCollection<TreeNodeViewModel>();
@@ -55,7 +86,7 @@ namespace WPFToolkit.MVVM
         public void AddRootNode(TreeNodeViewModel root)
         {
             this.Roots.Add(root);
-            this.Context.NodeMap[root.ID.ToString()] = root;
+            this.Context.AddNode(root);
         }
 
         /// <summary>
@@ -66,7 +97,7 @@ namespace WPFToolkit.MVVM
         /// <returns>是否存在节点</returns>
         public bool TryGetNode(string nodeID, out TreeNodeViewModel node)
         {
-            return this.Context.NodeMap.TryGetValue(nodeID, out node);
+            return this.Context.TryGetNode(nodeID, out node);
         }
 
         /// <summary>
@@ -76,7 +107,7 @@ namespace WPFToolkit.MVVM
         public void ExpandNode(string nodeID)
         {
             TreeNodeViewModel vm;
-            if (!this.Context.NodeMap.TryGetValue(nodeID, out vm))
+            if (!this.TryGetNode(nodeID, out vm))
             {
                 // 不存在该节点
                 return;
@@ -93,7 +124,7 @@ namespace WPFToolkit.MVVM
         public void SelectNode(string nodeID)
         {
             TreeNodeViewModel vm;
-            if (!this.Context.NodeMap.TryGetValue(nodeID, out vm))
+            if (!this.TryGetNode(nodeID, out vm))
             {
                 return;
             }

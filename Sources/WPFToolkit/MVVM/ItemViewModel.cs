@@ -91,7 +91,7 @@ namespace WPFToolkit.MVVM
         /// <summary>
         /// 是否显示该节点
         /// </summary>
-        public bool IsVisible
+        public virtual bool IsVisible
         {
             get { return this.isVisible; }
             set
