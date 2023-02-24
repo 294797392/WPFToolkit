@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WPFToolkit.MVVM.DataProviders;
-using static WPFToolkit.MVVM.TreeViewModel;
 
 namespace WPFToolkit.MVVM
 {
@@ -38,11 +37,6 @@ namespace WPFToolkit.MVVM
         /// 当前选中的节点集合
         /// </summary>
         public ObservableCollection<TreeNodeViewModel> CheckedItems { get; internal set; }
-
-        /// <summary>
-        /// 设置IsVisible的选项
-        /// </summary>
-        public ActionOptions IsVisibleOptions { get; set; }
 
         public TreeViewModelContext()
         {

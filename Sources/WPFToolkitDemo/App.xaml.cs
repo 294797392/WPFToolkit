@@ -25,6 +25,10 @@ namespace WPFToolkitDemo
 
         static App()
         {
+            Matrix matrix = new Matrix(1, 0, 0, 1, 5, 5);
+            matrix.Invert();
+            Point p = matrix.Transform(new Point(7, 7));
+
             string xaml = string.Format(DataTemplateXaml, "123", "{0}AAA");
 
             Console.WriteLine(xaml);

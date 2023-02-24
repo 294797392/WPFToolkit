@@ -66,34 +66,37 @@ namespace WPFToolkit.Controls
         void source_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             // zoom into the content.  Calculate the zoom factor based on the direction of the mouse wheel.
-            //double zoomFactor = this.DefaultZoomFactor;
-            //if (e.Delta <= 0)
+            double zoomFactor = this.DefaultZoomFactor;
+            if (e.Delta <= 0)
+            {
+                zoomFactor = 1.0 / this.DefaultZoomFactor;
+            }
+
+            // DoZoom requires both the logical and physical location of the mouse pointer
+            var physicalPoint = e.GetPosition(this);
+
+            Console.WriteLine("physicalPoint = {0}, inversePoint = {1}", physicalPoint, this.transformGroup.Inverse.Transform(physicalPoint));
+
+            DoZoom(zoomFactor, this.transformGroup.Inverse.Transform(physicalPoint), physicalPoint);
+
+
+            //Point mouseP = e.GetPosition(this);
+            //if (e.Delta < 0)
             //{
-            //    zoomFactor = 1.0 / this.DefaultZoomFactor;
+            //    if (this.CurrentZoomLevel - 0.25 > MinZoomLevel)
+            //    {
+            //        this.CurrentZoomLevel -= 0.25;
+            //        this.DoZoomPercent(this.CurrentZoomLevel, mouseP, mouseP);
+            //    }
             //}
-
-            //// DoZoom requires both the logical and physical location of the mouse pointer
-            //var physicalPoint = e.GetPosition(this);
-            //DoZoom(zoomFactor, this.transformGroup.Inverse.Transform(physicalPoint), physicalPoint);
-
-
-            Point mouseP = e.GetPosition(this);
-            if (e.Delta < 0)
-            {
-                if (this.CurrentZoomLevel - 0.25 > MinZoomLevel)
-                {
-                    this.CurrentZoomLevel -= 0.25;
-                    this.DoZoomPercent(this.CurrentZoomLevel, mouseP, mouseP);
-                }
-            }
-            else
-            {
-                if (this.CurrentZoomLevel <= 8)
-                {
-                    this.CurrentZoomLevel += 0.25;
-                    this.DoZoomPercent(this.CurrentZoomLevel, mouseP, mouseP);
-                }
-            }
+            //else
+            //{
+            //    if (this.CurrentZoomLevel <= 8)
+            //    {
+            //        this.CurrentZoomLevel += 0.25;
+            //        this.DoZoomPercent(this.CurrentZoomLevel, mouseP, mouseP);
+            //    }
+            //}
         }
 
         void source_MouseUp(object sender, MouseButtonEventArgs e)

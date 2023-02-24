@@ -24,5 +24,14 @@
         "className": "WPFToolkitDemo.UserControls.TreeListViewUserControl, WPFToolkitDemo",
         "child": [
         ]
+    },
+
+    {
+        "id": "4",
+        "name": "PaneAndZoomViewer",
+        "icon": "pack://application:,,,/HMIClient;component/Images/page.png",
+        "className": "WPFToolkitDemo.UserControls.PanAndZoomViewerUserControl, WPFToolkitDemo",
+        "child": [
+        ]
     }
 ]

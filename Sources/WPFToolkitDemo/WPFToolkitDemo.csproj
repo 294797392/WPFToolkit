@@ -93,6 +93,9 @@
     <Compile Include="UserControls\KComboBoxDemo.xaml.cs">
       <DependentUpon>KComboBoxDemo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\PanAndZoomViewerUserControl.xaml.cs">
+      <DependentUpon>PanAndZoomViewerUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TreeListViewUserControl.xaml.cs">
       <DependentUpon>TreeListViewUserControl.xaml</DependentUpon>
     </Compile>
@@ -145,6 +148,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\PanAndZoomViewerUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\TreeListViewUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -194,6 +201,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\build.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\1.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

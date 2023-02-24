@@ -16,7 +16,7 @@ namespace WPFToolkit.MVVM
     /// 通用树形列表ViewModel
     /// 项目在开发的时候可以继承这个ViewModel，也可以直接使用该ViewModel
     /// </summary>
-    public class TreeViewModel : ViewModelBase
+    public class TreeViewModel<TContext> : ViewModelBase where TContext : TreeViewModelContext
     {
         /// <summary>
         /// 指定某个动作的选项
@@ -48,19 +48,7 @@ namespace WPFToolkit.MVVM
         /// <summary>
         /// 存储树形列表上下文信息
         /// </summary>
-        public TreeViewModelContext Context { get; private set; }
-
-        /// <summary>
-        /// 指定当对某个节点的IsVisible属性改变的时候，是否要递归对子节点也调用
-        /// </summary>
-        public ActionOptions IsVisibleOptions
-        {
-            get { return this.Context.IsVisibleOptions; }
-            set
-            {
-                this.Context.IsVisibleOptions = value;
-            }
-        }
+        public TContext Context { get; private set; }
 
         #endregion
 
@@ -72,7 +60,8 @@ namespace WPFToolkit.MVVM
         public TreeViewModel()
         {
             this.Roots = new ObservableCollection<TreeNodeViewModel>();
-            this.Context = new TreeViewModelContext();
+
+            this.Context = Activator.CreateInstance<TContext>();
         }
 
         #endregion
@@ -135,73 +124,6 @@ namespace WPFToolkit.MVVM
         #endregion
 
         #region 静态方法
-
-        /// <summary>
-        /// 加载子节点
-        /// </summary>
-        /// <param name="parentNode">父节点</param>
-        /// <param name="childNodes">要加载的子节点</param>
-        private static void LoadChildNodes<TNode>(TNode parentNode, List<InternalTreeNode> childNodes) where TNode : TreeNodeViewModel
-        {
-            foreach (InternalTreeNode treeNode in childNodes)
-            {
-                TNode nodeVM = ConfigFactory<TNode>.CreateInstance(typeof(TNode), parentNode, treeNode.Data);
-                nodeVM.ID = treeNode.ID;
-                nodeVM.Name = treeNode.Name;
-                nodeVM.IconURI = treeNode.Icon;
-
-                parentNode.AddChildNode(nodeVM);
-
-                LoadChildNodes<TNode>(nodeVM, treeNode.Children);
-            }
-        }
-
-        /// <summary>
-        /// 从数据源创建TreeViewModel
-        /// </summary>
-        /// <param name="sourceType"></param>
-        /// <param name="sourceURI"></param>
-        /// <returns></returns>
-        public static TTreeVM Create<TTreeVM, TNode>(ItemsSourceType sourceType, string sourceURI) where TNode : TreeNodeViewModel where TTreeVM : TreeViewModel
-        {
-            InternalTreeView tv = null;
-
-            switch (sourceType)
-            {
-                case ItemsSourceType.JSONFile:
-                    {
-                        if (!File.Exists(sourceURI))
-                        {
-                            return null;
-                        }
-
-                        tv = JSONHelper.ParseFile<InternalTreeView>(sourceURI);
-
-                        break;
-                    }
-
-                default:
-                    throw new NotImplementedException();
-            }
-
-            TreeViewModelContext context = new TreeViewModelContext();
-
-            TTreeVM treeVM = ConfigFactory<TTreeVM>.CreateInstance(typeof(TTreeVM));
-
-            foreach (InternalTreeNode treeNode in tv.NodeList)
-            {
-                TNode nodeVM = ConfigFactory<TNode>.CreateInstance(typeof(TNode), context, treeNode.Data);
-                nodeVM.ID = treeNode.ID;
-                nodeVM.Name = treeNode.Name;
-                nodeVM.IconURI = treeNode.Icon;
-
-                treeVM.AddRootNode(nodeVM);
-
-                LoadChildNodes<TNode>(nodeVM, treeNode.Children);
-            }
-
-            return treeVM;
-        }
 
         #endregion
     }

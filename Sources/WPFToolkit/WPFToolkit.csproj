@@ -97,7 +97,7 @@
     <Compile Include="DragDrop\VisualTreeExtensions.cs" />
     <Compile Include="DragDrop\WinformDragDropHelper.cs" />
     <Compile Include="MVVM\BindableCollection.cs" />
-    <Compile Include="YControls\PanAndZoomViewer.cs" />
+    <Compile Include="Controls\PanAndZoomViewer.cs" />
     <Compile Include="YControls\Hotkey.cs" />
     <Compile Include="Converters\NullableVisiblityConverter.cs" />
     <Compile Include="Converters\BooleanVisiblityConverter.cs" />
@@ -188,6 +188,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Drawing\" />
     <Folder Include="MVVM\Extentions\" />
   </ItemGroup>
   <ItemGroup>
