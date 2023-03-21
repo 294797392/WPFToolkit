@@ -38,13 +38,13 @@ namespace WPFToolkitDemo
     {
         public static Data Data { get; set; }
 
-        public static TreeViewModel TreeVM { get; private set; }
+        public static TreeViewModel<TreeViewModelContext> TreeVM { get; private set; }
 
         static DataSource()
         {
             Data = JSONHelper.ParseFile<Data>("data.json");
 
-            TreeVM = new TreeViewModel();
+            TreeVM = new TreeViewModel<TreeViewModelContext>();
             for (int i = 1; i <= 10; i++)
             {
                 TreeNodeViewModel root = new TreeNodeViewModel(TreeVM.Context)

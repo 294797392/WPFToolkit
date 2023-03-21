@@ -33,5 +33,14 @@
         "className": "WPFToolkitDemo.UserControls.PanAndZoomViewerUserControl, WPFToolkitDemo",
         "child": [
         ]
+    },
+
+    {
+        "id": "5",
+        "name": "DrawingCanvas",
+        "icon": "pack://application:,,,/HMIClient;component/Images/page.png",
+        "className": "WPFToolkitDemo.UserControls.DrawingCanvasUserControl, WPFToolkitDemo",
+        "child": [
+        ]
     }
 ]

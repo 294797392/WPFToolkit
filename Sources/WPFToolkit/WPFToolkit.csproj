@@ -68,6 +68,47 @@
     <Compile Include="Attributes\ItemsSourceAttribute.cs" />
     <Compile Include="ColorConverter.cs" />
     <Compile Include="Controls\TreeListView\TreeListView.cs" />
+    <Compile Include="Drawing\Command.cs" />
+    <Compile Include="Drawing\CommandAdd.cs" />
+    <Compile Include="Drawing\CommandChangeOrder.cs" />
+    <Compile Include="Drawing\CommandChangeState.cs" />
+    <Compile Include="Drawing\CommandDelete.cs" />
+    <Compile Include="Drawing\CommandDeleteAll.cs" />
+    <Compile Include="Drawing\Definitions.cs" />
+    <Compile Include="Drawing\DrawingCanvas.cs" />
+    <Compile Include="Drawing\DrawingCanvasException.cs" />
+    <Compile Include="Drawing\FontConversions.cs" />
+    <Compile Include="Drawing\GraphicsBase.cs" />
+    <Compile Include="Drawing\GraphicsEllipse.cs" />
+    <Compile Include="Drawing\GraphicsEraser.cs" />
+    <Compile Include="Drawing\GraphicsLine.cs" />
+    <Compile Include="Drawing\GraphicsPolyLine.cs" />
+    <Compile Include="Drawing\GraphicsRectangle.cs" />
+    <Compile Include="Drawing\GraphicsRectangleBase.cs" />
+    <Compile Include="Drawing\GraphicsSelectionRectangle.cs" />
+    <Compile Include="Drawing\GraphicsText.cs" />
+    <Compile Include="Drawing\HelperFunctions.cs" />
+    <Compile Include="Drawing\PropertiesGraphicsBase.cs" />
+    <Compile Include="Drawing\PropertiesGraphicsEllipse.cs" />
+    <Compile Include="Drawing\PropertiesGraphicsEraser.cs" />
+    <Compile Include="Drawing\PropertiesGraphicsLine.cs" />
+    <Compile Include="Drawing\PropertiesGraphicsPolyLine.cs" />
+    <Compile Include="Drawing\PropertiesGraphicsRectangle.cs" />
+    <Compile Include="Drawing\PropertiesGraphicsText.cs" />
+    <Compile Include="Drawing\SerializationHelper.cs" />
+    <Compile Include="Drawing\Stroke.cs" />
+    <Compile Include="Drawing\Tool.cs" />
+    <Compile Include="Drawing\ToolEllipse.cs" />
+    <Compile Include="Drawing\ToolEraser.cs" />
+    <Compile Include="Drawing\ToolLine.cs" />
+    <Compile Include="Drawing\ToolObject.cs" />
+    <Compile Include="Drawing\ToolPointer.cs" />
+    <Compile Include="Drawing\ToolPolyLine.cs" />
+    <Compile Include="Drawing\ToolRectangle.cs" />
+    <Compile Include="Drawing\ToolRectangleBase.cs" />
+    <Compile Include="Drawing\ToolText.cs" />
+    <Compile Include="Drawing\ToolTypeConverter.cs" />
+    <Compile Include="Drawing\UndoManager.cs" />
     <Compile Include="Panels\AVGPanel.cs" />
     <Compile Include="Panels\CircularPanel.cs" />
     <Compile Include="Utility\ControlUtils.cs" />
@@ -152,6 +193,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="MVVM\menu.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -188,7 +230,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Drawing\" />
     <Folder Include="MVVM\Extentions\" />
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +243,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\FontColor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Drawing\Images\Ellipse.cur" />
+    <Resource Include="Drawing\Images\Eraser.cur" />
+    <Resource Include="Drawing\Images\Line.cur" />
+    <Resource Include="Drawing\Images\Pencil.cur" />
+    <Resource Include="Drawing\Images\PolyHandle.cur" />
+    <Resource Include="Drawing\Images\Rectangle.cur" />
+    <Resource Include="Drawing\Images\Text.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icon1.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
