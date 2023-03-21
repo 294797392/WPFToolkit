@@ -7,7 +7,7 @@
     GridViewRowPresenter.Columns
     GridViewHeaderRowPresenter.Columns
     -->
-    
+
     <toolkitcontrols:LevelToIndentConverter x:Key="LevelIndentConverter"/>
 
     <Style x:Key="StyleTreeListViewToggleButton" TargetType="{x:Type ToggleButton}">
@@ -109,7 +109,9 @@
 
                         <DockPanel>
                             <GridViewHeaderRowPresenter Columns="{TemplateBinding Columns}" DockPanel.Dock="Top"/>
-                            <ItemsPresenter />
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                <ItemsPresenter />
+                            </ScrollViewer>
                         </DockPanel>
 
                     </Grid>
