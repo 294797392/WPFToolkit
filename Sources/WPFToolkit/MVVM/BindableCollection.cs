@@ -81,5 +81,13 @@ namespace WPFToolkit.MVVM
         }
 
         #endregion
+
+        public void AddRange(IEnumerable<T> collection)
+        {
+            foreach (T item in collection)
+            {
+                this.Add(item);
+            }
+        }
     }
 }
