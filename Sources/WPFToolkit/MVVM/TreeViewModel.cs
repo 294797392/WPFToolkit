@@ -79,6 +79,16 @@ namespace WPFToolkit.MVVM
         }
 
         /// <summary>
+        /// 删除一个根节点
+        /// </summary>
+        /// <param name="root"></param>
+        public void RemoveRootNode(TreeNodeViewModel root)
+        {
+            this.Roots.Remove(root);
+            this.Context.RemoveNode(root);
+        }
+
+        /// <summary>
         /// 获取一个节点VM
         /// </summary>
         /// <param name="nodeID">要获取的节点的ID</param>

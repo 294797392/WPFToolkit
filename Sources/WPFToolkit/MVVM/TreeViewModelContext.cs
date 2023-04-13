@@ -56,6 +56,12 @@ namespace WPFToolkit.MVVM
             this.NodeList.Add(node);
         }
 
+        public void RemoveNode(TreeNodeViewModel node)
+        {
+            this.NodeMap.Remove(node.ID.ToString());
+            this.NodeList.Remove(node);
+        }
+
         /// <summary>
         /// 删除一个缓存的树形节点
         /// </summary>
