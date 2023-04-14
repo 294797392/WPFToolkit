@@ -121,6 +121,9 @@ namespace WPFToolkit.MVVM
             }
         }
 
+        /// <summary>
+        /// 控制该节点是否显示
+        /// </summary>
         public override bool IsVisible
         {
             get 
@@ -129,8 +132,11 @@ namespace WPFToolkit.MVVM
             }
             set 
             {
-                this.isVisible = value;
-                this.NotifyPropertyChanged("IsVisible");
+                if (this.isVisible != value)
+                {
+                    this.isVisible = value;
+                    this.NotifyPropertyChanged("IsVisible");
+                }
             }
         }
 
