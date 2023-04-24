@@ -771,6 +771,38 @@
         </Setter>
     </Style>
 
+    <Style x:Key="StyleTabItem" TargetType="TabItem">
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="#19405D"/>
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="#636363"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="MinWidth" Value="100"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontFamily" Value="YaHei"/>
+        <Setter Property="Padding" Value="10,0,20,0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+
+                    <Grid>
+                        <Border Name="Border" Background="{TemplateBinding Background}" CornerRadius="4,4,0,0" Margin="0,0,10,0"/>
+                        <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center"
+                                          ContentSource="Header" Margin="{TemplateBinding Padding}"/>
+                    </Grid>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="StyleTabControl" TargetType="{x:Type TabControl}">
+        <Setter Property="ItemContainerStyle" Value="{StaticResource ResourceKey=StyleTabItem}"/>
+    </Style>
+
 </ResourceDictionary>
     
     
