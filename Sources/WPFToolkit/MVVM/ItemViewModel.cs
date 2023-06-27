@@ -96,8 +96,11 @@ namespace WPFToolkit.MVVM
             get { return this.isVisible; }
             set
             {
-                this.isVisible = value;
-                this.NotifyPropertyChanged("IsVisible");
+                if (this.isVisible != value)
+                {
+                    this.isVisible = value;
+                    this.NotifyPropertyChanged("IsVisible");
+                }
             }
         }
 

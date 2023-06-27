@@ -27,6 +27,9 @@ namespace WPFToolkit.MVVM
         /// </summary>
         private string description;
 
+        /// <summary>
+        /// 名字
+        /// </summary>
         public virtual string Name
         {
             get { return this.name; }
@@ -37,6 +40,9 @@ namespace WPFToolkit.MVVM
             }
         }
 
+        /// <summary>
+        /// 描述信息
+        /// </summary>
         public virtual string Description
         {
             get
@@ -50,6 +56,9 @@ namespace WPFToolkit.MVVM
             }
         }
 
+        /// <summary>
+        /// 唯一标识符
+        /// </summary>
         public virtual object ID
         {
             get { return this.id; }

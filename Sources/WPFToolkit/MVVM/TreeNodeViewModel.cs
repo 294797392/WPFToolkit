@@ -144,6 +144,11 @@ namespace WPFToolkit.MVVM
 
         #region 构造方法
 
+        /// <summary>
+        /// 构造方法
+        /// </summary>
+        /// <param name="context">树形列表上下文信息</param>
+        /// <param name="data">该节点所包含的数据</param>
         public TreeNodeViewModel(TreeViewModelContext context, object data = null)
         {
             this.Context = context;
@@ -180,12 +185,6 @@ namespace WPFToolkit.MVVM
             this.Children.Remove(node);
             this.Context.RemoveNode(node.ID.ToString());
         }
-
-        /// <summary>
-        /// 当子节点加载完毕的时候触发
-        /// </summary>
-        public virtual void OnInitialized()
-        { }
 
         #endregion
     }

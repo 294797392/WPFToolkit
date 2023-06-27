@@ -19,11 +19,6 @@ namespace WPFToolkit.MVVM
         private Dictionary<string, TreeNodeViewModel> NodeMap { get; set; }
 
         /// <summary>
-        /// 获取树形列表里的所有的节点列表
-        /// </summary>
-        public List<TreeNodeViewModel> NodeList { get; private set; }
-
-        /// <summary>
         /// 当前选中的节点
         /// </summary>
         public TreeNodeViewModel SelectedItem { get; internal set; }
@@ -43,52 +38,38 @@ namespace WPFToolkit.MVVM
             this.SelectedItems = new ObservableCollection<TreeNodeViewModel>();
             this.CheckedItems = new ObservableCollection<TreeNodeViewModel>();
             this.NodeMap = new Dictionary<string, TreeNodeViewModel>();
-            this.NodeList = new List<TreeNodeViewModel>();
         }
 
         /// <summary>
         /// 缓存TreeNode，方便以后查询
         /// </summary>
         /// <param name="node"></param>
-        public void AddNode(TreeNodeViewModel node)
+        internal void AddNode(TreeNodeViewModel node)
         {
             this.NodeMap[node.ID.ToString()] = node;
-            this.NodeList.Add(node);
         }
 
-        public void RemoveNode(TreeNodeViewModel node)
+        internal void RemoveNode(TreeNodeViewModel node)
         {
             this.NodeMap.Remove(node.ID.ToString());
-            this.NodeList.Remove(node);
         }
 
         /// <summary>
         /// 删除一个缓存的树形节点
         /// </summary>
         /// <param name="nodeID"></param>
-        public void RemoveNode(string nodeID)
+        internal void RemoveNode(string nodeID)
         {
             TreeNodeViewModel node;
             if (this.NodeMap.TryGetValue(nodeID, out node))
             {
                 this.NodeMap.Remove(nodeID);
-                this.NodeList.Remove(node);
             }
         }
 
         public bool TryGetNode(string nodeID, out TreeNodeViewModel node)
         {
             return this.NodeMap.TryGetValue(nodeID, out node);
-        }
-
-        /// <summary>
-        /// 根据条件查询节点，如果没查询到则返回null
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <returns></returns>
-        public T QueryNode<T>(Func<T, bool> predicate) where T : TreeNodeViewModel
-        {
-            return this.NodeList.Cast<T>().FirstOrDefault(predicate);
         }
     }
 }
