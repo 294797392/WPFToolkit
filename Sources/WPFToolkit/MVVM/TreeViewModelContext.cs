@@ -67,6 +67,14 @@ namespace WPFToolkit.MVVM
             }
         }
 
+        /// <summary>
+        /// 清空所有节点
+        /// </summary>
+        internal void ClearNode()
+        {
+            this.NodeMap.Clear();
+        }
+
         public bool TryGetNode(string nodeID, out TreeNodeViewModel node)
         {
             return this.NodeMap.TryGetValue(nodeID, out node);

@@ -50,6 +50,7 @@ namespace WPFToolkit.MVVM
                     this.isExpanded = value;
                     this.NotifyPropertyChanged("IsExpanded");
 
+                    // 如果有父节点那么自动展开父节点
                     if (value && this.Parent != null)
                     {
                         this.Parent.IsExpanded = value;
@@ -84,6 +85,15 @@ namespace WPFToolkit.MVVM
                         if (this.Context != null)
                         {
                             this.Context.SelectedItem = this;
+                            this.Context.SelectedItems.Add(this);
+                        }
+                    }
+                    else
+                    {
+                        if(this.Context != null) 
+                        {
+                            this.Context.SelectedItem = null;
+                            this.Context.SelectedItems.Remove(this);
                         }
                     }
                 }

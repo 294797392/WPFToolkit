@@ -78,8 +78,12 @@
     <Compile Include="MVVMDemo.xaml.cs">
       <DependentUpon>MVVMDemo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ToolkitApp.cs" />
     <Compile Include="UserControls\CircularPanelUserControl.xaml.cs">
       <DependentUpon>CircularPanelUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ColorListUserControl.xaml.cs">
+      <DependentUpon>ColorListUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\DataGridUtilsUserControl.xaml.cs">
       <DependentUpon>DataGridUtilsUserControl.xaml</DependentUpon>
@@ -135,6 +139,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\ColorListUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\DataGridUtilsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -186,10 +194,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="data.json">
+    <None Include="app.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="menu.json">
+    <None Include="data.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Properties\Settings.settings">

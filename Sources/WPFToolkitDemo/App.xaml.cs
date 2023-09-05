@@ -28,5 +28,12 @@ namespace WPFToolkitDemo
 
             Console.WriteLine(xaml);
         }
+
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            DotNEToolkit.Log4net.InitializeLog4net();
+
+            ToolkitApp.Context.Initialize();
+        }
     }
 }

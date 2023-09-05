@@ -39,7 +39,7 @@ namespace WPFToolkitDemo
         private void InitializeWindow()
         {
             this.menuVM = new MenuVM();
-            this.menuVM.Initialize("menu.json");
+            this.menuVM.Initialize(ToolkitApp.Context.Manifest.MenuList);
             ListBoxMenuItems.DataContext = this.menuVM;
         }
 

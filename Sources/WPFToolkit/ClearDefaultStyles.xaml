@@ -425,8 +425,8 @@
                 <ControlTemplate TargetType="{x:Type ListBox}">
                     <Grid>
                         <Border BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    Background="{TemplateBinding Background}"/>
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}"/>
                         <ItemsPresenter Margin="{TemplateBinding Padding}"/>
                     </Grid>
                 </ControlTemplate>

@@ -187,6 +187,11 @@ namespace WPFToolkit.MVVM
             this.ParseMenuDefinition(filePath);
         }
 
+        public void Initialize(IEnumerable<MenuDefinition> menuDefinitions)
+        {
+            this.LoadMenu(menuDefinitions);
+        }
+
         public void InvokeWhenSelectionChanged(MenuItemVM selectedMenu)
         {
             this.SelectedMenu = selectedMenu;
@@ -271,6 +276,19 @@ namespace WPFToolkit.MVVM
 
         #region 实例方法
 
+        private void LoadMenu(IEnumerable<MenuDefinition> menuDefinitions)
+        {
+            foreach (MenuDefinition menu in menuDefinitions)
+            {
+                MenuItemVM menuItem = new MenuItemVM(menu);
+
+                this.MenuItems.Add(menuItem);
+
+                // 递归加载子菜单
+                this.LoadSubMenus(menuItem, menu.Children);
+            }
+        }
+
         private void ParseMenuDefinition(string filePath)
         {
             if (!File.Exists(filePath))
@@ -291,15 +309,7 @@ namespace WPFToolkit.MVVM
                 return;
             }
 
-            foreach (MenuDefinition menu in menus)
-            {
-                MenuItemVM menuItem = new MenuItemVM(menu);
-                
-                this.MenuItems.Add(menuItem);
-                
-                // 递归加载子菜单
-                this.LoadSubMenus(menuItem, menu.Children);
-            }
+            this.LoadMenu(menus);
         }
 
         private void ProcessContentLoaded(IContentHook contentHost)

@@ -79,13 +79,13 @@ namespace WPFToolkit.MVVM
         }
 
         /// <summary>
-        /// 删除一个根节点
+        /// 删除所有节点
+        /// 包括清空缓存的节点
         /// </summary>
-        /// <param name="root"></param>
-        public void RemoveRootNode(TreeNodeViewModel root)
+        public void ClearRootNode()
         {
-            this.Roots.Remove(root);
-            this.Context.RemoveNode(root);
+            this.Roots.Clear();
+            this.Context.ClearNode();
         }
 
         /// <summary>
