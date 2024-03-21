@@ -50,12 +50,18 @@ namespace WPFToolkit.Attributes
         /// </summary>
         public HorizontalAlignment HorizontalContentAlignment { get; set; }
 
+        /// <summary>
+        /// 是否可以排序
+        /// </summary>
+        public bool CanSort { get; set; }
+
         public DataGridColumnAttribute(string title)
         {
             this.Title = title;
             this.Width = 1;
             this.WidthUnitType = DataGridLengthUnitType.Star;
             this.HorizontalContentAlignment = HorizontalAlignment.Center;
+            this.CanSort = true;
         }
     }
 }

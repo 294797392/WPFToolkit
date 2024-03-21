@@ -14,6 +14,11 @@ namespace WPFToolkit.MVVM
     /// <typeparam name="T"></typeparam>
     public class BindableCollection<T> : ObservableCollection<T>
     {
+        /// <summary>
+        /// 当选项改变的时候触发
+        /// </summary>
+        public event Action<T, T> SelectionChanged;
+
         #region 实例变量
 
         private T selectedItem;
@@ -53,8 +58,19 @@ namespace WPFToolkit.MVVM
             get { return this.selectedItem; }
             set
             {
-                this.selectedItem = value;
-                base.OnPropertyChanged(new PropertyChangedEventArgs("SelectedItem"));
+                if (this.selectedItem == null ||
+                    !this.selectedItem.Equals(value))
+                {
+                    T oldValue = this.selectedItem;
+
+                    this.selectedItem = value;
+                    base.OnPropertyChanged(new PropertyChangedEventArgs("SelectedItem"));
+
+                    if (this.SelectionChanged != null)
+                    {
+                        this.SelectionChanged(oldValue, value);
+                    }
+                }
             }
         }
 

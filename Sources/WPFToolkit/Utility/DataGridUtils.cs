@@ -101,6 +101,7 @@ namespace WPFToolkit.Utility
 
                 // 创建模板类型的数据
                 DataGridTemplateColumn templateColumn = new DataGridTemplateColumn();
+                templateColumn.CanUserSort = attribute.CanSort;
                 templateColumn.Header = attribute.Title;
                 templateColumn.Width = new DataGridLength(attribute.Width, attribute.WidthUnitType);
 

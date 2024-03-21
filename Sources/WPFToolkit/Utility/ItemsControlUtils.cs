@@ -75,6 +75,12 @@ namespace WPFToolkit.Utils
     /// </summary>
     public class ItemsControlUtils : DependencyObject
     {
+        public enum ItemPositions
+        {
+            LeftTop,
+            Center
+        }
+
         #region AutoBringIntoView
 
         public static bool GetAutoBringIntoView(DependencyObject obj)
@@ -291,5 +297,40 @@ namespace WPFToolkit.Utils
         }
 
         #endregion
+
+        /// <summary>
+        /// 获取ItemsControl里的某个Item的位置
+        /// </summary>
+        /// <param name="itemsControl">要获取的ItemControl</param>
+        /// <param name="item">要获取的Item的DataContext</param>
+        /// <param name="itemPosition">要获取Item的哪个位置</param>
+        /// <returns>如果获取失败则会返回NAN</returns>
+        public static Point GetItemPosition(ItemsControl itemsControl, object item, ItemPositions itemPosition)
+        {
+            DependencyObject dependencyObject = itemsControl.ItemContainerGenerator.ContainerFromItem(item);
+            if (dependencyObject == null)
+            {
+                return new Point(double.NaN, double.NaN);
+            }
+
+            FrameworkElement frameworkElement = dependencyObject as FrameworkElement;
+
+            switch (itemPosition)
+            {
+                case ItemPositions.LeftTop:
+                    {
+                        return frameworkElement.TranslatePoint(new Point(), itemsControl);
+                    }
+
+                case ItemPositions.Center:
+                    {
+                        // 获取中心点相对于ItemsControl的位置
+                        return frameworkElement.TranslatePoint(new Point(frameworkElement.ActualWidth / 2, frameworkElement.ActualHeight / 2), itemsControl);
+                    }
+
+                default:
+                    throw new NotImplementedException();
+            }
+        }
     }
 }

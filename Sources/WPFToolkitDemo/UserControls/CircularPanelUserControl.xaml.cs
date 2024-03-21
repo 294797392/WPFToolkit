@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFToolkit.Utils;
 
 namespace WPFToolkitDemo.UserControls
 {
@@ -30,12 +31,18 @@ namespace WPFToolkitDemo.UserControls
         private void InitializeUserControl()
         {
             List<string> items = new List<string>();
-            for (int i = 0; i < 0; i++)
+            for (int i = 0; i < 10; i++)
             {
                 items.Add(i.ToString());
             }
 
             ListBoxCircularPanel.ItemsSource = items;
+        }
+
+        private void ListBoxCircularPanel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Point position = ItemsControlUtils.GetItemPosition(ListBoxCircularPanel, ListBoxCircularPanel.SelectedItem, ItemsControlUtils.ItemPositions.Center);
+            MessageBox.Show(string.Format("X = {0}, Y = {1}", position.X, position.Y));
         }
     }
 }

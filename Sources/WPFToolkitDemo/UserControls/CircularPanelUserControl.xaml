@@ -8,30 +8,33 @@
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <ListBox x:Name="ListBoxCircularPanel">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Slider x:Name="SliderAngleOffset" VerticalAlignment="Center" Minimum="-100" Maximum="100" Value="0" Interval="1" IsSnapToTickEnabled="True"/>
+
+        <ListBox Grid.Row="1" x:Name="ListBoxCircularPanel" SelectionChanged="ListBoxCircularPanel_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Button Width="50" Height="50" Content="{Binding}"/>
+                    <Border Background="Green" Width="100" Height="30"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-            
+
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <panel:CircularPanel Margin="30"/>
+                    <panel:CirclePanel Margin="30" Diameter="500" AngleOffset="{Binding ElementName=SliderAngleOffset, Path=Value}"
+                                       BorderMargin="10"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
+
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="BorderBrush" Value="{x:Null}"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
         </ListBox>
-        
-        <panel:CircularPanel Margin="100" Visibility="Collapsed">
-            <Button Content="1"/>
-            <Button Content="2"/>
-            <Button Content="3"/>
-            <Button Content="4"/>
-            <Button Content="5"/>
-            <Button Content="6"/>
-        </panel:CircularPanel>
     </Grid>
 </UserControl>
-
-    
-    
