@@ -17,52 +17,48 @@ namespace WPFToolkit.Panels
         private static log4net.ILog logger = log4net.LogManager.GetLogger("CirclePanel");
 
 
-        /// <summary>
-        /// 边缘的颜色
-        /// </summary>
-        public Brush BorderBrush
+
+
+        public Brush CircleBrush
         {
-            get { return (Brush)GetValue(BorderBrushProperty); }
-            set { SetValue(BorderBrushProperty, value); }
+            get { return (Brush)GetValue(CircleBrushProperty); }
+            set { SetValue(CircleBrushProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for BorderBrush.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty BorderBrushProperty =
-            DependencyProperty.Register("BorderBrush", typeof(Brush), typeof(CirclePanel), new PropertyMetadata(Brushes.Black));
+        // Using a DependencyProperty as the backing store for CircleBrush.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CircleBrushProperty =
+            DependencyProperty.Register("CircleBrush", typeof(Brush), typeof(CirclePanel), new PropertyMetadata(Brushes.Black));
+
 
 
 
         /// <summary>
         /// 边框距离每个元素的距离
         /// </summary>
-        public double BorderMargin
+        public double CircleMargin
         {
-            get { return (double)GetValue(BorderMarginProperty); }
-            set { SetValue(BorderMarginProperty, value); }
+            get { return (double)GetValue(CircleMarginProperty); }
+            set { SetValue(CircleMarginProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for BorderMargin.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty BorderMarginProperty =
-            DependencyProperty.Register("BorderMargin", typeof(double), typeof(CirclePanel), new PropertyMetadata(0.0D));
-
-
-
+        // Using a DependencyProperty as the backing store for CircleMargin.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CircleMarginProperty =
+            DependencyProperty.Register("CircleMargin", typeof(double), typeof(CirclePanel), new FrameworkPropertyMetadata(0.0D, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange));
 
 
 
         /// <summary>
         /// 边框宽度
         /// </summary>
-        public double BorderWidth
+        public double CircleWidth
         {
-            get { return (double)GetValue(BorderWidthProperty); }
-            set { SetValue(BorderWidthProperty, value); }
+            get { return (double)GetValue(CircleWidthProperty); }
+            set { SetValue(CircleWidthProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for BorderWidth.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty BorderWidthProperty =
-            DependencyProperty.Register("BorderWidth", typeof(double), typeof(CirclePanel), new PropertyMetadata(1.0D));
-
+        // Using a DependencyProperty as the backing store for CircleWidth.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CircleWidthProperty =
+            DependencyProperty.Register("CircleWidth", typeof(double), typeof(CirclePanel), new FrameworkPropertyMetadata(1.0D, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange));
 
 
 
@@ -78,7 +74,7 @@ namespace WPFToolkit.Panels
 
         // Using a DependencyProperty as the backing store for Diameter.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DiameterProperty =
-            DependencyProperty.Register("Diameter", typeof(double), typeof(CirclePanel), new PropertyMetadata(100.0D));
+            DependencyProperty.Register("Diameter", typeof(double), typeof(CirclePanel), new FrameworkPropertyMetadata(100.0D, FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange));
 
 
         /// <summary>
@@ -153,35 +149,16 @@ namespace WPFToolkit.Panels
         {
             base.OnRender(dc);
 
-            //dc.DrawRectangle(Brushes.Red, null, new Rect(0, 0, base.RenderSize.Width, base.RenderSize.Height));
-
-            if (this.BorderWidth > 0)
+            if (this.CircleWidth > 0)
             {
                 double radius = this.Diameter / 2;
 
-                double value, maxWidth, maxHeight;
-                this.GetMaxWidthHeight(out maxWidth, out maxHeight, out value);
-                double centerX = radius + maxWidth / 2;
-                double centerY = radius + maxHeight / 2;
-                double margin = this.BorderMargin * 2;
+                double centerX = this.ActualWidth / 2;
+                double centerY = this.ActualHeight / 2;
+                double margin = this.CircleWidth * 2;
 
-                dc.DrawEllipse(null, new Pen(this.BorderBrush, this.BorderWidth), new Point(centerX, centerY), radius - value / 2 - margin, radius - value / 2 - margin);
+                dc.DrawEllipse(null, new Pen(this.CircleBrush, this.CircleWidth), new Point(centerX, centerY), radius - margin, radius - margin);
             }
-        }
-
-        private void GetMaxWidthHeight(out double maxWidth, out double maxHeight, out double maxValue)
-        {
-            maxValue = 0;
-            maxWidth = 0;
-            maxHeight = 0;
-
-            foreach (UIElement element in base.Children)
-            {
-                maxWidth = Math.Max(maxWidth, element.DesiredSize.Width);
-                maxHeight = Math.Max(maxHeight, element.DesiredSize.Height);
-            }
-
-            maxValue = Math.Max(maxWidth, maxHeight);
         }
     }
 }

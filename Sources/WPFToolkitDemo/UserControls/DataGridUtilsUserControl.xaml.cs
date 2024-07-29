@@ -16,26 +16,26 @@ using WPFToolkit.Attributes;
 
 namespace WPFToolkitDemo.UserControls
 {
+    public class DataGridItem
+    {
+        [DataGridColumn("名字", DataTemplateKey = "DataTemplateTest")]
+        public string Name { get; set; }
+
+        [DataGridColumn("编号")]
+        public string ID { get; set; }
+
+        public DataGridItem()
+        {
+            this.Name = Guid.NewGuid().ToString();
+            this.ID = Guid.NewGuid().ToString();
+        }
+    }
+
     /// <summary>
     /// DataGridColumnAttributeUserControl.xaml 的交互逻辑
     /// </summary>
     public partial class DataGridUtilsUserControl : UserControl
     {
-        public class DataGridItem
-        {
-            [DataGridColumn("名字")]
-            public string Name { get; set; }
-
-            [DataGridColumn("编号")]
-            public string ID { get; set; }
-
-            public DataGridItem() 
-            {
-                this.Name = Guid.NewGuid().ToString();
-                this.ID = Guid.NewGuid().ToString();
-            }
-        }
-
         public DataGridUtilsUserControl()
         {
             InitializeComponent();
@@ -54,6 +54,5 @@ namespace WPFToolkitDemo.UserControls
 
             DataGrid1.ItemsSource = items;
         }
-
     }
 }

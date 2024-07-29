@@ -10,8 +10,12 @@
     <Grid>
         <DataGrid x:Name="DataGrid1" 
                   AutoGenerateColumns="False"
-                  toolkitutility:DataGridUtils.AutoGenerateColumn="True">
-            
+                  toolkitutility:DataGridUtils.AutoGenerateColumnDataType="{x:Type local:DataGridItem}">
+            <DataGrid.Resources>
+                <DataTemplate x:Key="DataTemplateTest">
+                    <TextBlock Text="{Binding Path=Name}" Foreground="Red"/>
+                </DataTemplate>
+            </DataGrid.Resources>
         </DataGrid>
     </Grid>
 </UserControl>

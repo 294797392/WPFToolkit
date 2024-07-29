@@ -37,35 +37,17 @@ namespace WPFToolkit.Utility
 
         #endregion
 
-        public static bool GetAutoGenerateColumn(DependencyObject obj)
-        {
-            return (bool)obj.GetValue(AutoGenerateColumnProperty);
-        }
-
-        public static void SetAutoGenerateColumn(DependencyObject obj, bool value)
-        {
-            obj.SetValue(AutoGenerateColumnProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for AutoGenerateColumn.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty AutoGenerateColumnProperty =
-            DependencyProperty.RegisterAttached("AutoGenerateColumn", typeof(bool), typeof(DataGridUtils), new PropertyMetadata(false, AutoGenerateColumnPropertyChangedCallback));
-
-        private static void AutoGenerateColumnPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void AutoGenerateColumnDataTypePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (e.NewValue == null)
             {
                 return;
             }
 
-            bool value = (bool)e.NewValue;
-            if (!value)
-            {
-                return;
-            }
-
             DataGrid dataGrid = d as DataGrid;
 
+            // Loaded之后才能找到DataGrid里的资源
+            // 设置了DataTemplateKey之后会去找资源
             dataGrid.Loaded += GenerateDataGridColumns;
         }
 
@@ -73,17 +55,7 @@ namespace WPFToolkit.Utility
         {
             DataGrid dataGrid = sender as DataGrid;
 
-            // 一项的数据类型
             Type itemType = GetAutoGenerateColumnDataType(dataGrid);
-            if (itemType == null)
-            {
-                // 如果没设置数据类型，那么取项里的第一个数据类型
-                if (dataGrid.Items.Count == 0)
-                {
-                    return;
-                }
-                itemType = dataGrid.Items[0].GetType();
-            }
 
             // 反射获取所有带有DataGridColumn特性的属性
             List<PropertyAttribute<DataGridColumnAttribute>> properties = ReflectionUtils.GetPropertyAttribute<DataGridColumnAttribute>(itemType);
@@ -107,9 +79,9 @@ namespace WPFToolkit.Utility
 
                 // 设置DataTemplate
                 DataTemplate dataTemplate = null;
-                if (!string.IsNullOrEmpty(attribute.DataTemplateURI))
+                if (!string.IsNullOrEmpty(attribute.DataTemplateKey))
                 {
-                    dataTemplate = dataGrid.TryFindResource(attribute.DataTemplateURI) as DataTemplate;
+                    dataTemplate = dataGrid.TryFindResource(attribute.DataTemplateKey) as DataTemplate;
                 }
                 if (dataTemplate == null)
                 {
@@ -136,6 +108,6 @@ namespace WPFToolkit.Utility
 
         // Using a DependencyProperty as the backing store for AutoGenerateColumnDataType.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AutoGenerateColumnDataTypeProperty =
-            DependencyProperty.RegisterAttached("AutoGenerateColumnDataType", typeof(Type), typeof(DataGridUtils), new PropertyMetadata(null));
+            DependencyProperty.RegisterAttached("AutoGenerateColumnDataType", typeof(Type), typeof(DataGrid), new PropertyMetadata(null, AutoGenerateColumnDataTypePropertyChangedCallback));
     }
 }

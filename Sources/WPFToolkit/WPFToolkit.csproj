@@ -109,6 +109,7 @@
     <Compile Include="Drawing\ToolText.cs" />
     <Compile Include="Drawing\ToolTypeConverter.cs" />
     <Compile Include="Drawing\UndoManager.cs" />
+    <Compile Include="MVVM\MenuContentVM.cs" />
     <Compile Include="Panels\AVGPanel.cs" />
     <Compile Include="Panels\CircularPanel.cs" />
     <Compile Include="Utility\ControlUtils.cs" />

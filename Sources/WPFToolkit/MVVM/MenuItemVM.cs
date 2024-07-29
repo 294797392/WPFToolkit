@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -59,7 +60,12 @@ namespace WPFToolkit.MVVM
         /// </summary>
         public ObservableCollection<MenuItemVM> MenuItems { get; private set; }
 
-        public MenuItemVM(MenuDefinition menu) 
+        /// <summary>
+        /// 输入参数
+        /// </summary>
+        public IDictionary Parameters { get; private set; }
+
+        public MenuItemVM(MenuDefinition menu)
         {
             this.MenuItems = new ObservableCollection<MenuItemVM>();
             this.ID = menu.ID;
@@ -67,6 +73,7 @@ namespace WPFToolkit.MVVM
             this.ClassName = menu.ClassName;
             this.VMClassName = menu.VMClassName;
             this.IconURI = menu.Icon;
+            this.Parameters = menu.Parameters;
         }
     }
 }

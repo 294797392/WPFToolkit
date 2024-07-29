@@ -15,17 +15,19 @@
 
         <Slider x:Name="SliderAngleOffset" VerticalAlignment="Center" Minimum="-100" Maximum="100" Value="0" Interval="1" IsSnapToTickEnabled="True"/>
 
-        <ListBox Grid.Row="1" x:Name="ListBoxCircularPanel" SelectionChanged="ListBoxCircularPanel_SelectionChanged">
+        <ListBox Grid.Row="1" x:Name="ListBoxCircularPanel" SelectionChanged="ListBoxCircularPanel_SelectionChanged"
+                 Background="Red" VerticalAlignment="Top" HorizontalAlignment="Left">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border Background="Green" Width="100" Height="30"/>
+                    <Border Background="Green" Width="{Binding}" Height="30"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
 
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <panel:CirclePanel Margin="30" Diameter="500" AngleOffset="{Binding ElementName=SliderAngleOffset, Path=Value}"
-                                       BorderMargin="10"/>
+                    <panel:CirclePanel Margin="30" Diameter="500"
+                                       AngleOffset="{Binding ElementName=SliderAngleOffset, Path=Value}"
+                                       CircleWidth="40"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
 

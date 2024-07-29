@@ -54,13 +54,16 @@ namespace WPFToolkit.MVVM
         [JsonProperty("child")]
         public List<MenuDefinition> Children { get; private set; }
 
-        [JsonProperty("userData")]
-        internal IDictionary UserData { get; set; }
+        /// <summary>
+        /// 输入参数
+        /// </summary>
+        [JsonProperty("parameters")]
+        public IDictionary Parameters { get; set; }
 
         public MenuDefinition()
         {
             this.Children = new List<MenuDefinition>();
-            this.UserData = new Dictionary<string, object>();
+            this.Parameters = new Dictionary<string, object>();
         }
     }
 
@@ -230,10 +233,29 @@ namespace WPFToolkit.MVVM
                 {
                     content = ConfigFactory<FrameworkElement>.CreateInstance(this.SelectedMenu.ClassName);
 
-                    // 如果存在ViewModel，那么实例化ViewModel并绑定
                     if (!string.IsNullOrEmpty(this.SelectedMenu.VMClassName))
                     {
+                        // 如果存在ViewModel，那么实例化ViewModel并绑定
+                        // 此时会覆盖掉调用者在构造函数里绑定的ViewModel
                         contentVM = ConfigFactory<ViewModelBase>.CreateInstance(this.SelectedMenu.VMClassName);
+                    }
+                    else
+                    {
+                        // 有可能在动态创建Content实例的时候，构造函数里绑定了ViewModel
+                        contentVM = content.DataContext as ViewModelBase;
+                    }
+
+                    // 初始化MenuContentVM
+                    if (contentVM is MenuContentVM)
+                    {
+                        MenuContentVM menuContentVM = contentVM as MenuContentVM;
+                        menuContentVM.content = content;
+                        menuContentVM.parameters = selectedMenu.Parameters;
+                        menuContentVM.Initialize();
+                    }
+
+                    if (content.DataContext != contentVM)
+                    {
                         content.DataContext = contentVM;
                     }
                 }
@@ -250,13 +272,14 @@ namespace WPFToolkit.MVVM
             this.CurrentContent = this.SelectedMenu.Content;
 
             // 优先处理DataContent是IContentHost的情况
-            if (contentVM is IContentHook)
+            if (contentVM is MenuContentVM)
             {
-                IContentHook contentHost = contentVM as IContentHook;
+                MenuContentVM menuContentVM = contentVM as MenuContentVM;
 
-                this.ProcessContentLoaded(contentHost);
+                this.ProcessContentLoaded(menuContentVM);
             }
-            else if (content is IContentHook)
+
+            if (content is IContentHook)
             {
                 // 再处理Content是IContentHost的情况
                 IContentHook contentHost = content as IContentHook;
@@ -270,6 +293,11 @@ namespace WPFToolkit.MVVM
         public void InvokeWhenSelectionChanged()
         {
             this.InvokeWhenSelectionChanged(this.SelectedMenu);
+        }
+
+        public TViewModel GetViewModel<TViewModel>() where TViewModel : ViewModelBase
+        {
+            return this.MenuItems.Select(v => v.ContentVM).OfType<TViewModel>().FirstOrDefault();
         }
 
         #endregion
@@ -340,12 +368,13 @@ namespace WPFToolkit.MVVM
 
         private void ProcessContentUnload(FrameworkElement content)
         {
-            if (content.DataContext is IContentHook)
+            if (content.DataContext is MenuContentVM)
             {
                 IContentHook contentHost = content.DataContext as IContentHook;
                 contentHost.OnUnload();
             }
-            else if (content is IContentHook)
+
+            if (content is IContentHook)
             {
                 IContentHook contentHost = this.CurrentContent as IContentHook;
                 contentHost.OnUnload();

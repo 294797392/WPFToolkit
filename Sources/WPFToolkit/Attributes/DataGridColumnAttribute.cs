@@ -25,15 +25,11 @@ namespace WPFToolkit.Attributes
         public string Title { get; set; }
 
         /// <summary>
-        /// 列数据类型
+        /// 该列使用的数据模板Key
+        /// 如果没指定，那么会根据DataType类型去自动生成
+        /// 如果指定了，那么会在被绑定的DataGrid里去寻找对应的DataTemplate
         /// </summary>
-        public Type DataType { get; set; }
-
-        /// <summary>
-        /// 该列使用的数据模板URI
-        /// 如果没指定，那么会根据DataType类型去自动生成（这个功能暂时没实现）
-        /// </summary>
-        public string DataTemplateURI { get; set; }
+        public string DataTemplateKey { get; set; }
 
         /// <summary>
         /// 列宽度

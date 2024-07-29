@@ -30,10 +30,10 @@ namespace WPFToolkitDemo.UserControls
 
         private void InitializeUserControl()
         {
-            List<string> items = new List<string>();
+            List<double> items = new List<double>();
             for (int i = 0; i < 10; i++)
             {
-                items.Add(i.ToString());
+                items.Add(new Random(i).Next(50, 200));
             }
 
             ListBoxCircularPanel.ItemsSource = items;

@@ -356,33 +356,21 @@
         </Setter>
     </Style>
 
-    <Style x:Key="StyleButton" TargetType="{x:Type Button}">
-        <Style.Triggers>
-            <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Padding" Value="2,2,0,0"/>
-            </Trigger>
-        </Style.Triggers>
+    <Style x:Key="StyleButtonClearDefault" TargetType="{x:Type Button}">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
-        <Setter Property="Background" Value="#009788"/>
-        <Setter Property="Foreground" Value="White"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
 
                     <Grid>
                         <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3">
-                            <Border.Effect>
-                                <DropShadowEffect BlurRadius="3" ShadowDepth="3" Opacity="0.5" Color="Silver"/>
-                            </Border.Effect>
-                        </Border>
+                                BorderThickness="{TemplateBinding BorderThickness}"/>
 
                         <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                              Margin="{TemplateBinding Padding}"/>
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}"/>
                     </Grid>
 
                 </ControlTemplate>
