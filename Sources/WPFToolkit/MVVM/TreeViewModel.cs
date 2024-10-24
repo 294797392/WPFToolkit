@@ -75,17 +75,17 @@ namespace WPFToolkit.MVVM
         public void AddRootNode(TreeNodeViewModel root)
         {
             this.Roots.Add(root);
-            this.Context.AddNode(root);
+            this.Context.Add(root);
         }
 
         /// <summary>
         /// 删除所有节点
         /// 包括清空缓存的节点
         /// </summary>
-        public void ClearRootNode()
+        public void ClearNodes()
         {
             this.Roots.Clear();
-            this.Context.ClearNode();
+            this.Context.Clear();
         }
 
         /// <summary>

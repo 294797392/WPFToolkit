@@ -52,6 +52,15 @@
             "className": "WPFToolkitDemo.UserControls.ColorListUserControl, WPFToolkitDemo",
             "child": [
             ]
+        },
+
+        {
+            "id": "7",
+            "name": "TreeComboBox",
+            "icon": "pack://application:,,,/HMIClient;component/Images/page.png",
+            "className": "WPFToolkitDemo.UserControls.TreeComboBoxUserControl, WPFToolkitDemo",
+            "child": [
+            ]
         }
     ]
 

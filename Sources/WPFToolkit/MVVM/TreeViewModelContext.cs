@@ -44,12 +44,12 @@ namespace WPFToolkit.MVVM
         /// 缓存TreeNode，方便以后查询
         /// </summary>
         /// <param name="node"></param>
-        internal void AddNode(TreeNodeViewModel node)
+        internal void Add(TreeNodeViewModel node)
         {
             this.NodeMap[node.ID.ToString()] = node;
         }
 
-        internal void RemoveNode(TreeNodeViewModel node)
+        internal void Remove(TreeNodeViewModel node)
         {
             this.NodeMap.Remove(node.ID.ToString());
         }
@@ -58,7 +58,7 @@ namespace WPFToolkit.MVVM
         /// 删除一个缓存的树形节点
         /// </summary>
         /// <param name="nodeID"></param>
-        internal void RemoveNode(string nodeID)
+        internal void Remove(string nodeID)
         {
             TreeNodeViewModel node;
             if (this.NodeMap.TryGetValue(nodeID, out node))
@@ -70,7 +70,7 @@ namespace WPFToolkit.MVVM
         /// <summary>
         /// 清空所有节点
         /// </summary>
-        internal void ClearNode()
+        internal void Clear()
         {
             this.NodeMap.Clear();
         }

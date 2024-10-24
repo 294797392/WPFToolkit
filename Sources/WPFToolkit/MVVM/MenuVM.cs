@@ -195,6 +195,14 @@ namespace WPFToolkit.MVVM
             this.LoadMenu(menuDefinitions);
         }
 
+        public void Initialize(IEnumerable<MenuItemVM> menuItems)
+        {
+            foreach (MenuItemVM menuItem in menuItems)
+            {
+                this.MenuItems.Add(menuItem);
+            }
+        }
+
         public void InvokeWhenSelectionChanged(MenuItemVM selectedMenu)
         {
             this.SelectedMenu = selectedMenu;

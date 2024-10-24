@@ -1035,34 +1035,21 @@
             2. 方便开发者一眼就可以看到模块有哪些输出值
             </summary>
         </member>
-        <member name="P:DotNEToolkit.Modular.ModuleFactoryOptions.AsyncInitializing">
-            <summary>
-            是否使用异步加载模块
-            默认true
-            </summary>
-        </member>
         <member name="P:DotNEToolkit.Modular.ModuleFactoryOptions.ModuleList">
             <summary>
             要加载的模块列表
             </summary>
         </member>
-        <member name="P:DotNEToolkit.Modular.ModuleFactoryOptions.ReInitializeInterval">
-            <summary>
-            当初始化某个模块失败的时候，会重新初始化
-            这个值指定重新初始化模块的间隔时间，单位是毫秒，默认2000
-            </summary>
-        </member>
-        <member name="T:DotNEToolkit.Modular.AppModule`1">
+        <member name="T:DotNEToolkit.Modular.AppModule">
             <summary>
             在Module基础上实现一个ModularApp里的Module
             </summary>
-            <typeparam name="TApp"></typeparam>
-            <typeparam name="TManifest"></typeparam>
         </member>
-        <member name="P:DotNEToolkit.Modular.AppModule`1.AppManifest">
+        <member name="M:DotNEToolkit.Modular.AppModule.OnAppInitialized">
             <summary>
-            该Module所属的AppManifest
+            当App初始化完毕（Initialize方法执行结束）的时候触发
             </summary>
+            <returns></returns>
         </member>
         <member name="T:DotNEToolkit.Modular.ModuleEventDlg">
             <summary>
@@ -1171,6 +1158,11 @@
             object:EventParam
             </summary>
         </member>
+        <member name="E:DotNEToolkit.Modular.ModuleBase.OnMessage">
+            <summary>
+            模块消息，可以用来给用户看
+            </summary>
+        </member>
         <member name="P:DotNEToolkit.Modular.ModuleBase.Status">
             <summary>
             模块当前的状态
@@ -1236,9 +1228,17 @@
             <param name="eventType"></param>
             <param name="eventParam"></param>
         </member>
+        <member name="M:DotNEToolkit.Modular.ModuleBase.GetParameter``1(System.String)">
+            <summary>
+            读取该模块的输入参数，如果参数不存在则报异常
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
         <member name="M:DotNEToolkit.Modular.ModuleBase.GetParameter``1(System.String,``0)">
             <summary>
-            读取该模块的输入参数
+            读取该模块的输入参数，如果参数不存在则返回defaultValue
             </summary>
             <typeparam name="T"></typeparam>
             <param name="key"></param>
@@ -1286,11 +1286,6 @@
             描述
             </summary>
         </member>
-        <member name="P:DotNEToolkit.Modular.ModuleDefinition.MetadataID">
-            <summary>
-            组件类型ID
-            </summary>
-        </member>
         <member name="P:DotNEToolkit.Modular.ModuleDefinition.ClassName">
             <summary>
             模块的完整类型名
@@ -1308,6 +1303,17 @@
             输入配置参数
             执行模块的构造方法的时候，会动态把所依赖的模块实例反射并赋值给该模块的属性
             避免了每次都要调用LookupModule去查找模块，麻烦
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Modular.ModuleDefinition.AsyncInit">
+            <summary>
+            是否异步加载该模块
+            异步加载的情况下，如果该模块加载失败则会重试加载
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Modular.ModuleDefinition.AsyncInitInterval">
+            <summary>
+            当异步加载失败之后，重新加载的间隔时间，单位毫秒
             </summary>
         </member>
         <member name="M:DotNEToolkit.Modular.ModuleDefinition.#ctor">
@@ -1339,12 +1345,6 @@
             模块工厂
             </summary>
         </member>
-        <member name="E:DotNEToolkit.Modular.ModuleFactory.Initialized">
-            <summary>
-            当所有模块都加载完成的时候触发
-            只有在异步加载模块的时候才会触发
-            </summary>
-        </member>
         <member name="E:DotNEToolkit.Modular.ModuleFactory.ModuleStatusChanged">
             <summary>
             当模块状态改变的时候触发
@@ -1364,17 +1364,6 @@
             <summary>
             构造方法
             </summary>
-        </member>
-        <member name="M:DotNEToolkit.Modular.ModuleFactory.InitializeModule(DotNEToolkit.Modular.ModuleBase,System.Int32,DotNEToolkit.Modular.ModuleBase)">
-            <summary>
-            初始化一个模块，会解析依赖项
-            </summary>
-            <param name="moduleInst">要初始化的模块</param>
-            <param name="interval">
-            > 0  : 重新初始化的间隔时间，如果初始化失败，那么会一直初始化
-            = -1 : 失败直接返回，不尝试重新初始化
-            </param>
-            <param name="baseModule">当前初始化的模块</param>
         </member>
         <member name="M:DotNEToolkit.Modular.ModuleFactory.CreateModuleInstance(System.Collections.Generic.IEnumerable{DotNEToolkit.Modular.ModuleDefinition})">
             <summary>
@@ -1530,31 +1519,6 @@
             向源文件追加新文件
             </summary>
         </member>
-        <member name="T:DotNEToolkit.Utility.CSVSplitters">
-            <summary>
-            CSV文件的分隔符
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Utility.CSVSplitters.Unkown">
-            <summary>
-            未知
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Utility.CSVSplitters.Comma">
-            <summary>
-            逗号分隔
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Utility.CSVSplitters.Space">
-            <summary>
-            空格分隔
-            </summary>
-        </member>
-        <member name="F:DotNEToolkit.Utility.CSVSplitters.Tab">
-            <summary>
-            Tab键分隔
-            </summary>
-        </member>
         <member name="T:DotNEToolkit.Utility.CSVUtils">
             <summary>
             提供操作CSV格式文件的方法
@@ -1566,12 +1530,13 @@
             有的CSV文件是用逗号，有的是用空格分隔
             </summary>
         </member>
-        <member name="M:DotNEToolkit.Utility.CSVUtils.TableData2CSVFile(DotNEToolkit.TableData,System.String,DotNEToolkit.Utility.CSVSplitters)">
+        <member name="M:DotNEToolkit.Utility.CSVUtils.TableData2CSVFile(DotNEToolkit.TableData,System.String,System.Text.Encoding,System.String)">
             <summary>
             把TableData保存成一个CSV文件
             </summary>
             <param name="tableData"></param>
             <param name="csvPath"></param>
+            <param name="fileEncoding">CSV文件的编码方式</param>
             <param name="splitter">CSV文件的分隔符</param>
         </member>
         <member name="M:DotNEToolkit.Utility.CSVUtils.CSV2TableData(System.String)">
@@ -1604,7 +1569,7 @@
             <param name="excelPath"></param>
             <param name="options">写入Excel文件的选项</param>
         </member>
-        <member name="M:DotNEToolkit.Utility.CSVUtils.CSVFile2Objects``1(System.String,DotNEToolkit.Utility.CSVSplitters)">
+        <member name="M:DotNEToolkit.Utility.CSVUtils.CSVFile2Objects``1(System.String)">
             <summary>
             把一个CSV文件转换成一个对象集合
             要使用CSVColumnAttribute把类里的属性和CSV文件里的字段映射起来
@@ -1629,6 +1594,74 @@
             <param name="rgbBytes"></param>
             <param name="width"></param>
             <param name="height"></param>
+        </member>
+        <member name="T:DotNEToolkit.Utility.TimerCallback">
+            <summary>
+            定时器回调函数
+            </summary>
+            <param name="userData"></param>
+        </member>
+        <member name="T:DotNEToolkit.Utility.TimerGranularities">
+            <summary>
+            定义定时器的执行粒度
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Utility.TimerGranularities.Second">
+            <summary>
+            粒度设置为按照秒触发
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Utility.TimerGranularities.Minute">
+            <summary>
+            粒度设置为按照分钟触发
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Utility.TimerHandle.Name">
+            <summary>
+            定时器名字
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Utility.TimerHandle.Interval">
+            <summary>
+            定时器粒度
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Utility.TimerHandle.GranularityValue">
+            <summary>
+            粒度值
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Utility.TimerHandle.Callback">
+            <summary>
+            当定时器到期的时候触发的回调
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Utility.TimerHandle.UserData">
+            <summary>
+            定时器关联的用户数据
+            </summary>
+        </member>
+        <member name="P:DotNEToolkit.Utility.TimerHandle.NextInterval">
+            <summary>
+            剩余多少毫秒可以执行
+            </summary>
+        </member>
+        <member name="T:DotNEToolkit.Utility.TimerUtils">
+            <summary>
+            可以在某一个指定的时刻执行指定的任务的定时器
+            线程安全的
+            </summary>
+        </member>
+        <member name="M:DotNEToolkit.Utility.TimerUtils.CreateTimer(System.String,DotNEToolkit.Utility.TimerGranularities,System.Int32,DotNEToolkit.Utility.TimerCallback,System.Object)">
+            <summary>
+            新建一个定时器
+            </summary>
+            <param name="name"></param>
+            <param name="granularity">设置定时器的粒度</param>
+            <param name="value">定时器的粒度值</param>
+            <param name="callback"></param>
+            <param name="userData"></param>
+            <returns></returns>
         </member>
         <member name="T:DotNEToolkit.Utility.NumbericUtils">
             <summary>
@@ -1676,6 +1709,15 @@
             封装Excel文件的导入，导出功能
             </summary>
         </member>
+        <member name="M:DotNEToolkit.Utility.ExcelUtils.OpenSheet(NPOI.SS.UserModel.IWorkbook,System.String,DotNEToolkit.Excels.WriteOptions)">
+            <summary>
+            
+            </summary>
+            <param name="workbook"></param>
+            <param name="sheetName"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
         <member name="M:DotNEToolkit.Utility.ExcelUtils.ExcelFile2TableData(System.String)">
             <summary>
             Excel文件转换成TableData
@@ -1683,12 +1725,14 @@
             <param name="excelPath">要转换的Excel文件的完整路径</param>
             <returns></returns>
         </member>
-        <member name="M:DotNEToolkit.Utility.ExcelUtils.ExcelFile2CSVFile(System.String,System.String,DotNEToolkit.Utility.CSVSplitters)">
+        <member name="M:DotNEToolkit.Utility.ExcelUtils.ExcelFile2CSVFile(System.String,System.String,System.Text.Encoding,System.String)">
             <summary>
             Excel文件转换成CSV
             </summary>
             <param name="excelPath">要转换的Excel文件的完整路径</param>
             <param name="csvPath">要保存的CSV文件的完整路径</param>
+            <param name="fileEncoding">CSV文件的编码方式</param>
+            <param name="splitter">CSV文件的分隔符</param>
         </member>
         <member name="M:DotNEToolkit.Utility.ExcelUtils.TableData2ExcelFile(System.String,DotNEToolkit.TableData,DotNEToolkit.Excels.WriteOptions,System.String,DotNEToolkit.Utility.ExcelVersions)">
             <summary>
@@ -2218,13 +2262,7 @@
             <summary>
             App清单文件
             清单文件里只存储不可变的数据
-            可变数据属于配置数据，调用ModularApp的GetConfig个SetConfig接口进行读写
-            </summary>
-        </member>
-        <member name="P:DotNEToolkit.AppManifest.AsynchronousInitialization">
-            <summary>
-            是否异步初始化模块
-            默认不异步，默认用同步初始化
+            可变数据属于配置数据，调用ModularApp的ReadSetting个WriteSetting接口进行读写
             </summary>
         </member>
         <member name="P:DotNEToolkit.AppManifest.ModuleList">
@@ -2287,11 +2325,6 @@
             释放App占用的资源
             </summary>
         </member>
-        <member name="M:DotNEToolkit.ModularApp`2.SaveManifest">
-            <summary>
-            保存Manifest文件
-            </summary>
-        </member>
         <member name="M:DotNEToolkit.ModularApp`2.WriteSetting``1(System.String,``0)">
             <summary>
             写入并保存配置文件
@@ -2309,9 +2342,23 @@
             <param name="defaultValue"></param>
             <returns></returns>
         </member>
-        <member name="M:DotNEToolkit.ModularApp`2.OnInitialize">
+        <member name="M:DotNEToolkit.ModularApp`2.DeleteSetting(System.String)">
             <summary>
-            子类初始化
+            从配置文件里删除一个配置
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:DotNEToolkit.ModularApp`2.ContainsSetting(System.String)">
+            <summary>
+            确定指定的配置是否存在于配置文件里
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNEToolkit.ModularApp`2.OnInitialized">
+            <summary>
+            在创建模块实例之后调用
+            如果是异步初始化，那么模块很可能还没完全初始化完，但是所有模块的实例已经被创建了
             </summary>
             <returns></returns>
         </member>
@@ -2326,11 +2373,6 @@
             </summary>
             <param name="moduleInst"></param>
             <param name="status">模块状态</param>
-        </member>
-        <member name="M:DotNEToolkit.ModularApp`2.OnModuleInitialized">
-            <summary>
-            处理所有模块都初始化成功的事件
-            </summary>
         </member>
         <member name="M:DotNEToolkit.ModularApp`2.OnCircularReference(DotNEToolkit.Modular.IModuleInstance)">
             <summary>
@@ -4042,7 +4084,7 @@
             </summary>
             <param name="list"></param>
             <param name="separator">指定要使用的分隔符</param>
-            <returns></returns>
+            <returns>返回拼接口的字符串，该字符串最后没有分隔符</returns>
         </member>
         <member name="M:DotNEToolkit.CollectionUtils.HasDuplicated(System.Collections.Generic.List{System.String})">
             <summary>
@@ -4127,7 +4169,7 @@
             <param name="filePath">要保存的文件路径</param>
             <param name="obj">要写入的对象实例</param>
         </member>
-        <member name="M:DotNEToolkit.JSONHelper.CloneObject``2(``0)">
+        <member name="M:DotNEToolkit.JSONHelper.CloneObject``1(``0)">
             <summary>
             克隆一个对象
             先把inputObject转换成JSON字符串，再把JSON字符串转成TOutput类型的对象
@@ -4624,6 +4666,11 @@
             创建一个空的CellData
             </summary>
         </member>
+        <member name="P:DotNEToolkit.TableColumnAttribute.Width">
+            <summary>
+            指定列宽度
+            </summary>
+        </member>
         <member name="T:DotNEToolkit.TableData">
             <summary>
             描述表格类型的数据
@@ -4658,6 +4705,7 @@
         <member name="M:DotNEToolkit.TableData.Get(System.Int32,System.Int32)">
             <summary>
             读取某个单元格的值
+            如果没有这个单元格的值，那么返回空
             </summary>
             <param name="row"></param>
             <param name="col"></param>
@@ -5891,6 +5939,31 @@
         <member name="T:DotNEToolkit.InterfaceID">
             <summary>
             COM接口ID
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Ole32.SHIL_LARGE">
+            <summary>
+            图像大小通常为 32x32 像素。 但是，如果从“显示属性”中“外观”选项卡的“效果”部分选择了“使用大图标”选项，则图像为 48x48 像素。
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Ole32.SHIL_SMALL">
+            <summary>
+            这些图像是 Shell 标准小图标大小 16x16，但用户可自定义大小。
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Ole32.SHIL_EXTRALARGE">
+            <summary>
+            这些图像是 Shell 标准超大图标大小。 这通常是 48x48，但用户可自定义大小。
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Ole32.SHIL_SYSSMALL">
+            <summary>
+            这些图像是 GetSystemMetrics 使用 SM_CXSMICON 和 getSystemMetrics 使用 SM_CYSMICON 指定的大小。
+            </summary>
+        </member>
+        <member name="F:DotNEToolkit.Ole32.SHIL_JUMBO">
+            <summary>
+             Windows Vista 及更高版本。 图像通常为 256x256 像素。
             </summary>
         </member>
         <member name="T:DotNEToolkit.WindowsServices">

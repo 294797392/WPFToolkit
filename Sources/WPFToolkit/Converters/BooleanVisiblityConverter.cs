@@ -28,7 +28,13 @@ namespace WPFToolkit.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            if (value == null || !(value is Visibility))
+            {
+                return false;
+            }
+
+            Visibility visibility = (Visibility)value;
+            return visibility == Visibility.Visible;
         }
     }
 

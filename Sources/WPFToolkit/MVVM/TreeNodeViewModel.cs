@@ -182,7 +182,7 @@ namespace WPFToolkit.MVVM
         {
             node.Parent = this;
             this.Children.Add(node);
-            this.Context.AddNode(node);
+            this.Context.Add(node);
         }
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace WPFToolkit.MVVM
         {
             node.Parent = null;
             this.Children.Remove(node);
-            this.Context.RemoveNode(node.ID.ToString());
+            this.Context.Remove(node.ID.ToString());
         }
 
         #endregion

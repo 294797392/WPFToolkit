@@ -25,7 +25,7 @@ namespace WPFToolkitDemo
 
     public class ToolkitApp : ModularApp<ToolkitApp, ToolkitManifest>
     {
-        protected override int OnInitialize()
+        protected override int OnInitialized()
         {
             return 0;
         }
