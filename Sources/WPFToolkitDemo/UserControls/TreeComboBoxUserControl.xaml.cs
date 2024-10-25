@@ -51,7 +51,7 @@ namespace WPFToolkitDemo.UserControls
                     };
 
 
-                    treeNodeViewModel.AddChildNode(treeNodeViewModel1);
+                    treeNodeViewModel.Add(treeNodeViewModel1);
                 }
 
                 roots.Add(treeNodeViewModel);

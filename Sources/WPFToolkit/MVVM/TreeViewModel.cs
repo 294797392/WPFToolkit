@@ -62,6 +62,7 @@ namespace WPFToolkit.MVVM
             this.Roots = new ObservableCollection<TreeNodeViewModel>();
 
             this.Context = Activator.CreateInstance<TContext>();
+            this.Context.Roots = this.Roots;
         }
 
         #endregion
@@ -129,6 +130,39 @@ namespace WPFToolkit.MVVM
             }
 
             vm.IsSelected = true;
+        }
+
+        /// <summary>
+        /// 展开所有子节点
+        /// </summary>
+        public void ExpandAll()
+        {
+            foreach (TreeNodeViewModel treeNode in this.Roots)
+            {
+                this.ExpandAll(treeNode);
+            }
+        }
+
+        #endregion
+
+        #region 实例方法
+
+        private void ExpandAll(TreeNodeViewModel parentNode)
+        {
+            if (parentNode.Children.Count > 0)
+            {
+                parentNode.IsExpanded = true;
+
+                foreach (TreeNodeViewModel treeNode in parentNode.Children)
+                {
+                    if (treeNode.Children.Count > 0)
+                    {
+                        treeNode.IsExpanded = true;
+
+                        this.ExpandAll(treeNode);
+                    }
+                }
+            }
         }
 
         #endregion

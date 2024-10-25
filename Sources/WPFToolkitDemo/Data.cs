@@ -62,7 +62,7 @@ namespace WPFToolkitDemo
                         Name = string.Format("Name:{0}-{1}", i, j)
                     };
 
-                    root.AddChildNode(child);
+                    root.Add(child);
                 }
             }
         }

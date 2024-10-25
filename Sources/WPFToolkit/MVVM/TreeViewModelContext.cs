@@ -18,6 +18,13 @@ namespace WPFToolkit.MVVM
         /// </summary>
         private Dictionary<string, TreeNodeViewModel> NodeMap { get; set; }
 
+        private List<TreeNodeViewModel> Nodes { get; set; }
+
+        /// <summary>
+        /// 根节点列表
+        /// </summary>
+        internal ObservableCollection<TreeNodeViewModel> Roots { get; set; }
+
         /// <summary>
         /// 当前选中的节点
         /// </summary>
@@ -33,11 +40,23 @@ namespace WPFToolkit.MVVM
         /// </summary>
         public ObservableCollection<TreeNodeViewModel> CheckedItems { get; internal set; }
 
+        /// <summary>
+        /// 获取所有的节点
+        /// </summary>
+        public IEnumerable<TreeNodeViewModel> NodeList
+        {
+            get { return this.Nodes; }
+        }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
         public TreeViewModelContext()
         {
             this.SelectedItems = new ObservableCollection<TreeNodeViewModel>();
             this.CheckedItems = new ObservableCollection<TreeNodeViewModel>();
             this.NodeMap = new Dictionary<string, TreeNodeViewModel>();
+            this.Nodes = new List<TreeNodeViewModel>();
         }
 
         /// <summary>
@@ -47,11 +66,12 @@ namespace WPFToolkit.MVVM
         internal void Add(TreeNodeViewModel node)
         {
             this.NodeMap[node.ID.ToString()] = node;
+            this.Nodes.Add(node);
         }
 
         internal void Remove(TreeNodeViewModel node)
         {
-            this.NodeMap.Remove(node.ID.ToString());
+            this.Remove(node.ID.ToString());
         }
 
         /// <summary>
@@ -64,6 +84,7 @@ namespace WPFToolkit.MVVM
             if (this.NodeMap.TryGetValue(nodeID, out node))
             {
                 this.NodeMap.Remove(nodeID);
+                this.Nodes.Remove(node);
             }
         }
 
@@ -73,6 +94,7 @@ namespace WPFToolkit.MVVM
         internal void Clear()
         {
             this.NodeMap.Clear();
+            this.Nodes.Clear();
         }
 
         public bool TryGetNode(string nodeID, out TreeNodeViewModel node)

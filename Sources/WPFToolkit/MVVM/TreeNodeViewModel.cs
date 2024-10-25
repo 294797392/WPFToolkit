@@ -178,7 +178,7 @@ namespace WPFToolkit.MVVM
         /// 增加一个子节点
         /// </summary>
         /// <param name="node">要增加的子节点</param>
-        public void AddChildNode(TreeNodeViewModel node)
+        public void Add(TreeNodeViewModel node)
         {
             node.Parent = this;
             this.Children.Add(node);
@@ -186,14 +186,52 @@ namespace WPFToolkit.MVVM
         }
 
         /// <summary>
-        /// 删除一个子节点
+        /// 从树形列表里移除自己
         /// </summary>
-        /// <param name="node">要删除的子节点</param>
-        public void RemoveChildNode(TreeNodeViewModel node)
+        public void Remove() 
         {
-            node.Parent = null;
-            this.Children.Remove(node);
-            this.Context.Remove(node.ID.ToString());
+            this.Clear();
+
+            if (this.Parent != null)
+            {
+                // 该节点是一个子节点
+                this.Parent.Children.Remove(this);
+            }
+            else
+            {
+                // 该节点是一个根节点
+                this.Context.Roots.Remove(this);
+            }
+
+            this.Context.Remove(this);
+        }
+
+        ///// <summary>
+        ///// 删除一个子节点
+        ///// </summary>
+        ///// <param name="node">要删除的子节点</param>
+        //public void Remove(TreeNodeViewModel node)
+        //{
+        //    node.Parent.Remove(node);
+
+        //    node.Parent = null;
+        //    this.Children.Remove(node);
+        //    this.Context.Remove(node.ID.ToString());
+        //}
+
+        /// <summary>
+        /// 清除所有子节点
+        /// </summary>
+        public void Clear() 
+        {
+            foreach (TreeNodeViewModel child in this.Children)
+            {
+                this.Context.Remove(child);
+
+                child.Clear();
+            }
+
+            this.Children.Clear();
         }
 
         #endregion

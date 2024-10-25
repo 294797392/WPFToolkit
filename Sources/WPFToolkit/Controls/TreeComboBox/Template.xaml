@@ -31,7 +31,7 @@
                                     HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                     VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
-                                    <ItemsPresenter />
+                                    <ItemsPresenter Margin="5"/>
                                 </ScrollViewer>
                             </Border>
                         </Popup>
