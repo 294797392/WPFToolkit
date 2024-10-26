@@ -19,6 +19,7 @@
     <Grid>
 
         <uc:TreeComboBox x:Name="ComboBox1" Width="200" Height="30" 
+                         SelectionBoxItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          Style="{StaticResource ResourceKey=StyleTreeComboBox}">
             <uc:TreeComboBox.SelectionBoxItemTemplate>
                 <DataTemplate>
@@ -30,7 +31,15 @@
                     <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="{Binding Path=Name}" />
                 </HierarchicalDataTemplate>
             </uc:TreeComboBox.ItemTemplate>
+            <uc:TreeComboBox.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </Style>
+            </uc:TreeComboBox.ItemContainerStyle>
         </uc:TreeComboBox>
+
+        <Button Width="100" Height="30" Click="Button_Click" Margin="400,0,0,0"/>
 
     </Grid>
 </UserControl>

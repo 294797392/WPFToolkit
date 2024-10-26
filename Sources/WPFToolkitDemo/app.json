@@ -61,6 +61,15 @@
             "className": "WPFToolkitDemo.UserControls.TreeComboBoxUserControl, WPFToolkitDemo",
             "child": [
             ]
+        },
+
+        {
+            "id": "8",
+            "name": "KControls",
+            "icon": "pack://application:,,,/HMIClient;component/Images/page.png",
+            "className": "WPFToolkitDemo.UserControls.KComboBoxDemo, WPFToolkitDemo",
+            "child": [
+            ]
         }
     ]
 

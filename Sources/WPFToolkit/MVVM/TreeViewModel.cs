@@ -50,6 +50,23 @@ namespace WPFToolkit.MVVM
         /// </summary>
         public TContext Context { get; private set; }
 
+        /// <summary>
+        /// 读取或设置树形列表的选中项
+        /// </summary>
+        public TreeNodeViewModel SelectedItem
+        {
+            get { return this.Context.SelectedItem; }
+            set
+            {
+                if (this.Context.SelectedItem != value) 
+                {
+                    this.Context.SelectedItem = value;
+                    value.IsSelected = true;
+                    this.NotifyPropertyChanged("SelectedItem");
+                }
+            }
+        }
+
         #endregion
 
         #region 构造方法
@@ -121,15 +138,17 @@ namespace WPFToolkit.MVVM
         /// 选中某个节点
         /// </summary>
         /// <param name="nodeID">要选中的节点ID</param>
-        public void SelectNode(string nodeID)
+        /// <returns>如果选中成功则返回被选中的节点，否则返回null</returns>
+        public TreeNodeViewModel SelectNode(string nodeID)
         {
             TreeNodeViewModel vm;
             if (!this.TryGetNode(nodeID, out vm))
             {
-                return;
+                return null;
             }
 
             vm.IsSelected = true;
+            return vm;
         }
 
         /// <summary>

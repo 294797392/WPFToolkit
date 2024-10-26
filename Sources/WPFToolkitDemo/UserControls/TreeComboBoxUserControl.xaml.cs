@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,6 +22,8 @@ namespace WPFToolkitDemo.UserControls
     /// </summary>
     public partial class TreeComboBoxUserControl : UserControl
     {
+        private BindableCollection<TreeNodeViewModel> roots;
+
         public TreeComboBoxUserControl()
         {
             InitializeComponent();
@@ -32,7 +35,7 @@ namespace WPFToolkitDemo.UserControls
         {
             TreeViewModelContext context = new TreeViewModelContext();
 
-            BindableCollection<TreeNodeViewModel> roots = new BindableCollection<TreeNodeViewModel>();
+            roots = new BindableCollection<TreeNodeViewModel>();
 
             for (int i = 0; i < 10; i++)
             {
@@ -44,12 +47,11 @@ namespace WPFToolkitDemo.UserControls
 
                 for (int j = 0; j < 5; j++)
                 {
-                    TreeNodeViewModel treeNodeViewModel1 = new TreeNodeViewModel(context) 
+                    TreeNodeViewModel treeNodeViewModel1 = new TreeNodeViewModel(context)
                     {
                         ID = Guid.NewGuid().ToString(),
                         Name = j.ToString(),
                     };
-
 
                     treeNodeViewModel.Add(treeNodeViewModel1);
                 }
@@ -57,7 +59,15 @@ namespace WPFToolkitDemo.UserControls
                 roots.Add(treeNodeViewModel);
             }
 
+            ComboBox1.DataContext = roots;
             ComboBox1.ItemsSource = roots;
+
+            roots.SelectedItem = roots.LastOrDefault();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(this.roots.SelectedItem.Name);
         }
     }
 }
