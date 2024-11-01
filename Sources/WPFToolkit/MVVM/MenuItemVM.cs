@@ -65,7 +65,14 @@ namespace WPFToolkit.MVVM
         /// </summary>
         public IDictionary Parameters { get; private set; }
 
+        public MenuItemVM() { }
+
         public MenuItemVM(MenuDefinition menu)
+        {
+            this.SetDefinition(menu);
+        }
+
+        public void SetDefinition(MenuDefinition menu)
         {
             this.MenuItems = new ObservableCollection<MenuItemVM>();
             this.ID = menu.ID;
