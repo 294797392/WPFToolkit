@@ -116,6 +116,7 @@
     <Compile Include="Utility\ControlUtils.cs" />
     <Compile Include="Utility\DataGridUtils.cs" />
     <Compile Include="Utility\MessageBoxUtils.cs" />
+    <Compile Include="Utility\TreeViewUtils.cs" />
     <Compile Include="YControls\KButton.cs" />
     <Compile Include="YControls\KColorPicker.cs" />
     <Compile Include="YControls\KComboBox.cs" />
