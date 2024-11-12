@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace WPFToolkit.Panels
+namespace WPFToolkit.Controls.Panels
 {
     /// <summary>
     /// 圆形布局

@@ -112,8 +112,8 @@
     <Compile Include="Drawing\UndoManager.cs" />
     <Compile Include="MVVM\MenuContentVM.cs" />
     <Compile Include="MVVM\MenuVM.cs" />
-    <Compile Include="Panels\AVGPanel.cs" />
-    <Compile Include="Panels\CircularPanel.cs" />
+    <Compile Include="Controls\Panels\AVGPanel.cs" />
+    <Compile Include="Controls\Panels\CircularPanel.cs" />
     <Compile Include="Utility\ControlUtils.cs" />
     <Compile Include="Utility\DataGridUtils.cs" />
     <Compile Include="Utility\MessageBoxUtils.cs" />

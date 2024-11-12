@@ -66,7 +66,6 @@ namespace WPFToolkit.Controls
 
         public TreeComboBox() 
         {
-            Mouse.AddPreviewMouseDownOutsideCapturedElementHandler(this, this.Test);
         }
 
         #region 实例方法
@@ -122,12 +121,6 @@ namespace WPFToolkit.Controls
             }
         }
 
-
-
-        private void Test(object sender, MouseButtonEventArgs e)
-        {
-            Console.WriteLine("a");
-        }
 
 
         private static void SelectionBoxPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
