@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media;
 using WPFToolkit.DragDrop;
 
 namespace WPFToolkit.Controls
@@ -16,8 +17,6 @@ namespace WPFToolkit.Controls
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     public class TreeComboBox : TreeView
     {
-        private Popup popup;
-
         public DataTemplate SelectionBoxItemTemplate
         {
             get { return (DataTemplate)GetValue(SelectionBoxItemTemplateProperty); }
@@ -53,7 +52,7 @@ namespace WPFToolkit.Controls
 
         // Using a DependencyProperty as the backing store for IsDropDownOpen.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsDropDownOpenProperty =
-            DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(TreeComboBox), new PropertyMetadata(false, null));
+            DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(TreeComboBox), new PropertyMetadata(false, IsDropDownOpenPropertyChangedCallback));
 
 
 
@@ -67,7 +66,7 @@ namespace WPFToolkit.Controls
         public static readonly DependencyProperty MaxDropDownHeightProperty =
             DependencyProperty.Register("MaxDropDownHeight", typeof(double), typeof(TreeComboBox), new PropertyMetadata(200D));
 
-        public TreeComboBox() 
+        public TreeComboBox()
         {
         }
 
@@ -104,21 +103,12 @@ namespace WPFToolkit.Controls
         {
             base.OnApplyTemplate();
 
-            //ItemsPresenter itemsPresenter = this.Template.FindName("ItemsPresenter1", this) as ItemsPresenter;
-            //itemsPresenter.MouseLeftButtonDown += ItemsPresenter_MouseLeftButtonDown;
-            //itemsPresenter.PreviewMouseLeftButtonDown += ItemsPresenter_PreviewMouseLeftButtonDown;
-
             base.ItemContainerGenerator.StatusChanged += ItemContainerGenerator_StatusChanged;
         }
 
-        private void ItemsPresenter_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            Console.WriteLine(e.Source.GetType().ToString());
-        }
-
-        private void ItemsPresenter_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            
+            base.OnMouseLeftButtonDown(e);
         }
 
         #endregion
@@ -138,6 +128,16 @@ namespace WPFToolkit.Controls
             }
         }
 
+        private static void IsDropDownOpenPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            TreeComboBox treeComboBox = (TreeComboBox)d;
+            treeComboBox.OnIsDropDownOpenPropertyChanged(e.OldValue, e.NewValue);
+        }
+
+        private void OnIsDropDownOpenPropertyChanged(object oldValue, object newValue)
+        {
+        }
+
         private static void SelectionBoxPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             TreeComboBox treeComboBox = (TreeComboBox)d;
@@ -146,12 +146,12 @@ namespace WPFToolkit.Controls
 
         private void OnSelectionBoxPropertyChanged(object oldValue, object newValue)
         {
-            //if (newValue != null)
-            //{
-            //    this.HandleSelectionBoxItemChanged();
+            if (newValue != null)
+            {
+                this.HandleSelectionBoxItemChanged();
 
-            //    base.SetValue(TreeComboBox.IsDropDownOpenProperty, false);
-            //}
+                base.SetValue(TreeComboBox.IsDropDownOpenProperty, false);
+            }
         }
     }
 }
