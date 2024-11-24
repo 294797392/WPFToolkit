@@ -150,6 +150,11 @@ namespace WPFToolkit.MVVM
             }
         }
 
+        /// <summary>
+        /// 节点的等级
+        /// </summary>
+        public int Level { get; set; }
+
         #endregion
 
         #region 构造方法

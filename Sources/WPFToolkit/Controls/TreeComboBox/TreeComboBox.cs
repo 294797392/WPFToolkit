@@ -12,9 +12,15 @@ using WPFToolkit.DragDrop;
 
 namespace WPFToolkit.Controls
 {
+    [TemplatePart(Name = "PART_DropDownButton", Type = typeof(ToggleButton))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     public class TreeComboBox : TreeView
     {
+
+
+
+
+
         public DataTemplate SelectionBoxItemTemplate
         {
             get { return (DataTemplate)GetValue(SelectionBoxItemTemplateProperty); }
@@ -120,8 +126,6 @@ namespace WPFToolkit.Controls
                     break;
             }
         }
-
-
 
         private static void SelectionBoxPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

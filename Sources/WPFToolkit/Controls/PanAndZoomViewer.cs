@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -75,10 +77,12 @@ namespace WPFToolkit.Controls
             // DoZoom requires both the logical and physical location of the mouse pointer
             var physicalPoint = e.GetPosition(this);
 
-            Console.WriteLine("physicalPoint = {0}, inversePoint = {1}", physicalPoint, this.transformGroup.Inverse.Transform(physicalPoint));
+            //Point p = this.TranslatePoint(physicalPoint, this.source);
+            Point p = this.transformGroup.Inverse.Transform(physicalPoint);
 
-            DoZoom(zoomFactor, this.transformGroup.Inverse.Transform(physicalPoint), physicalPoint);
+            //Console.WriteLine("鼠标相对于窗口的坐标 = {0}, 鼠标相对于图片的坐标(逆矩阵转换) = {1}", physicalPoint, p);
 
+            DoZoom(zoomFactor, p, physicalPoint);
 
             //Point mouseP = e.GetPosition(this);
             //if (e.Delta < 0)
@@ -178,19 +182,6 @@ namespace WPFToolkit.Controls
             this.translateTransform.BeginAnimation(TranslateTransform.YProperty, CreateZoomAnimation(-1 * (mousePosition.Y * currentZoom - physicalPosition.Y)));
             this.zoomTransform.BeginAnimation(ScaleTransform.ScaleXProperty, CreateZoomAnimation(currentZoom));
             this.zoomTransform.BeginAnimation(ScaleTransform.ScaleYProperty, CreateZoomAnimation(currentZoom));
-        }
-        /// <summary>Zoom into or out of the content by percent.</summary>
-        /// <param name="deltaZoom">Percent to set zoom too.</param>
-        /// <param name="mousePosition">Logical mouse position relative to the original content.</param>
-        /// <param name="physicalPosition">Actual mouse position on the screen (relative to the parent window)</param>
-        public void DoZoomPercent(double percentZoom, Point mousePosition, Point physicalPosition)
-        {
-            mousePosition = this.transformGroup.Inverse.Transform(mousePosition);
-
-            this.translateTransform.BeginAnimation(TranslateTransform.XProperty, CreateZoomAnimation(-1 * (mousePosition.X * percentZoom - physicalPosition.X)));
-            this.translateTransform.BeginAnimation(TranslateTransform.YProperty, CreateZoomAnimation(-1 * (mousePosition.Y * percentZoom - physicalPosition.Y)));
-            this.zoomTransform.BeginAnimation(ScaleTransform.ScaleXProperty, CreateZoomAnimation(percentZoom));
-            this.zoomTransform.BeginAnimation(ScaleTransform.ScaleYProperty, CreateZoomAnimation(percentZoom));
         }
 
         /// <summary>Reset to default zoom level and centered content.</summary>
