@@ -27,9 +27,7 @@
                                     IsHitTestVisible="False" />
                         </Grid>
 
-                        <Popup x:Name="PART_Popup" Grid.ColumnSpan="2" AllowsTransparency="true"
-                               IsOpen="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Placement="Bottom" Focusable="False"
-                               StaysOpen="False">
+                        <Popup x:Name="PART_Popup" Grid.ColumnSpan="2" AllowsTransparency="true" IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom" Focusable="False">
                             <Grid MaxHeight="{TemplateBinding MaxDropDownHeight}" Width="Auto" MinWidth="{TemplateBinding ActualWidth}" >
                                 <Border
                                     x:Name="PART_Border"
@@ -46,7 +44,7 @@
                                         SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                         VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
                                         Margin="2">
-                                        <ItemsPresenter Margin="5"/>
+                                        <ItemsPresenter Margin="5" x:Name="ItemsPresenter1"/>
                                     </ScrollViewer>
                                 </Border>
                             </Grid>

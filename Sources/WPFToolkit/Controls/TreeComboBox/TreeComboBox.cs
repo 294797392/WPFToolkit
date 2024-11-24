@@ -16,10 +16,7 @@ namespace WPFToolkit.Controls
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     public class TreeComboBox : TreeView
     {
-
-
-
-
+        private Popup popup;
 
         public DataTemplate SelectionBoxItemTemplate
         {
@@ -56,7 +53,7 @@ namespace WPFToolkit.Controls
 
         // Using a DependencyProperty as the backing store for IsDropDownOpen.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsDropDownOpenProperty =
-            DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(TreeComboBox), new PropertyMetadata(false));
+            DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(TreeComboBox), new PropertyMetadata(false, null));
 
 
 
@@ -107,7 +104,21 @@ namespace WPFToolkit.Controls
         {
             base.OnApplyTemplate();
 
+            //ItemsPresenter itemsPresenter = this.Template.FindName("ItemsPresenter1", this) as ItemsPresenter;
+            //itemsPresenter.MouseLeftButtonDown += ItemsPresenter_MouseLeftButtonDown;
+            //itemsPresenter.PreviewMouseLeftButtonDown += ItemsPresenter_PreviewMouseLeftButtonDown;
+
             base.ItemContainerGenerator.StatusChanged += ItemContainerGenerator_StatusChanged;
+        }
+
+        private void ItemsPresenter_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Console.WriteLine(e.Source.GetType().ToString());
+        }
+
+        private void ItemsPresenter_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            
         }
 
         #endregion
@@ -135,12 +146,12 @@ namespace WPFToolkit.Controls
 
         private void OnSelectionBoxPropertyChanged(object oldValue, object newValue)
         {
-            if (newValue != null)
-            {
-                this.HandleSelectionBoxItemChanged();
+            //if (newValue != null)
+            //{
+            //    this.HandleSelectionBoxItemChanged();
 
-                base.SetValue(TreeComboBox.IsDropDownOpenProperty, false);
-            }
+            //    base.SetValue(TreeComboBox.IsDropDownOpenProperty, false);
+            //}
         }
     }
 }

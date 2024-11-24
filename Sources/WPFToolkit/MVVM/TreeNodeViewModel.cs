@@ -12,6 +12,12 @@ namespace WPFToolkit.MVVM
     /// </summary>
     public class TreeNodeViewModel : ItemViewModel
     {
+        #region 实例变量
+
+        private int level;
+
+        #endregion
+
         #region 属性
 
         /// <summary>
@@ -153,7 +159,18 @@ namespace WPFToolkit.MVVM
         /// <summary>
         /// 节点的等级
         /// </summary>
-        public int Level { get; set; }
+        public int Level 
+        {
+            get { return this.level; }
+            set
+            {
+                if (this.level != value)
+                {
+                    this.level = value;
+                    this.NotifyPropertyChanged("Level");
+                }
+            }
+        }
 
         #endregion
 
