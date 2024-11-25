@@ -27,9 +27,6 @@ namespace WPFToolkit.Controls
         public static readonly DependencyProperty SelectionBoxItemTemplateProperty =
             DependencyProperty.Register("SelectionBoxItemTemplate", typeof(DataTemplate), typeof(TreeComboBox), new PropertyMetadata(null));
 
-
-
-
         public object SelectionBoxItem
         {
             get { return (object)GetValue(SelectionBoxItemProperty); }
@@ -40,10 +37,6 @@ namespace WPFToolkit.Controls
         public static readonly DependencyProperty SelectionBoxItemProperty =
             DependencyProperty.Register("SelectionBoxItem", typeof(object), typeof(TreeComboBox), new PropertyMetadata(null, SelectionBoxPropertyChangedCallback));
 
-
-
-
-
         public bool IsDropDownOpen
         {
             get { return (bool)GetValue(IsDropDownOpenProperty); }
@@ -53,8 +46,6 @@ namespace WPFToolkit.Controls
         // Using a DependencyProperty as the backing store for IsDropDownOpen.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsDropDownOpenProperty =
             DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(TreeComboBox), new PropertyMetadata(false, IsDropDownOpenPropertyChangedCallback));
-
-
 
         public double MaxDropDownHeight
         {
@@ -72,21 +63,6 @@ namespace WPFToolkit.Controls
 
         #region 实例方法
 
-        private void HandleSelectionBoxItemChanged()
-        {
-            if (this.SelectionBoxItem != null)
-            {
-                DependencyObject dependencyObject = this.ItemContainerGenerator.ContainerFromItem(this.SelectionBoxItem);
-                if (dependencyObject != null)
-                {
-                    dependencyObject.SetValue(TreeViewItem.IsSelectedProperty, true);
-                }
-            }
-            else
-            {
-            }
-        }
-
         #endregion
 
         #region 重写事件
@@ -102,31 +78,25 @@ namespace WPFToolkit.Controls
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-
-            base.ItemContainerGenerator.StatusChanged += ItemContainerGenerator_StatusChanged;
         }
 
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        /// <summary>
+        /// When we have capture, all clicks off the popup will have the treeComboBox as the OriginalSource
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnMouseDown(MouseButtonEventArgs e)
         {
-            base.OnMouseLeftButtonDown(e);
+            base.OnMouseDown(e);
+
+            if (Mouse.Captured == this && e.OriginalSource == this)
+            {
+                this.SetValue(IsDropDownOpenProperty, false);
+            }
         }
 
         #endregion
 
-        private void ItemContainerGenerator_StatusChanged(object sender, EventArgs e)
-        {
-            switch (this.ItemContainerGenerator.Status)
-            {
-                case GeneratorStatus.ContainersGenerated:
-                    {
-                        this.HandleSelectionBoxItemChanged();
-                        break;
-                    }
-
-                default:
-                    break;
-            }
-        }
+        #region 依赖属性事件
 
         private static void IsDropDownOpenPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -136,6 +106,29 @@ namespace WPFToolkit.Controls
 
         private void OnIsDropDownOpenPropertyChanged(object oldValue, object newValue)
         {
+            bool isDropDownOpen = (bool)newValue;
+
+            if (isDropDownOpen)
+            {
+                Mouse.Capture(this, CaptureMode.SubTree);
+            }
+            else
+            {
+                Mouse.Capture(null);
+            }
+
+            // 等TreeView的节点加载结束之后再执行选中某个TreeViewItem的操作
+            base.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                if (this.SelectionBoxItem != null)
+                {
+                    DependencyObject dependencyObject = this.ItemContainerGenerator.ContainerFromItem(this.SelectionBoxItem);
+                    if (dependencyObject != null)
+                    {
+                        dependencyObject.SetValue(TreeViewItem.IsSelectedProperty, true);
+                    }
+                }
+            }), System.Windows.Threading.DispatcherPriority.Loaded);
         }
 
         private static void SelectionBoxPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -148,10 +141,16 @@ namespace WPFToolkit.Controls
         {
             if (newValue != null)
             {
-                this.HandleSelectionBoxItemChanged();
+                DependencyObject dependencyObject = this.ItemContainerGenerator.ContainerFromItem(this.SelectionBoxItem);
+                if (dependencyObject != null)
+                {
+                    dependencyObject.SetValue(TreeViewItem.IsSelectedProperty, true);
+                }
 
                 base.SetValue(TreeComboBox.IsDropDownOpenProperty, false);
             }
         }
+
+        #endregion
     }
 }

@@ -69,9 +69,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data.cs" />
-    <Compile Include="HotkeyDemo.xaml.cs">
-      <DependentUpon>HotkeyDemo.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ItemsControlExtentionDemo.xaml.cs">
       <DependentUpon>ItemsControlExtentionDemo.xaml</DependentUpon>
     </Compile>
@@ -85,20 +82,14 @@
     <Compile Include="UserControls\ColorListUserControl.xaml.cs">
       <DependentUpon>ColorListUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ColorPickerUserControl.xaml.cs">
+      <DependentUpon>ColorPickerUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\DataGridUtilsUserControl.xaml.cs">
       <DependentUpon>DataGridUtilsUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\DrawingCanvasUserControl.xaml.cs">
       <DependentUpon>DrawingCanvasUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\GenericControlUserControl.xaml.cs">
-      <DependentUpon>GenericControlUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\KButtonDemo.xaml.cs">
-      <DependentUpon>KButtonDemo.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\KComboBoxDemo.xaml.cs">
-      <DependentUpon>KComboBoxDemo.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\PanAndZoomViewerUserControl.xaml.cs">
       <DependentUpon>PanAndZoomViewerUserControl.xaml</DependentUpon>
@@ -113,10 +104,6 @@
     <Compile Include="VisualTreeExtentionsDemo.xaml.cs">
       <DependentUpon>VisualTreeExtentionsDemo.xaml</DependentUpon>
     </Compile>
-    <Page Include="HotkeyDemo.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ItemsControlExtentionDemo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -146,23 +133,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\ColorPickerUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\DataGridUtilsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\DrawingCanvasUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\GenericControlUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\KButtonDemo.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\KComboBoxDemo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

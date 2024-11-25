@@ -70,6 +70,15 @@
             "className": "WPFToolkitDemo.UserControls.KComboBoxDemo, WPFToolkitDemo",
             "child": [
             ]
+        },
+
+        {
+            "id": "9",
+            "name": "ColorPicker",
+            "icon": "pack://application:,,,/HMIClient;component/Images/page.png",
+            "className": "WPFToolkitDemo.UserControls.ColorPickerUserControl, WPFToolkitDemo",
+            "child": [
+            ]
         }
     ]
 

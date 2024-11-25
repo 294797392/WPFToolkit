@@ -24,7 +24,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <DocumentationFile>bin\Debug\WPFToolkit.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -118,13 +119,7 @@
     <Compile Include="Utility\DataGridUtils.cs" />
     <Compile Include="Utility\MessageBoxUtils.cs" />
     <Compile Include="Utility\TreeViewUtils.cs" />
-    <Compile Include="YControls\KButton.cs" />
-    <Compile Include="YControls\KColorPicker.cs" />
-    <Compile Include="YControls\KComboBox.cs" />
-    <Compile Include="YControls\YDivider.cs" />
-    <Compile Include="YControls\KTextBox.cs" />
-    <Compile Include="YControls\YImageButton.cs" />
-    <Compile Include="Converters\ColorTextConverter.cs" />
+    <Compile Include="Controls\ColorPicker\ColorPicker.cs" />
     <Compile Include="DragDrop\DefaultDragHandler.cs" />
     <Compile Include="DragDrop\DefaultDropHandler.cs" />
     <Compile Include="DragDrop\DragAdorner.cs" />
@@ -144,7 +139,6 @@
     <Compile Include="DragDrop\WinformDragDropHelper.cs" />
     <Compile Include="MVVM\BindableCollection.cs" />
     <Compile Include="Controls\PanAndZoomViewer.cs" />
-    <Compile Include="YControls\Hotkey.cs" />
     <Compile Include="Converters\NullableVisiblityConverter.cs" />
     <Compile Include="Converters\BooleanVisiblityConverter.cs" />
     <Compile Include="MarkupExtensions\EnumItemsSource.cs" />
@@ -189,8 +183,6 @@
     <Compile Include="FontUtility.cs" />
     <Compile Include="ImageUtility.cs" />
     <Compile Include="Utility\VisualTreeUtils.cs" />
-    <Compile Include="ThemeManager.cs" />
-    <Compile Include="Themes\SharedDictionaryManager.cs" />
     <Compile Include="Windows\SplashScreenWindow.xaml.cs">
       <DependentUpon>SplashScreenWindow.xaml</DependentUpon>
     </Compile>
@@ -213,23 +205,15 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
+    <Page Include="Controls\ColorPicker\Template.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\TreeComboBox\Template.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\TreeListView\Template.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Blue.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Gray.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

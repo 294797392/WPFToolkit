@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -20,7 +22,7 @@ namespace WPFToolkit.Controls
 
         public SelectionChangingEventArgs()
         {
-            this.RoutedEvent = KColorPicker.SelectionChangingEvent;
+            this.RoutedEvent = ColorPicker.SelectionChangingEvent;
         }
     }
 
@@ -42,13 +44,13 @@ namespace WPFToolkit.Controls
     /// </summary>
     [TemplatePart(Name = "PART_ColorBar", Type = typeof(Canvas))]
     [TemplatePart(Name = "PART_ColorGrid", Type = typeof(Grid))]
-    [TemplatePart(Name = "PART_ColorText", Type = typeof(KTextBox))]
+    [TemplatePart(Name = "PART_ColorText", Type = typeof(TextBox))]
     [TemplatePart(Name = "PART_Ball", Type = typeof(Border))]
-    [TemplatePart(Name = "PART_OKButton", Type = typeof(KButton))]
-    [TemplatePart(Name = "PART_ClearButton", Type = typeof(KButton))]
+    [TemplatePart(Name = "PART_OKButton", Type = typeof(Button))]
+    [TemplatePart(Name = "PART_ClearButton", Type = typeof(Button))]
     [ContentProperty("Content")]
     [DefaultProperty("Content")]
-    public class KColorPicker : ContentControl
+    public class ColorPicker : ContentControl
     {
         #region 类变量
 
@@ -62,8 +64,8 @@ namespace WPFToolkit.Controls
         private Grid colorGrid;
         private Border ball;
 
-        private KButton okButton;
-        private KButton clearButton;
+        private Button okButton;
+        private Button clearButton;
 
         private LinearGradientBrush colorBarBrush;
         private GradientStop gradientStop;
@@ -84,7 +86,7 @@ namespace WPFToolkit.Controls
 
         // Using a DependencyProperty as the backing store for IsOpened.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsOpenedProperty =
-            DependencyProperty.Register("IsOpened", typeof(bool), typeof(KColorPicker), new PropertyMetadata(false, IsOpenedPropertyChangedCallback));
+            DependencyProperty.Register("IsOpened", typeof(bool), typeof(ColorPicker), new PropertyMetadata(false, IsOpenedPropertyChangedCallback));
 
 
         public Brush SelectedBrush
@@ -95,7 +97,7 @@ namespace WPFToolkit.Controls
 
         // Using a DependencyProperty as the backing store for SelectedBrush.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedBrushProperty =
-            DependencyProperty.Register("SelectedBrush", typeof(Brush), typeof(KColorPicker), new PropertyMetadata(null));
+            DependencyProperty.Register("SelectedBrush", typeof(Brush), typeof(ColorPicker), new PropertyMetadata(null));
 
 
         public Color SelectedColor
@@ -106,7 +108,7 @@ namespace WPFToolkit.Controls
 
         // Using a DependencyProperty as the backing store for SelectedColor.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedColorProperty =
-            DependencyProperty.Register("SelectedColor", typeof(Color), typeof(KColorPicker), new PropertyMetadata(DefaultColor, SelectedColorPropertyChangedCallback));
+            DependencyProperty.Register("SelectedColor", typeof(Color), typeof(ColorPicker), new PropertyMetadata(DefaultColor, SelectedColorPropertyChangedCallback));
 
         #endregion
 
@@ -116,7 +118,7 @@ namespace WPFToolkit.Controls
         ///     An event fired when the selection changes.
         /// </summary>
         public static readonly RoutedEvent SelectionChangingEvent = EventManager.RegisterRoutedEvent(
-            "SelectionChanging", RoutingStrategy.Bubble, typeof(SelectionChangingEventHandler), typeof(KColorPicker));
+            "SelectionChanging", RoutingStrategy.Bubble, typeof(SelectionChangingEventHandler), typeof(ColorPicker));
 
         /// <summary>
         ///     An event fired when the selection changes.
@@ -131,12 +133,12 @@ namespace WPFToolkit.Controls
 
         #region 构造方法
 
-        static KColorPicker()
+        static ColorPicker()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(KColorPicker), new FrameworkPropertyMetadata(typeof(KColorPicker)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(ColorPicker), new FrameworkPropertyMetadata(typeof(ColorPicker)));
         }
 
-        public KColorPicker()
+        public ColorPicker()
         {
             this.SelectedBrush = new SolidColorBrush(DefaultColor);
         }
@@ -194,9 +196,9 @@ namespace WPFToolkit.Controls
             this.colorGrid.MouseMove += ColorGrid_MouseMove;
             this.colorGrid.MouseLeftButtonDown += ColorGrid_MouseLeftButtonDown;
 
-            this.okButton = this.Template.FindName("PART_OKButton", this) as KButton;
+            this.okButton = this.Template.FindName("PART_OKButton", this) as Button;
             this.okButton.Click += OkButton_Click;
-            this.clearButton = this.Template.FindName("PART_ClearButton", this) as KButton;
+            this.clearButton = this.Template.FindName("PART_ClearButton", this) as Button;
             this.clearButton.Click += ClearButton_Click;
 
             this.ball = this.Template.FindName("PART_Ball", this) as Border;
@@ -316,7 +318,7 @@ namespace WPFToolkit.Controls
 
         private static void SelectedColorPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            KColorPicker me = d as KColorPicker;
+            ColorPicker me = d as ColorPicker;
             me.OnSelectedColorPropertyChanged(e.OldValue, e.NewValue);
         }
 
@@ -341,7 +343,7 @@ namespace WPFToolkit.Controls
 
         private static void IsOpenedPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            KColorPicker me = d as KColorPicker;
+            ColorPicker me = d as ColorPicker;
             me.OnIsOpenedPropertyChanged(e.OldValue, e.NewValue);
         }
 
@@ -359,6 +361,29 @@ namespace WPFToolkit.Controls
             {
                 this.IsOpened = false;
             }
+        }
+    }
+
+    /// <summary>
+    /// 颜色结构体转文本
+    /// </summary>
+    public class ColorTextConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+            {
+                return string.Empty;
+            }
+
+            Color color = (Color)value;
+
+            return color.ToString();
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
         }
     }
 }
