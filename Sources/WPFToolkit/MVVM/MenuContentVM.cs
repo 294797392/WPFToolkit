@@ -16,8 +16,14 @@ namespace WPFToolkit.MVVM
     /// </summary>
     public abstract class MenuContentVM : ViewModelBase, IContentHook
     {
+        #region 类变量
+
         private static log4net.ILog logger = log4net.LogManager.GetLogger("MenuContentVM");
         private static readonly Type TypeString = typeof(string);
+
+        #endregion
+
+        #region 实例变量
 
         internal DependencyObject content;
 
@@ -26,6 +32,10 @@ namespace WPFToolkit.MVVM
         /// </summary>
         internal IDictionary parameters;
 
+        #endregion
+
+        #region 属性
+
         /// <summary>
         /// 获取该菜单对应的内容控件
         /// </summary>
@@ -33,6 +43,13 @@ namespace WPFToolkit.MVVM
         {
             get { return this.content; }
         }
+
+        /// <summary>
+        /// 获取该菜单内容的所有参数
+        /// </summary>
+        public IDictionary Parameters { get { return this.parameters; } }
+
+        #endregion
 
         /// <summary>
         /// 读取该模块的输入参数，如果参数不存在则报异常
@@ -100,20 +117,26 @@ namespace WPFToolkit.MVVM
             throw new NotImplementedException();
         }
 
-        public virtual void Initialize()
-        {
-        }
+        #region 公开接口
 
-        public virtual void OnLoaded()
-        {
-        }
+        /// <summary>
+        /// 当菜单内容第一次加载的时候触发
+        /// </summary>
+        public abstract void OnInitialize();
 
-        public virtual void OnUnload()
-        {
-        }
+        /// <summary>
+        /// 如果界面绑定了CurrentContent，那么当内容显示到界面之后触发
+        /// 如果手动调用SwitchContent加载界面，那么在内容显示之前触发
+        /// </summary>
+        public abstract void OnLoaded();
 
-        public virtual void Release()
-        {
-        }
+        public abstract void OnUnload();
+
+        /// <summary>
+        /// 释放的时候触发
+        /// </summary>
+        public abstract void OnRelease();
+
+        #endregion
     }
 }

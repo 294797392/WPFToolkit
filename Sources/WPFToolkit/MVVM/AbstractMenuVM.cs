@@ -75,12 +75,12 @@ namespace WPFToolkit.MVVM
         /// <summary>
         /// 第一次初始化会调用
         /// </summary>
-        void Initialize();
+        void OnInitialize();
 
         /// <summary>
         /// 释放ContentHost的资源
         /// </summary>
-        void Release();
+        void OnRelease();
 
         /// <summary>
         /// 每次显示在界面上之后都会触发
@@ -93,8 +93,20 @@ namespace WPFToolkit.MVVM
         void OnUnload();
     }
 
+    public class MenuContext
+    {
+        public MenuItemVM SelectedItem { get; set; }
+
+        public List<MenuItemVM> AllItems { get; private set; }
+
+        public MenuContext() 
+        {
+            this.AllItems = new List<MenuItemVM>();
+        }
+    }
+
     /// <summary>
-    /// 菜单ViewModel
+    /// 树形结构的菜单ViewModel
     /// </summary>
     public abstract class AbstractMenuVM<TMenuItem> : ViewModelBase
         where TMenuItem : MenuItemVM, new()
@@ -122,24 +134,21 @@ namespace WPFToolkit.MVVM
         /// </summary>
         private bool isContentLoading;
 
-        private TMenuItem selectedMenu;
-
         #endregion
 
         #region 属性
 
         /// <summary>
-        /// 当前选中的菜单
+        /// 保存菜单的上下文信息
         /// </summary>
-        public TMenuItem SelectedMenu
-        {
-            get { return this.selectedMenu; }
-            set
-            {
-                this.selectedMenu = value;
-                this.NotifyPropertyChanged("SelectedMenu");
-            }
-        }
+        public MenuContext Context { get; private set; }
+
+        /// <summary>
+        /// 当前选中的菜单
+        /// 该属性是只读的，考虑到菜单有可能是树形结构，TreeView没有SelectedItem属性，无法直接绑定
+        /// 当MenuItemVM.IsSelected改变的时候，修改这个值
+        /// </summary>
+        public TMenuItem SelectedMenu { get { return this.Context.SelectedItem as TMenuItem; } }
 
         /// <summary>
         /// 所有的菜单列表
@@ -180,6 +189,7 @@ namespace WPFToolkit.MVVM
         public AbstractMenuVM()
         {
             this.MenuItems = new ObservableCollection<TMenuItem>();
+            this.Context = new MenuContext();
         }
 
         #endregion
@@ -204,23 +214,26 @@ namespace WPFToolkit.MVVM
             }
         }
 
-        public void InvokeWhenSelectionChanged(TMenuItem selectedMenu)
+        /// <summary>
+        /// 切换指定的菜单
+        /// </summary>
+        /// <param name="menuItem">要切换的菜单</param>
+        /// <returns>如果菜单没有对应的页面，那么返回null。否则返回对应的页面实例</returns>
+        public DependencyObject SwitchContent(TMenuItem menuItem)
         {
-            this.SelectedMenu = selectedMenu;
-
-            if (this.SelectedMenu == null)
+            if (menuItem == null) 
             {
-                return;
+                return null;
             }
 
-            if (string.IsNullOrEmpty(this.SelectedMenu.ClassName))
+            if (string.IsNullOrEmpty(menuItem.ClassName))
             {
-                return;
+                return null;
             }
 
-            if (this.SelectedMenu == this.previouseSelectedMenu)
+            if (menuItem == this.previouseSelectedMenu)
             {
-                return;
+                return null;
             }
 
             if (this.CurrentContent != null)
@@ -232,21 +245,21 @@ namespace WPFToolkit.MVVM
                 this.CurrentContent = null;
             }
 
-            FrameworkElement content = this.SelectedMenu.Content;
-            ViewModelBase contentVM = this.SelectedMenu.ContentVM;
+            FrameworkElement content = menuItem.Content;
+            ViewModelBase contentVM = menuItem.ContentVM;
 
             // 开始加载本次选中的菜单界面
             if (content == null)
             {
                 try
                 {
-                    content = ConfigFactory<FrameworkElement>.CreateInstance(this.SelectedMenu.ClassName);
+                    content = ConfigFactory<FrameworkElement>.CreateInstance(menuItem.ClassName);
 
-                    if (!string.IsNullOrEmpty(this.SelectedMenu.VMClassName))
+                    if (!string.IsNullOrEmpty(menuItem.VMClassName))
                     {
                         // 如果存在ViewModel，那么实例化ViewModel并绑定
                         // 此时会覆盖掉调用者在构造函数里绑定的ViewModel
-                        contentVM = ConfigFactory<ViewModelBase>.CreateInstance(this.SelectedMenu.VMClassName);
+                        contentVM = ConfigFactory<ViewModelBase>.CreateInstance(menuItem.VMClassName);
                     }
                     else
                     {
@@ -259,8 +272,8 @@ namespace WPFToolkit.MVVM
                     {
                         MenuContentVM menuContentVM = contentVM as MenuContentVM;
                         menuContentVM.content = content;
-                        menuContentVM.parameters = selectedMenu.Parameters;
-                        menuContentVM.Initialize();
+                        menuContentVM.parameters = menuItem.Parameters;
+                        menuContentVM.OnInitialize();
                     }
 
                     if (content.DataContext != contentVM)
@@ -271,14 +284,14 @@ namespace WPFToolkit.MVVM
                 catch (Exception ex)
                 {
                     logger.Error("创建菜单内容控件异常", ex);
-                    return;
+                    return null;
                 }
 
-                this.SelectedMenu.Content = content;
-                this.SelectedMenu.ContentVM = contentVM;
+                menuItem.Content = content;
+                menuItem.ContentVM = contentVM;
             }
 
-            this.CurrentContent = this.SelectedMenu.Content;
+            this.CurrentContent = menuItem.Content;
 
             // 优先处理DataContent是IContentHost的情况
             if (contentVM is MenuContentVM)
@@ -296,17 +309,47 @@ namespace WPFToolkit.MVVM
                 this.ProcessContentLoaded(contentHost);
             }
 
-            this.previouseSelectedMenu = this.SelectedMenu;
-        }
+            menuItem.IsSelected = true;
 
-        public void InvokeWhenSelectionChanged()
-        {
-            this.InvokeWhenSelectionChanged(this.SelectedMenu);
+            this.previouseSelectedMenu = menuItem;
+
+            return menuItem.Content;
         }
 
         public TViewModel GetViewModel<TViewModel>() where TViewModel : ViewModelBase
         {
             return this.MenuItems.Select(v => v.ContentVM).OfType<TViewModel>().FirstOrDefault();
+        }
+
+        /// <summary>
+        /// 根据Id获取指定的节点
+        /// </summary>
+        /// <param name="menuId">要获取的节点的Id</param>
+        /// <param name="menuItem"></param>
+        /// <returns></returns>
+        public bool TryGetItem(string menuId, out TMenuItem menuItem) 
+        {
+            menuItem = null;
+
+            MenuItemVM menuItemVM = this.Context.AllItems.FirstOrDefault(v => v.ID.ToString() == menuId);
+            if (menuItemVM is TMenuItem)
+            {
+                menuItem = menuItemVM as TMenuItem;
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 展开所有子节点
+        /// </summary>
+        public void ExpandAll()
+        {
+            foreach (TMenuItem menuItem in this.MenuItems)
+            {
+                this.ExpandAll(menuItem);
+            }
         }
 
         #endregion
@@ -318,13 +361,36 @@ namespace WPFToolkit.MVVM
             foreach (MenuDefinition menu in menuDefinitions)
             {
                 TMenuItem menuItem = new TMenuItem();
-
+                menuItem.context = this.Context;
+                menuItem.Level = 0;
                 menuItem.SetDefinition(menu);
-
                 this.MenuItems.Add(menuItem);
 
                 // 递归加载子菜单
                 this.LoadSubMenus(menuItem, menu.Children);
+
+                this.Context.AllItems.Add(menuItem);
+            }
+        }
+
+        /// <summary>
+        /// 递归加载子菜单
+        /// </summary>
+        /// <param name="parentMenu"></param>
+        /// <param name="childMenus"></param>
+        private void LoadSubMenus(TMenuItem parentMenu, List<MenuDefinition> childMenus)
+        {
+            foreach (MenuDefinition menu in childMenus)
+            {
+                TMenuItem menuItem = new TMenuItem();
+                menuItem.Level = parentMenu.Level + 1;
+                menuItem.context = this.Context;
+                menuItem.Parent = parentMenu;
+                menuItem.SetDefinition(menu);
+                parentMenu.MenuItems.Add(menuItem);
+                this.LoadSubMenus(parentMenu, menu.Children);
+
+                this.Context.AllItems.Add(menuItem);
             }
         }
 
@@ -360,7 +426,7 @@ namespace WPFToolkit.MVVM
                 // 如果界面还没初始化，那么初始化
                 if (!this.SelectedMenu.IsInitialized)
                 {
-                    contentHost.Initialize();
+                    contentHost.OnInitialize();
                     this.SelectedMenu.IsInitialized = true;
                 }
 
@@ -392,19 +458,21 @@ namespace WPFToolkit.MVVM
             }
         }
 
-        /// <summary>
-        /// 递归加载子菜单
-        /// </summary>
-        /// <param name="parentMenu"></param>
-        /// <param name="childMenus"></param>
-        private void LoadSubMenus(TMenuItem parentMenu, List<MenuDefinition> childMenus)
+        private void ExpandAll(TMenuItem parentNode)
         {
-            foreach (MenuDefinition menu in childMenus)
+            if (parentNode.MenuItems.Count > 0)
             {
-                TMenuItem menuItem = new TMenuItem();
-                menuItem.SetDefinition(menu);
-                parentMenu.MenuItems.Add(menuItem);
-                this.LoadSubMenus(parentMenu, menu.Children);
+                parentNode.IsExpanded = true;
+
+                foreach (TMenuItem treeNode in parentNode.MenuItems)
+                {
+                    if (treeNode.MenuItems.Count > 0)
+                    {
+                        treeNode.IsExpanded = true;
+
+                        this.ExpandAll(treeNode);
+                    }
+                }
             }
         }
 

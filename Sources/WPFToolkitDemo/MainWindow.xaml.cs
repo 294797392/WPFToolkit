@@ -41,30 +41,24 @@ namespace WPFToolkitDemo
             this.menuVM = new MenuVM();
             this.menuVM.Initialize(ToolkitApp.Context.Manifest.MenuList);
             ListBoxMenuItems.DataContext = this.menuVM;
+            TreeView1.DataContext = this.menuVM;
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (e.AddedItems.Count > 0)
+            MenuItemVM menuItem = ListBoxMenuItems.SelectedItem as MenuItemVM;
+            if (menuItem == null) 
             {
-                MenuItemVM selectedMenu = e.AddedItems[0] as MenuItemVM;
-                if (selectedMenu.MenuItems.Count > 0)
-                {
-                    MenuItemVM firstSelectedMenu = selectedMenu.MenuItems.FirstOrDefault(v => v.IsSelected);
-                    if (firstSelectedMenu != null)
-                    {
-                        this.menuVM.InvokeWhenSelectionChanged(firstSelectedMenu);
-                    }
-                    else
-                    {
-                        selectedMenu.MenuItems[0].IsSelected = true;
-                    }
-                }
-                else
-                {
-                    this.menuVM.InvokeWhenSelectionChanged(selectedMenu);
-                }
+                return;
             }
+
+            DependencyObject dependencyObject = this.menuVM.SwitchContent(menuItem);
+            if (dependencyObject == null) 
+            {
+                return;
+            }
+
+            ContentControlContent.Content = dependencyObject;
         }
     }
 }

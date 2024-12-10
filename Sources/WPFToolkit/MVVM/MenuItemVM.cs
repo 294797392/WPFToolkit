@@ -1,18 +1,24 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace WPFToolkit.MVVM
 {
+    /// <summary>
+    /// 树形结构的菜单节点
+    /// </summary>
     public class MenuItemVM : ItemViewModel
     {
+        #region 实例变量
+
         private bool isInitialized;
         private FrameworkElement content;
+        internal MenuContext context;
+
+        #endregion
+
+        #region 属性
 
         /// <summary>
         /// 界面入口点
@@ -65,12 +71,77 @@ namespace WPFToolkit.MVVM
         /// </summary>
         public IDictionary Parameters { get; private set; }
 
-        public MenuItemVM() { }
+        /// <summary>
+        /// 当前节点是否选中
+        /// </summary>
+        public override bool IsSelected
+        {
+            get
+            {
+                return this.isSelected;
+            }
+            set
+            {
+                if (this.isSelected != value)
+                {
+                    this.isSelected = value;
+                    if (value)
+                    {
+                        this.context.SelectedItem = this;
+                    }
+                    else
+                    {
+                        this.context.SelectedItem = null;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 父节点
+        /// </summary>
+        public MenuItemVM Parent { get; internal set; }
+
+        /// <summary>
+        /// 设置是否展开该节点
+        /// 如果是展开，那么该操作会对上级节点进行递归展开
+        /// </summary>
+        public override bool IsExpanded
+        {
+            get { return this.isExpanded; }
+            set
+            {
+                if (this.isExpanded != value)
+                {
+                    this.isExpanded = value;
+                    this.NotifyPropertyChanged("IsExpanded");
+
+                    // 如果有父节点那么自动展开父节点
+                    if (value && this.Parent != null)
+                    {
+                        this.Parent.IsExpanded = value;
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region 构造方法
+
+        public MenuItemVM()
+        {
+            this.Parameters = new Dictionary<string, object>();
+        }
 
         public MenuItemVM(MenuDefinition menu)
         {
             this.SetDefinition(menu);
         }
+
+        #endregion
+
+        #region 公开接口
 
         public void SetDefinition(MenuDefinition menu)
         {
@@ -82,5 +153,7 @@ namespace WPFToolkit.MVVM
             this.IconURI = menu.Icon;
             this.Parameters = menu.Parameters;
         }
+
+        #endregion
     }
 }

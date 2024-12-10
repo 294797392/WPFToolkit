@@ -1,3 +1,4 @@
+using log4net.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +15,11 @@ namespace WPFToolkit.MVVM
         #region 实例变量
 
         protected string iconURI;
-
         protected bool isSelected;
-
         protected bool isExpanded;
-
         protected bool isChecked;
-
-        protected bool isVisible;
+        protected bool isVisible = true;
+        private int level;
 
         #endregion
 
@@ -100,6 +98,26 @@ namespace WPFToolkit.MVVM
                 {
                     this.isVisible = value;
                     this.NotifyPropertyChanged("IsVisible");
+                }
+            }
+        }
+
+        /// <summary>
+        /// 该节点的等级
+        /// 可以用来计算每个TreeItem的Margin
+        /// </summary>
+        public int Level
+        {
+            get
+            {
+                return level;
+            }
+            set
+            {
+                if (level != value)
+                {
+                    level = value;
+                    NotifyPropertyChanged("Level");
                 }
             }
         }
