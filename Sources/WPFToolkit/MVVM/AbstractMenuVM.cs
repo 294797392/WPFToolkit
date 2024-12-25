@@ -352,6 +352,16 @@ namespace WPFToolkit.MVVM
             }
         }
 
+        /// <summary>
+        /// 新加一个子节点
+        /// </summary>
+        /// <param name="menuItem"></param>
+        public void AddMenuItem(TMenuItem menuItem) 
+        {
+            menuItem.context = this.Context;
+            this.MenuItems.Add(menuItem);
+        }
+
         #endregion
 
         #region 实例方法
@@ -388,7 +398,7 @@ namespace WPFToolkit.MVVM
                 menuItem.Parent = parentMenu;
                 menuItem.SetDefinition(menu);
                 parentMenu.MenuItems.Add(menuItem);
-                this.LoadSubMenus(parentMenu, menu.Children);
+                this.LoadSubMenus(menuItem, menu.Children);
 
                 this.Context.AllItems.Add(menuItem);
             }

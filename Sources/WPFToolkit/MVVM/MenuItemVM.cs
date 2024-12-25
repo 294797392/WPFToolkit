@@ -36,7 +36,7 @@ namespace WPFToolkit.MVVM
         public bool IsInitialized
         {
             get { return this.isInitialized; }
-            set
+            internal set
             {
                 this.isInitialized = value;
                 this.NotifyPropertyChanged("IsInitialized");
@@ -49,7 +49,7 @@ namespace WPFToolkit.MVVM
         public FrameworkElement Content
         {
             get { return this.content; }
-            set
+            internal set
             {
                 this.content = value;
                 this.NotifyPropertyChanged("Content");
@@ -59,7 +59,7 @@ namespace WPFToolkit.MVVM
         /// <summary>
         /// 该菜单所显示的内容的ViewModel
         /// </summary>
-        public ViewModelBase ContentVM { get; set; }
+        public ViewModelBase ContentVM { get; internal set; }
 
         /// <summary>
         /// 子菜单
@@ -85,6 +85,8 @@ namespace WPFToolkit.MVVM
                 if (this.isSelected != value)
                 {
                     this.isSelected = value;
+                    this.NotifyPropertyChanged("IsSelected");
+
                     if (value)
                     {
                         this.context.SelectedItem = this;
@@ -152,6 +154,17 @@ namespace WPFToolkit.MVVM
             this.VMClassName = menu.VMClassName;
             this.IconURI = menu.Icon;
             this.Parameters = menu.Parameters;
+        }
+
+        /// <summary>
+        /// 新加一个子节点
+        /// </summary>
+        /// <param name="menuItem"></param>
+        public void AddChild(MenuItemVM menuItem)
+        {
+            menuItem.context = this.context;
+            menuItem.Parent = this;
+            this.MenuItems.Add(menuItem);
         }
 
         #endregion
