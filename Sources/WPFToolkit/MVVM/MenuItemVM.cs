@@ -89,11 +89,17 @@ namespace WPFToolkit.MVVM
 
                     if (value)
                     {
-                        this.context.SelectedItem = this;
+                        if (this.context.SelectedItem != this)
+                        {
+                            this.context.SelectedItem = this;
+                        }
                     }
                     else
                     {
-                        this.context.SelectedItem = null;
+                        if (this.context.SelectedItem == this)
+                        {
+                            this.context.SelectedItem = null;
+                        }
                     }
                 }
             }
