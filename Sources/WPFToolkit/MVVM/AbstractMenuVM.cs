@@ -99,7 +99,7 @@ namespace WPFToolkit.MVVM
 
         public List<MenuItemVM> AllItems { get; private set; }
 
-        public MenuContext() 
+        public MenuContext()
         {
             this.AllItems = new List<MenuItemVM>();
         }
@@ -221,7 +221,7 @@ namespace WPFToolkit.MVVM
         /// <returns>如果菜单没有对应的页面，那么返回null。否则返回对应的页面实例</returns>
         public DependencyObject SwitchContent(TMenuItem menuItem)
         {
-            if (menuItem == null) 
+            if (menuItem == null)
             {
                 return null;
             }
@@ -260,6 +260,7 @@ namespace WPFToolkit.MVVM
                         // 如果存在ViewModel，那么实例化ViewModel并绑定
                         // 此时会覆盖掉调用者在构造函数里绑定的ViewModel
                         contentVM = ConfigFactory<ViewModelBase>.CreateInstance(menuItem.VMClassName);
+                        contentVM.Name = menuItem.Name;
                     }
                     else
                     {
@@ -327,7 +328,7 @@ namespace WPFToolkit.MVVM
         /// <param name="menuId">要获取的节点的Id</param>
         /// <param name="menuItem"></param>
         /// <returns></returns>
-        public bool TryGetItem(string menuId, out TMenuItem menuItem) 
+        public bool TryGetItem(string menuId, out TMenuItem menuItem)
         {
             menuItem = null;
 
@@ -356,7 +357,7 @@ namespace WPFToolkit.MVVM
         /// 新加一个子节点
         /// </summary>
         /// <param name="menuItem"></param>
-        public void AddMenuItem(TMenuItem menuItem) 
+        public void AddMenuItem(TMenuItem menuItem)
         {
             menuItem.context = this.Context;
             this.MenuItems.Add(menuItem);
@@ -433,13 +434,6 @@ namespace WPFToolkit.MVVM
 
             try
             {
-                // 如果界面还没初始化，那么初始化
-                if (!this.SelectedMenu.IsInitialized)
-                {
-                    contentHost.OnInitialize();
-                    this.SelectedMenu.IsInitialized = true;
-                }
-
                 // 初始化完后再触发OnLoaded事件
                 contentHost.OnLoaded();
             }

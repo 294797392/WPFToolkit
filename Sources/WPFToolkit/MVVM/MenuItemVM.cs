@@ -31,19 +31,6 @@ namespace WPFToolkit.MVVM
         public string VMClassName { get; set; }
 
         /// <summary>
-        /// 该菜单是否初始化完了
-        /// </summary>
-        public bool IsInitialized
-        {
-            get { return this.isInitialized; }
-            internal set
-            {
-                this.isInitialized = value;
-                this.NotifyPropertyChanged("IsInitialized");
-            }
-        }
-
-        /// <summary>
         /// 该菜单所要显示的内容
         /// </summary>
         public FrameworkElement Content
