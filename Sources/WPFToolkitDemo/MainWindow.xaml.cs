@@ -52,7 +52,7 @@ namespace WPFToolkitDemo
                 return;
             }
 
-            DependencyObject dependencyObject = this.menuVM.SwitchContent(menuItem);
+            DependencyObject dependencyObject = this.menuVM.LoadContent(menuItem);
             if (dependencyObject == null) 
             {
                 return;

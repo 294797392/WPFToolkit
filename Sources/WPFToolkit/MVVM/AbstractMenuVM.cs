@@ -219,7 +219,7 @@ namespace WPFToolkit.MVVM
         /// </summary>
         /// <param name="menuItem">要切换的菜单</param>
         /// <returns>如果菜单没有对应的页面，那么返回null。否则返回对应的页面实例</returns>
-        public DependencyObject SwitchContent(TMenuItem menuItem)
+        public DependencyObject LoadContent(TMenuItem menuItem)
         {
             if (menuItem == null)
             {
