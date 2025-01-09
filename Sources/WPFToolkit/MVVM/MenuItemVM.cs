@@ -153,7 +153,7 @@ namespace WPFToolkit.MVVM
         /// 新加一个子节点
         /// </summary>
         /// <param name="menuItem"></param>
-        public void AddChild(MenuItemVM menuItem)
+        public void AddMenuItem(MenuItemVM menuItem)
         {
             menuItem.context = this.context;
             menuItem.Parent = this;

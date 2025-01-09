@@ -210,7 +210,7 @@ namespace WPFToolkit.MVVM
         {
             foreach (TMenuItem menuItem in menuItems)
             {
-                this.MenuItems.Add(menuItem);
+                this.AddMenuItem(menuItem);
             }
         }
 
@@ -268,7 +268,14 @@ namespace WPFToolkit.MVVM
                         contentVM = content.DataContext as ViewModelBase;
                     }
 
-                    // 初始化MenuContentVM
+                    // 先初始化界面，再初始化ViewModel
+                    if (content is IContentHook)
+                    {
+                        IContentHook contentHook = content as IContentHook;
+                        contentHook.OnInitialize();
+                    }
+
+                    // 初始化ViewModel
                     if (contentVM is MenuContentVM)
                     {
                         MenuContentVM menuContentVM = contentVM as MenuContentVM;
@@ -294,20 +301,20 @@ namespace WPFToolkit.MVVM
 
             this.CurrentContent = menuItem.Content;
 
-            // 优先处理DataContent是IContentHost的情况
-            if (contentVM is MenuContentVM)
-            {
-                MenuContentVM menuContentVM = contentVM as MenuContentVM;
-
-                this.ProcessContentLoaded(menuContentVM);
-            }
-
             if (content is IContentHook)
             {
                 // 再处理Content是IContentHost的情况
                 IContentHook contentHost = content as IContentHook;
 
                 this.ProcessContentLoaded(contentHost);
+            }
+
+            // 优先处理DataContent是IContentHost的情况
+            if (contentVM is MenuContentVM)
+            {
+                MenuContentVM menuContentVM = contentVM as MenuContentVM;
+
+                this.ProcessContentLoaded(menuContentVM);
             }
 
             menuItem.IsSelected = true;
@@ -359,6 +366,7 @@ namespace WPFToolkit.MVVM
         /// <param name="menuItem"></param>
         public void AddMenuItem(TMenuItem menuItem)
         {
+            this.Context.AllItems.Add(menuItem);
             menuItem.context = this.Context;
             this.MenuItems.Add(menuItem);
         }
@@ -375,7 +383,7 @@ namespace WPFToolkit.MVVM
                 menuItem.context = this.Context;
                 menuItem.Level = 0;
                 menuItem.SetDefinition(menu);
-                this.MenuItems.Add(menuItem);
+                this.AddMenuItem(menuItem);
 
                 // 递归加载子菜单
                 this.LoadSubMenus(menuItem, menu.Children);
@@ -398,7 +406,7 @@ namespace WPFToolkit.MVVM
                 menuItem.context = this.Context;
                 menuItem.Parent = parentMenu;
                 menuItem.SetDefinition(menu);
-                parentMenu.MenuItems.Add(menuItem);
+                parentMenu.AddMenuItem(menuItem);
                 this.LoadSubMenus(menuItem, menu.Children);
 
                 this.Context.AllItems.Add(menuItem);
