@@ -125,11 +125,6 @@ namespace WPFToolkit.MVVM
         private FrameworkElement currentContent;
 
         /// <summary>
-        /// 上次选中的菜单
-        /// </summary>
-        private TMenuItem previouseSelectedMenu;
-
-        /// <summary>
         /// 当前的内容是否正在初始化
         /// </summary>
         private bool isContentLoading;
@@ -215,7 +210,7 @@ namespace WPFToolkit.MVVM
         }
 
         /// <summary>
-        /// 切换指定的菜单
+        /// 加载指定的界面，会执行相关的生命周期函数
         /// </summary>
         /// <param name="menuItem">要切换的菜单</param>
         /// <returns>如果菜单没有对应的页面，那么返回null。否则返回对应的页面实例</returns>
@@ -231,13 +226,14 @@ namespace WPFToolkit.MVVM
                 return null;
             }
 
-            if (menuItem == this.previouseSelectedMenu)
-            {
-                return null;
-            }
-
             if (this.CurrentContent != null)
             {
+                // 如果要加载的界面和当前显示的界面一致，那么直接返回
+                if (this.CurrentContent == menuItem.Content)
+                {
+                    return this.CurrentContent;
+                }
+
                 // 触发Unload事件
                 this.ProcessContentUnload(this.CurrentContent);
 
@@ -319,14 +315,7 @@ namespace WPFToolkit.MVVM
 
             menuItem.IsSelected = true;
 
-            this.previouseSelectedMenu = menuItem;
-
             return menuItem.Content;
-        }
-
-        public TViewModel GetViewModel<TViewModel>() where TViewModel : ViewModelBase
-        {
-            return this.MenuItems.Select(v => v.ContentVM).OfType<TViewModel>().FirstOrDefault();
         }
 
         /// <summary>
