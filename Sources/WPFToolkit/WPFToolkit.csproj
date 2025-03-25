@@ -111,7 +111,6 @@
     <Compile Include="Drawing\ToolTypeConverter.cs" />
     <Compile Include="Drawing\UndoManager.cs" />
     <Compile Include="MVVM\MenuContentVM.cs" />
-    <Compile Include="MVVM\MenuVM.cs" />
     <Compile Include="Controls\Panels\AVGPanel.cs" />
     <Compile Include="Controls\Panels\CircularPanel.cs" />
     <Compile Include="Utility\ControlUtils.cs" />
@@ -161,7 +160,7 @@
     <Compile Include="MVVM\ItemViewModel.cs" />
     <Compile Include="MVVM\ISelectableViewModel.cs" />
     <Compile Include="MVVM\MenuItemVM.cs" />
-    <Compile Include="MVVM\AbstractMenuVM.cs" />
+    <Compile Include="MVVM\MenuVM.cs" />
     <Compile Include="MVVM\TreeViewModelContext.cs" />
     <Compile Include="MVVM\TreeNodeViewModel.cs" />
     <Compile Include="MVVM\TreeViewModel.cs" />

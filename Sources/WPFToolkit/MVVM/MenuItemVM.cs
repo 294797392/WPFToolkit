@@ -55,8 +55,9 @@ namespace WPFToolkit.MVVM
 
         /// <summary>
         /// 输入参数
+        /// 该参数会传递到MenuContentVM里
         /// </summary>
-        public IDictionary Parameters { get; private set; }
+        public IDictionary Parameters { get; set; }
 
         /// <summary>
         /// 当前节点是否选中
@@ -124,21 +125,7 @@ namespace WPFToolkit.MVVM
 
         #region 构造方法
 
-        public MenuItemVM()
-        {
-            this.Parameters = new Dictionary<string, object>();
-        }
-
         public MenuItemVM(MenuDefinition menu)
-        {
-            this.SetDefinition(menu);
-        }
-
-        #endregion
-
-        #region 公开接口
-
-        public void SetDefinition(MenuDefinition menu)
         {
             this.MenuItems = new ObservableCollection<MenuItemVM>();
             this.ID = menu.ID;
@@ -148,6 +135,10 @@ namespace WPFToolkit.MVVM
             this.IconURI = menu.Icon;
             this.Parameters = menu.Parameters;
         }
+
+        #endregion
+
+        #region 公开接口
 
         /// <summary>
         /// 新加一个子节点
