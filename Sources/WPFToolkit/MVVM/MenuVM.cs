@@ -106,6 +106,12 @@ namespace WPFToolkit.MVVM
     }
 
     /// <summary>
+    /// 创建MenuItemVM实例的委托
+    /// </summary>
+    /// <returns></returns>
+    public delegate MenuItemVM MenuItemFactoryDlg(MenuDefinition menuDefinition);
+
+    /// <summary>
     /// 树形结构的菜单ViewModel
     /// </summary>
     public class MenuVM : ViewModelBase
@@ -127,6 +133,8 @@ namespace WPFToolkit.MVVM
         /// 当前的内容是否正在初始化
         /// </summary>
         private bool isContentLoading;
+
+        private MenuItemFactoryDlg menuItemFactory;
 
         #endregion
 
@@ -180,10 +188,15 @@ namespace WPFToolkit.MVVM
 
         #region 构造方法
 
-        public MenuVM()
+        public MenuVM(MenuItemFactoryDlg factory = null)
         {
             this.MenuItems = new ObservableCollection<MenuItemVM>();
             this.Context = new MenuContext();
+            this.menuItemFactory = factory;
+            if (this.menuItemFactory == null) 
+            {
+                this.menuItemFactory = DefaultMenuItemFactory;
+            }
         }
 
         #endregion
@@ -367,7 +380,7 @@ namespace WPFToolkit.MVVM
         {
             foreach (MenuDefinition menu in menuDefinitions)
             {
-                MenuItemVM menuItem = new MenuItemVM(menu);
+                MenuItemVM menuItem = this.menuItemFactory(menu);
                 menuItem.context = this.Context;
                 menuItem.Level = 0;
                 this.AddMenuItem(menuItem);
@@ -388,7 +401,7 @@ namespace WPFToolkit.MVVM
         {
             foreach (MenuDefinition menu in childMenus)
             {
-                MenuItemVM menuItem = new MenuItemVM(menu);
+                MenuItemVM menuItem = this.menuItemFactory(menu);
                 menuItem.Level = parentMenu.Level + 1;
                 menuItem.context = this.Context;
                 menuItem.Parent = parentMenu;
@@ -472,6 +485,11 @@ namespace WPFToolkit.MVVM
                     }
                 }
             }
+        }
+
+        private MenuItemVM DefaultMenuItemFactory(MenuDefinition menuDefinition) 
+        {
+            return new MenuItemVM(menuDefinition);
         }
 
         #endregion
