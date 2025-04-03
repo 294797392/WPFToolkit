@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -10,6 +11,11 @@ namespace WPFToolkit.MVVM
     /// </summary>
     public class MenuItemVM : ItemViewModel
     {
+        /// <summary>
+        /// 在ContentVM初始化之前调用
+        /// </summary>
+        public event Action<MenuItemVM, MenuContentVM> ContentInitializing;
+
         #region 实例变量
 
         private bool isInitialized;
@@ -149,6 +155,18 @@ namespace WPFToolkit.MVVM
             menuItem.context = this.context;
             menuItem.Parent = this;
             this.MenuItems.Add(menuItem);
+        }
+
+        #endregion
+
+        #region Internal
+
+        internal void RaiseContentInitializing(MenuContentVM contentVM) 
+        {
+            if (this.ContentInitializing != null) 
+            {
+                this.ContentInitializing(this, contentVM);
+            }
         }
 
         #endregion

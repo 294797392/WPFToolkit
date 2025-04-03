@@ -27,11 +27,6 @@ namespace WPFToolkit.MVVM
 
         internal DependencyObject content;
 
-        /// <summary>
-        /// 该菜单在配置文件里的parameters数据
-        /// </summary>
-        internal IDictionary parameters;
-
         #endregion
 
         #region 属性
@@ -44,78 +39,7 @@ namespace WPFToolkit.MVVM
             get { return this.content; }
         }
 
-        /// <summary>
-        /// 获取该菜单内容的所有参数
-        /// </summary>
-        public IDictionary Parameters { get { return this.parameters; } }
-
         #endregion
-
-        /// <summary>
-        /// 读取该模块的输入参数，如果参数不存在则报异常
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public T GetParameter<T>(string key)
-        {
-            IDictionary parameters = this.parameters;
-
-            if (!parameters.Contains(key))
-            {
-                logger.ErrorFormat("没有找到必需的参数:{0}", key);
-                throw new KeyNotFoundException();
-            }
-
-            return this.GetParameter<T>(parameters, key);
-        }
-
-        /// <summary>
-        /// 读取该模块的输入参数，如果参数不存在则返回defaultValue
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="key"></param>
-        /// <param name="defaultValue"></param>
-        /// <returns></returns>
-        public T GetParameter<T>(string key, T defaultValue)
-        {
-            IDictionary parameters = this.parameters;
-
-            if (!parameters.Contains(key))
-            {
-                return defaultValue;
-            }
-
-            return this.GetParameter<T>(parameters, key);
-        }
-
-        private T GetParameter<T>(IDictionary parameters, string key)
-        {
-            Type t = typeof(T);
-
-            if (t == TypeString)
-            {
-                return parameters.GetValue<T>(key);
-            }
-
-            if (t.IsClass)
-            {
-                string json = parameters[key].ToString();
-                return JsonConvert.DeserializeObject<T>(json);
-            }
-
-            if (t.IsValueType)
-            {
-                return parameters.GetValue<T>(key);
-            }
-
-            if (t.IsEnum)
-            {
-                return parameters.GetValue<T>(key);
-            }
-
-            throw new NotImplementedException();
-        }
 
         #region 公开接口
 

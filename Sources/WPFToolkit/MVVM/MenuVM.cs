@@ -109,7 +109,7 @@ namespace WPFToolkit.MVVM
     /// 创建MenuItemVM实例的委托
     /// </summary>
     /// <returns></returns>
-    public delegate MenuItemVM MenuItemFactoryDlg(MenuDefinition menuDefinition);
+    public delegate MenuItemVM MenuItemFactory(MenuDefinition menuDefinition);
 
     /// <summary>
     /// 树形结构的菜单ViewModel
@@ -134,7 +134,7 @@ namespace WPFToolkit.MVVM
         /// </summary>
         private bool isContentLoading;
 
-        private MenuItemFactoryDlg menuItemFactory;
+        private MenuItemFactory menuItemFactory;
 
         #endregion
 
@@ -188,7 +188,7 @@ namespace WPFToolkit.MVVM
 
         #region 构造方法
 
-        public MenuVM(MenuItemFactoryDlg factory = null)
+        public MenuVM(MenuItemFactory factory = null)
         {
             this.MenuItems = new ObservableCollection<MenuItemVM>();
             this.Context = new MenuContext();
@@ -288,7 +288,7 @@ namespace WPFToolkit.MVVM
                     {
                         MenuContentVM menuContentVM = contentVM as MenuContentVM;
                         menuContentVM.content = content;
-                        menuContentVM.parameters = menuItem.Parameters;
+                        menuItem.RaiseContentInitializing(menuContentVM);
                         menuContentVM.OnInitialize();
                     }
 
