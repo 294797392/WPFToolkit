@@ -14,7 +14,7 @@ namespace WPFToolkit.MVVM
         /// <summary>
         /// 在ContentVM初始化之前调用
         /// </summary>
-        public event Action<MenuItemVM, MenuContentVM> ContentInitializing;
+        public event Action<MenuItemVM, ViewModelBase, DependencyObject> ContentInitializing;
 
         #region 实例变量
 
@@ -161,11 +161,11 @@ namespace WPFToolkit.MVVM
 
         #region Internal
 
-        internal void RaiseContentInitializing(MenuContentVM contentVM) 
+        internal void RaiseContentInitializing(ViewModelBase viewModel, DependencyObject view) 
         {
             if (this.ContentInitializing != null) 
             {
-                this.ContentInitializing(this, contentVM);
+                this.ContentInitializing(this, viewModel, view);
             }
         }
 

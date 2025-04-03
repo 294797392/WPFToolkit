@@ -276,25 +276,29 @@ namespace WPFToolkit.MVVM
                         contentVM = content.DataContext as ViewModelBase;
                     }
 
-                    // 先初始化界面，再初始化ViewModel
-                    if (content is IContentHook)
-                    {
-                        IContentHook contentHook = content as IContentHook;
-                        contentHook.OnInitialize();
-                    }
-
-                    // 初始化ViewModel
+                    // 先初始化ViewModel
                     if (contentVM is MenuContentVM)
                     {
                         MenuContentVM menuContentVM = contentVM as MenuContentVM;
                         menuContentVM.content = content;
-                        menuItem.RaiseContentInitializing(menuContentVM);
+                        menuItem.RaiseContentInitializing(contentVM, content);
                         menuContentVM.OnInitialize();
                     }
+                    else
+                    {
+                        menuItem.RaiseContentInitializing(contentVM, content);
+                    }
 
+                    // 再初始化界面，保证界面初始化的时候，可以通过DataContext拿到ViewModel
                     if (content.DataContext != contentVM)
                     {
                         content.DataContext = contentVM;
+                    }
+
+                    if (content is IContentHook)
+                    {
+                        IContentHook contentHook = content as IContentHook;
+                        contentHook.OnInitialize();
                     }
                 }
                 catch (Exception ex)
