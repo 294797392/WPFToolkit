@@ -18,10 +18,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <ListBox Grid.Column="0" x:Name="ListBoxMenuItems" 
-                 ItemsSource="{Binding Path=MenuItems}"
-                 SelectionChanged="ListBox_SelectionChanged"
-                 Visibility="Collapsed">
+        <ListBox Grid.Column="0" x:Name="ListBoxMenuItems"  ItemsSource="{Binding Path=MenuItems}"
+                 SelectionChanged="ListBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path=Name}"/>
@@ -29,7 +27,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <TreeView Grid.Column="0" x:Name="TreeView1" ItemsSource="{Binding Path=MenuItems}"/>
+        <!--<TreeView Grid.Column="0" x:Name="TreeView1" ItemsSource="{Binding Path=MenuItems}"/>-->
 
         <ContentControl Grid.Column="1" x:Name="ContentControlContent"/>
 

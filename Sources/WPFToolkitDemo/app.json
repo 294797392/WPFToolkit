@@ -79,6 +79,16 @@
             "className": "WPFToolkitDemo.UserControls.ColorPickerUserControl, WPFToolkitDemo",
             "child": [
             ]
+        },
+
+
+        {
+            "id": "10",
+            "name": "DataGridDragDrop",
+            "icon": "pack://application:,,,/HMIClient;component/Images/page.png",
+            "className": "WPFToolkitDemo.UserControls.DataGridDragDropUserControl, WPFToolkitDemo",
+            "child": [
+            ]
         }
     ]
 

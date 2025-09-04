@@ -41,7 +41,7 @@ namespace WPFToolkitDemo
             this.menuVM = new MenuVM();
             this.menuVM.Initialize(ToolkitApp.Context.Manifest.MenuList);
             ListBoxMenuItems.DataContext = this.menuVM;
-            TreeView1.DataContext = this.menuVM;
+            //TreeView1.DataContext = this.menuVM;
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

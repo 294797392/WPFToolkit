@@ -250,6 +250,11 @@ namespace WPFToolkit.DragDrop
 
         static void DragSource_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            if (e.ClickCount != 1)
+            {
+                return;
+            }
+
             // Ignore the click if the user has clicked on a scrollbar.
             if (HitTestScrollBar(sender, e))
             {
