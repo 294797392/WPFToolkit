@@ -42,7 +42,16 @@ namespace WPFToolkitDemo.UserControls
 
         public void OnDrop(DropInfo dropInfo)
         {
-            Console.WriteLine("{0},{1}", Guid.NewGuid(), dropInfo.Data);
+            List<string> strings = dropInfo.Data as List<string>;
+
+            foreach (string str in strings)
+            {
+                Console.WriteLine(str);
+            }
+
+            Console.WriteLine("target:{0}", dropInfo.TargetItem as string);
+
+            //Console.WriteLine("{0},{1}", Guid.NewGuid(), dropInfo.Data);
         }
 
         private void DataGrid1_MouseDoubleClick(object sender, MouseButtonEventArgs e)

@@ -130,7 +130,6 @@
     <Compile Include="DragDrop\DropTargetInsertionAdorner.cs" />
     <Compile Include="DragDrop\IDragSource.cs" />
     <Compile Include="DragDrop\IDropHandler.cs" />
-    <Compile Include="DragDrop\IDropTarget.cs" />
     <Compile Include="DragDrop\ItemsControlExtensions.cs" />
     <Compile Include="DragDrop\TypeUtilities.cs" />
     <Compile Include="DragDrop\VisualTreeExtensions.cs" />

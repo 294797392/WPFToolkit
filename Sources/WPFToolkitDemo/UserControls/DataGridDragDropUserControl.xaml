@@ -12,7 +12,7 @@
         <DataGrid x:Name="DataGrid1" AutoGenerateColumns="False" IsReadOnly="True"
                   dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True"
                   dd:DragDrop.DropHandler="{Binding ElementName=UserControl1}"
-                  MouseDoubleClick="DataGrid1_MouseDoubleClick">
+                  MouseDoubleClick="DataGrid1_MouseDoubleClick" Background="White">
             <DataGrid.Columns>
 
                 <DataGridTemplateColumn Width="*">
