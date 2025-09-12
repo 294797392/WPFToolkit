@@ -67,6 +67,7 @@
     <Compile Include="Attributes\EnumMemberAttribute.cs" />
     <Compile Include="Attributes\ItemsSourceAttribute.cs" />
     <Compile Include="ColorConverter.cs" />
+    <Compile Include="Controls\GridViewRowPresenterWithGridLines.cs" />
     <Compile Include="Controls\TreeComboBox\TreeComboBox.cs" />
     <Compile Include="Controls\TreeListView\TreeListView.cs" />
     <Compile Include="Drawing\Command.cs" />

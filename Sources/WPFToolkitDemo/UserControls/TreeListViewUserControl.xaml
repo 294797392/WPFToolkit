@@ -17,7 +17,8 @@
     </UserControl.Resources>
 
     <Grid>
-        <toolkitcontrols:TreeListView x:Name="TreeListView1" Style="{StaticResource ResourceKey=StyleTreeListView}">
+        <toolkitcontrols:TreeListView x:Name="TreeListView1"
+                                      Style="{StaticResource ResourceKey=StyleTreeListView}">
 
             <toolkitcontrols:TreeListView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Children}" />
@@ -28,7 +29,7 @@
                 <GridViewColumnCollection>
 
                     <!-- 第一列必须设置成带有ToggleButton的模板，不然没法展开 -->
-                    <GridViewColumn Header="ID">
+                    <GridViewColumn Header="ID" Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <DockPanel>
@@ -45,7 +46,7 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Header="Name">
+                    <GridViewColumn Header="Name" Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Path=Name}"/>

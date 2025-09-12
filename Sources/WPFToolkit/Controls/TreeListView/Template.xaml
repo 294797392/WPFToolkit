@@ -47,8 +47,8 @@
                     <StackPanel>
                         <Border Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
-                            <GridViewRowPresenter x:Name="PART_Header" Content="{TemplateBinding Header}" 
-                                                  Columns="{Binding Path=Columns, RelativeSource={RelativeSource AncestorType={x:Type toolkitcontrols:TreeListView}}}" />
+                            <toolkitcontrols:GridViewRowPresenterWithGridLines x:Name="PART_Header" Content="{TemplateBinding Header}" ShowGridLines="True"
+                                                                               Columns="{Binding Path=Columns, RelativeSource={RelativeSource AncestorType={x:Type toolkitcontrols:TreeListView}}}"/>
                         </Border>
                         <ItemsPresenter x:Name="ItemsHost"/>
                     </StackPanel>
@@ -93,13 +93,6 @@
 
     <Style x:Key="StyleTreeListView" TargetType="{x:Type toolkitcontrols:TreeListView}">
         <Setter Property="ItemContainerStyle" Value="{StaticResource ResourceKey=StyleTreeListViewItem}"/>
-        <Setter Property="ItemTemplate">
-            <Setter.Value>
-                <DataTemplate>
-                    <TextBlock Text="123"/>
-                </DataTemplate>
-            </Setter.Value>
-        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type toolkitcontrols:TreeListView}">
