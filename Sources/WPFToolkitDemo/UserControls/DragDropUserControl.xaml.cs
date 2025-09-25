@@ -19,9 +19,9 @@ namespace WPFToolkitDemo.UserControls
     /// <summary>
     /// DataGridDragDropUserControl.xaml 的交互逻辑
     /// </summary>
-    public partial class DataGridDragDropUserControl : UserControl, IDropHandler
+    public partial class DragDropUserControl : UserControl, IDropHandler
     {
-        public DataGridDragDropUserControl()
+        public DragDropUserControl()
         {
             InitializeComponent();
 
@@ -42,21 +42,33 @@ namespace WPFToolkitDemo.UserControls
 
         public void OnDrop(DropInfo dropInfo)
         {
-            List<string> strings = dropInfo.Data as List<string>;
-
-            foreach (string str in strings)
+            if (dropInfo.Data is List<string>)
             {
-                Console.WriteLine(str);
-            }
+                List<string> strings = dropInfo.Data as List<string>;
 
-            Console.WriteLine("target:{0}", dropInfo.TargetItem as string);
+                foreach (string str in strings)
+                {
+                    Console.WriteLine(str);
+                }
+
+                Console.WriteLine("target:{0}", dropInfo.TargetItem as string);
+            }
+            else if (dropInfo.Data is string)
+            { 
+                string str = dropInfo.Data as string;
+
+                Console.WriteLine(str);
+
+                Console.WriteLine("target:{0}", dropInfo.TargetItem as string);
+            }
 
             //Console.WriteLine("{0},{1}", Guid.NewGuid(), dropInfo.Data);
         }
 
         private void DataGrid1_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show(Guid.NewGuid().ToString());
+            MessageBox.Show(e.Source.GetType().ToString());
+            MessageBox.Show(e.OriginalSource.GetType().ToString());
         }
     }
 }

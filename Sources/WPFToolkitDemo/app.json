@@ -11,9 +11,9 @@
 
         {
             "id": "2",
-            "name": "DataGridUtils",
+            "name": "DataGrid",
             "icon": "pack://application:,,,/HMIClient;component/Images/page.png",
-            "className": "WPFToolkitDemo.UserControls.DataGridUtilsUserControl, WPFToolkitDemo",
+            "className": "WPFToolkitDemo.UserControls.DataGridUserControl, WPFToolkitDemo",
             "child": [
             ]
         },
@@ -84,12 +84,11 @@
 
         {
             "id": "10",
-            "name": "DataGridDragDrop",
+            "name": "DragDrop",
             "icon": "pack://application:,,,/HMIClient;component/Images/page.png",
-            "className": "WPFToolkitDemo.UserControls.DataGridDragDropUserControl, WPFToolkitDemo",
+            "className": "WPFToolkitDemo.UserControls.DragDropUserControl, WPFToolkitDemo",
             "child": [
             ]
         }
     ]
-
 }

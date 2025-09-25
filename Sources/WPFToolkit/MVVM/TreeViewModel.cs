@@ -58,10 +58,13 @@ namespace WPFToolkit.MVVM
             get { return this.Context.SelectedItem; }
             set
             {
-                if (this.Context.SelectedItem != value) 
+                if (this.Context.SelectedItem != value)
                 {
                     this.Context.SelectedItem = value;
-                    value.IsSelected = true;
+                    if (value != null)
+                    {
+                        value.IsSelected = true;
+                    }
                     this.NotifyPropertyChanged("SelectedItem");
                 }
             }

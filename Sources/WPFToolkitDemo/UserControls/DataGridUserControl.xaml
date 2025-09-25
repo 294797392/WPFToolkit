@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="WPFToolkitDemo.UserControls.DataGridUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFToolkitDemo.UserControls"
+             xmlns:toolkitutility="clr-namespace:WPFToolkit.Utility;assembly=WPFToolkit"
+             xmlns:local1="clr-namespace:WPFToolkitDemo.UserControls.DataGridUserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <TabControl>
+        <TabItem Header="DataGridUtils">
+            <Grid>
+                <DataGrid x:Name="DataGrid1" 
+                  AutoGenerateColumns="False"
+                  toolkitutility:DataGridUtils.AutoGenerateColumnDataType="{x:Type local:DataGridItem}">
+
+                    <DataGrid.Resources>
+                        <DataTemplate x:Key="DataTemplateTest">
+                            <TextBlock Text="{Binding Path=Name}" Foreground="Red"/>
+                        </DataTemplate>
+                    </DataGrid.Resources>
+
+                </DataGrid>
+            </Grid>
+        </TabItem>
+
+        <TabItem Header="Editing">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <ScrollViewer Grid.Row="0" x:Name="ScrollViewer1">
+                    <TextBox x:Name="TextBoxMessage"/>
+                </ScrollViewer>
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <Button Content="获取TextBox" Click="ButtonFindTextBox_Click"/>
+                </StackPanel>
+                
+                <DataGrid Grid.Row="2" x:Name="DataGridEditing" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                          CellEditEnding="DataGridEditing_CellEditEnding" PreparingCellForEdit="DataGridEditing_PreparingCellForEdit"
+                          BeginningEdit="DataGridEditing_BeginningEdit" MouseDoubleClick="DataGridEditing_MouseDoubleClick">
+
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="可编辑列" x:Name="DataGridTemplateColumnName">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="TextBlockName" Text="{Binding Path=Name}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate>
+                                    <TextBox x:Name="TextBoxEditName" Text="{Binding Path=EditName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             PreviewKeyDown="TextBox_PreviewKeyDown"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="不编辑列" IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Name}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+            </Grid>
+            
+        </TabItem>
+
+        <TabItem Header="CustomEditing">
+            <local1:CustomEditingUserControl/>
+        </TabItem>
+        
+    </TabControl>
+
+    
+</UserControl>

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -207,12 +208,12 @@ namespace WPFToolkit.DragDrop
             }
         }
 
-        static bool HitTestScrollBar(object sender, MouseButtonEventArgs e)
+        static bool HitTest<T>(object sender, MouseButtonEventArgs e) where T : Visual
         {
             HitTestResult hit = VisualTreeHelper.HitTest((Visual)sender, e.GetPosition((IInputElement)sender));
             if (hit != null)
             {
-                return hit.VisualHit.GetVisualAncestor<System.Windows.Controls.Primitives.ScrollBar>() != null;
+                return hit.VisualHit.GetVisualAncestor<T>() != null;
             }
 
             return true;
@@ -252,11 +253,19 @@ namespace WPFToolkit.DragDrop
         {
             if (e.ClickCount != 1)
             {
+                m_DragInfo = null;
+                return;
+            }
+
+            // If the text box is clicked, no dragging operation will be performed
+            if (HitTest<TextBox>(sender, e))
+            {
+                m_DragInfo = null;
                 return;
             }
 
             // Ignore the click if the user has clicked on a scrollbar.
-            if (HitTestScrollBar(sender, e))
+            if (HitTest<ScrollBar>(sender, e))
             {
                 m_DragInfo = null;
                 return;
