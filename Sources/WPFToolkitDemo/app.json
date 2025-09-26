@@ -89,6 +89,15 @@
             "className": "WPFToolkitDemo.UserControls.DragDropUserControl, WPFToolkitDemo",
             "child": [
             ]
+        },
+
+        {
+            "id": "11",
+            "name": "TreeView",
+            "icon": "pack://application:,,,/HMIClient;component/Images/page.png",
+            "className": "WPFToolkitDemo.UserControls.TreeViewUserControl, WPFToolkitDemo",
+            "child": [
+            ]
         }
     ]
 }

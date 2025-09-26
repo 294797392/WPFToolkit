@@ -18,23 +18,9 @@ namespace WPFToolkit.MVVM
     /// </summary>
     public class TreeViewModel<TContext> : ViewModelBase where TContext : TreeViewModelContext
     {
-        /// <summary>
-        /// 指定某个动作的选项
-        /// </summary>
-        public enum ActionOptions
-        {
-            /// <summary>
-            /// 没有选项
-            /// </summary>
-            None,
-
-            /// <summary>
-            /// 递归对子节点执行同样的动作
-            /// </summary>
-            Recursion
-        }
-
         #region 实例变量
+
+        private ObservableCollection<TreeNodeViewModel> roots;
 
         #endregion
 
@@ -43,7 +29,7 @@ namespace WPFToolkit.MVVM
         /// <summary>
         /// 树形列表的根节点
         /// </summary>
-        public ObservableCollection<TreeNodeViewModel> Roots { get; private set; }
+        public IReadOnlyList<TreeNodeViewModel> Roots { get { return this.roots; } }
 
         /// <summary>
         /// 存储树形列表上下文信息
@@ -79,10 +65,9 @@ namespace WPFToolkit.MVVM
         /// </summary>
         public TreeViewModel()
         {
-            this.Roots = new ObservableCollection<TreeNodeViewModel>();
-
+            this.roots = new ObservableCollection<TreeNodeViewModel>();
             this.Context = Activator.CreateInstance<TContext>();
-            this.Context.Roots = this.Roots;
+            this.Context.Roots = this.roots;
         }
 
         #endregion
@@ -92,21 +77,43 @@ namespace WPFToolkit.MVVM
         /// <summary>
         /// 增加一个根节点
         /// </summary>
-        /// <param name="root">要增加的根节点</param>
-        public void AddRootNode(TreeNodeViewModel root)
+        /// <param name="node">要增加的根节点</param>
+        public void Add(TreeNodeViewModel node)
         {
-            this.Roots.Add(root);
-            this.Context.Add(root);
+            this.roots.Add(node);
+            this.Context.Add(node);
+        }
+
+        /// <summary>
+        /// 插入根节点到指定位置
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="node"></param>
+        public void Insert(int index, TreeNodeViewModel node)
+        {
+            this.roots.Insert(index, node);
+        }
+
+        /// <summary>
+        /// 移除指定的子节点
+        /// </summary>
+        /// <param name="node">要移除的根节点</param>
+        public void Remove(TreeNodeViewModel node) 
+        {
+            node.Remove();
         }
 
         /// <summary>
         /// 删除所有节点
         /// 包括清空缓存的节点
         /// </summary>
-        public void ClearNodes()
+        public void Clear()
         {
-            this.Roots.Clear();
+            this.roots.Clear();
             this.Context.Clear();
+            this.Context.SelectedItem = null;
+            this.Context.SelectedItems.Clear();
+            this.Context.CheckedItems.Clear();
         }
 
         /// <summary>
@@ -165,19 +172,45 @@ namespace WPFToolkit.MVVM
             }
         }
 
+        /// <summary>
+        /// 后序遍历树形列表
+        /// 先处理子节点，再处理父节点
+        /// </summary>
+        /// <param name="visit"></param>
+        /// <param name="forceVisit">如果为true，那么即使有一个失败的也继续遍历。如果为false，那么有一个失败的则直接退出遍历</param>
+        /// <returns>是否所有的节点遍历都成功</returns>
+        public bool PostOrderTraversal(Func<TreeNodeViewModel, bool> visit, bool forceVisit)
+        {
+            List<bool> results = new List<bool>();
+
+            foreach (TreeNodeViewModel node in this.Roots)
+            {
+                bool success = this.PostOrderTraversal(results, node, visit, forceVisit);
+
+                if (!success && !forceVisit)
+                {
+                    return false;
+                }
+
+                results.Add(success);
+            }
+
+            return results.All(x => x);
+        }
+
         #endregion
 
         #region 实例方法
 
         private void ExpandAll(TreeNodeViewModel parentNode)
         {
-            if (parentNode.Children.Count > 0)
+            if (parentNode.children.Count > 0)
             {
                 parentNode.IsExpanded = true;
 
                 foreach (TreeNodeViewModel treeNode in parentNode.Children)
                 {
-                    if (treeNode.Children.Count > 0)
+                    if (treeNode.children.Count > 0)
                     {
                         treeNode.IsExpanded = true;
 
@@ -187,9 +220,29 @@ namespace WPFToolkit.MVVM
             }
         }
 
-        #endregion
+        private bool PostOrderTraversal(List<bool> results, TreeNodeViewModel parentNode, Func<TreeNodeViewModel, bool> visit, bool forceVisit)
+        {
+            if (parentNode == null)
+            {
+                return true;
+            }
 
-        #region 静态方法
+            // 1. 先遍历所有子节点（递归）
+            foreach (TreeNodeViewModel child in parentNode.Children)
+            {
+                bool success = this.PostOrderTraversal(results, child, visit, forceVisit);
+
+                if (!success && !forceVisit)
+                {
+                    return false;
+                }
+
+                results.Add(success);
+            }
+
+            // 2. 再访问当前节点
+            return visit(parentNode);
+        }
 
         #endregion
     }

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace WPFToolkit.MVVM
 {
@@ -13,6 +14,8 @@ namespace WPFToolkit.MVVM
     public class TreeNodeViewModel : ItemViewModel
     {
         #region 实例变量
+
+        internal ObservableCollection<TreeNodeViewModel> children;
 
         #endregion
 
@@ -28,7 +31,7 @@ namespace WPFToolkit.MVVM
         /// 不要使用Children.Add和Children.Remove去增加和删除子节点
         /// 请调用AddChildNode和RemoveChildNode方法去增加和删除子节点
         /// </summary>
-        public ObservableCollection<TreeNodeViewModel> Children { get; private set; }
+        public IReadOnlyList<TreeNodeViewModel> Children { get { return this.children; } }
 
         /// <summary>
         /// 存储该节点的用户自定义数据模型
@@ -166,7 +169,7 @@ namespace WPFToolkit.MVVM
         public TreeNodeViewModel(TreeViewModelContext context, object data = null)
         {
             this.Context = context;
-            this.Children = new ObservableCollection<TreeNodeViewModel>();
+            this.children = new ObservableCollection<TreeNodeViewModel>();
             this.Data = data;
             this.IsVisible = true;
             this.IsChecked = false;
@@ -185,43 +188,19 @@ namespace WPFToolkit.MVVM
         public void Add(TreeNodeViewModel node)
         {
             node.Parent = this;
-            this.Children.Add(node);
+            this.children.Add(node);
             this.Context.Add(node);
         }
 
         /// <summary>
-        /// 从树形列表里移除自己
+        /// 插入一个子节点
         /// </summary>
-        public void Remove() 
+        /// <param name="index">要插入的位置</param>
+        /// <param name="node">要插入的节点</param>
+        public void Insert(int index, TreeNodeViewModel node)
         {
-            this.Clear();
-
-            if (this.Parent != null)
-            {
-                // 该节点是一个子节点
-                this.Parent.Children.Remove(this);
-            }
-            else
-            {
-                // 该节点是一个根节点
-                this.Context.Roots.Remove(this);
-            }
-
-            this.Context.Remove(this);
+            this.children.Insert(index, node);
         }
-
-        ///// <summary>
-        ///// 删除一个子节点
-        ///// </summary>
-        ///// <param name="node">要删除的子节点</param>
-        //public void Remove(TreeNodeViewModel node)
-        //{
-        //    node.Parent.Remove(node);
-
-        //    node.Parent = null;
-        //    this.Children.Remove(node);
-        //    this.Context.Remove(node.ID.ToString());
-        //}
 
         /// <summary>
         /// 清除所有子节点
@@ -235,9 +214,30 @@ namespace WPFToolkit.MVVM
                 child.Clear();
             }
 
-            this.Children.Clear();
+            this.children.Clear();
         }
 
         #endregion
+
+        /// <summary>
+        /// 从树形列表里移除自己
+        /// </summary>
+        internal void Remove()
+        {
+            this.Clear();
+
+            if (this.Parent != null)
+            {
+                // 该节点是一个子节点
+                this.Parent.children.Remove(this);
+            }
+            else
+            {
+                // 该节点是一个根节点
+                this.Context.Roots.Remove(this);
+            }
+
+            this.Context.Remove(this);
+        }
     }
 }

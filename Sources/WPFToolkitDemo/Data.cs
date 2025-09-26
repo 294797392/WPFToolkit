@@ -52,7 +52,7 @@ namespace WPFToolkitDemo
                     ID = string.Format("ID:{0}", i),
                     Name = string.Format("Name:{0}", i)
                 };
-                TreeVM.AddRootNode(root);
+                TreeVM.Add(root);
 
                 for (int j = 1; j <= 10; j++)
                 {
