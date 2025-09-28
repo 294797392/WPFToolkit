@@ -16,6 +16,7 @@ namespace WPFToolkit.MVVM
         #region 实例变量
 
         internal ObservableCollection<TreeNodeViewModel> children;
+        private TreeViewModelContext context;
 
         #endregion
 
@@ -41,7 +42,7 @@ namespace WPFToolkit.MVVM
         /// <summary>
         /// 树形列表上下文信息
         /// </summary>
-        public TreeViewModelContext Context { get; private set; }
+        public TreeViewModelContext Context { get { return this.context; } }
 
         /// <summary>
         /// 设置是否展开该节点
@@ -168,7 +169,7 @@ namespace WPFToolkit.MVVM
         /// <param name="data">该节点所包含的数据</param>
         public TreeNodeViewModel(TreeViewModelContext context, object data = null)
         {
-            this.Context = context;
+            this.context = context;
             this.children = new ObservableCollection<TreeNodeViewModel>();
             this.Data = data;
             this.IsVisible = true;
@@ -189,7 +190,15 @@ namespace WPFToolkit.MVVM
         {
             node.Parent = this;
             this.children.Add(node);
-            this.Context.Add(node);
+            this.context.nodeMap[node.ID.ToString()] = node;
+        }
+
+        public void Add(IEnumerable<TreeNodeViewModel> nodes)
+        {
+            foreach (TreeNodeViewModel node in nodes)
+            {
+                this.Add(node);
+            }
         }
 
         /// <summary>
@@ -203,13 +212,45 @@ namespace WPFToolkit.MVVM
         }
 
         /// <summary>
+        /// 移除位于指定索引处的子节点
+        /// </summary>
+        /// <param name="index"></param>
+        public void RemoveAt(int index)
+        {
+            if (index >= this.children.Count)
+            {
+                return;
+            }
+
+            this.children[index].Remove();
+        }
+
+        /// <summary>
+        /// 从node处开始删除后面的所有元素（包含node）
+        /// </summary>
+        /// <param name="node"></param>
+        public void Truncate(TreeNodeViewModel node)
+        {
+            int index = this.children.IndexOf(node);
+            if (index == -1)
+            {
+                return;
+            }
+
+            for (int i = index; i < this.children.Count; i++)
+            {
+                this.children[i].Remove();
+            }
+        }
+
+        /// <summary>
         /// 清除所有子节点
         /// </summary>
         public void Clear() 
         {
             foreach (TreeNodeViewModel child in this.Children)
             {
-                this.Context.Remove(child);
+                this.context.nodeMap.Remove(child.ID.ToString());
 
                 child.Clear();
             }
@@ -234,10 +275,10 @@ namespace WPFToolkit.MVVM
             else
             {
                 // 该节点是一个根节点
-                this.Context.Roots.Remove(this);
+                this.context.roots.Remove(this);
             }
 
-            this.Context.Remove(this);
+            this.context.nodeMap.Remove(this.ID.ToString());
         }
     }
 }

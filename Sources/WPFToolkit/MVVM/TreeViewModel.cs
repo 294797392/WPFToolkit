@@ -21,6 +21,7 @@ namespace WPFToolkit.MVVM
         #region 实例变量
 
         private ObservableCollection<TreeNodeViewModel> roots;
+        private TContext context;
 
         #endregion
 
@@ -34,7 +35,7 @@ namespace WPFToolkit.MVVM
         /// <summary>
         /// 存储树形列表上下文信息
         /// </summary>
-        public TContext Context { get; private set; }
+        public TContext Context { get { return this.context; } }
 
         /// <summary>
         /// 读取或设置树形列表的选中项
@@ -44,9 +45,9 @@ namespace WPFToolkit.MVVM
             get { return this.Context.SelectedItem; }
             set
             {
-                if (this.Context.SelectedItem != value)
+                if (this.context.SelectedItem != value)
                 {
-                    this.Context.SelectedItem = value;
+                    this.context.SelectedItem = value;
                     if (value != null)
                     {
                         value.IsSelected = true;
@@ -66,8 +67,8 @@ namespace WPFToolkit.MVVM
         public TreeViewModel()
         {
             this.roots = new ObservableCollection<TreeNodeViewModel>();
-            this.Context = Activator.CreateInstance<TContext>();
-            this.Context.Roots = this.roots;
+            this.context = Activator.CreateInstance<TContext>();
+            this.context.roots = this.roots;
         }
 
         #endregion
@@ -81,7 +82,19 @@ namespace WPFToolkit.MVVM
         public void Add(TreeNodeViewModel node)
         {
             this.roots.Add(node);
-            this.Context.Add(node);
+            this.context.nodeMap[node.ID.ToString()] = node;
+        }
+
+        /// <summary>
+        /// 增加多个根节点
+        /// </summary>
+        /// <param name="nodes"></param>
+        public void Add(IEnumerable<TreeNodeViewModel> nodes)
+        {
+            foreach (TreeNodeViewModel node in nodes)
+            {
+                this.Add(node);
+            }
         }
 
         /// <summary>
@@ -98,9 +111,41 @@ namespace WPFToolkit.MVVM
         /// 移除指定的子节点
         /// </summary>
         /// <param name="node">要移除的根节点</param>
-        public void Remove(TreeNodeViewModel node) 
+        public void Remove(TreeNodeViewModel node)
         {
             node.Remove();
+        }
+
+        /// <summary>
+        /// 移除位于指定索引处的子节点
+        /// </summary>
+        /// <param name="index"></param>
+        public void RemoveAt(int index)
+        {
+            if (index >= this.roots.Count)
+            {
+                return;
+            }
+
+            this.roots[index].Remove();
+        }
+
+        /// <summary>
+        /// 从node处开始删除后面的所有元素（包含node）
+        /// </summary>
+        /// <param name="node"></param>
+        public void Truncate(TreeNodeViewModel node)
+        {
+            int index = this.roots.IndexOf(node);
+            if (index == -1)
+            {
+                return;
+            }
+
+            for (int i = index; i < this.roots.Count; i++)
+            {
+                this.roots[i].Remove();
+            }
         }
 
         /// <summary>
@@ -110,10 +155,10 @@ namespace WPFToolkit.MVVM
         public void Clear()
         {
             this.roots.Clear();
-            this.Context.Clear();
-            this.Context.SelectedItem = null;
-            this.Context.SelectedItems.Clear();
-            this.Context.CheckedItems.Clear();
+            this.context.nodeMap.Clear();
+            this.context.SelectedItem = null;
+            this.context.SelectedItems.Clear();
+            this.context.CheckedItems.Clear();
         }
 
         /// <summary>
@@ -124,7 +169,17 @@ namespace WPFToolkit.MVVM
         /// <returns>是否存在节点</returns>
         public bool TryGetNode(string nodeID, out TreeNodeViewModel node)
         {
-            return this.Context.TryGetNode(nodeID, out node);
+            return this.context.nodeMap.TryGetValue(nodeID, out node);
+        }
+
+        /// <summary>
+        /// 获取指定类型的所有节点
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public IEnumerable<T> GetAllNodes<T>() where T : TreeNodeViewModel
+        {
+            return this.context.nodeMap.Values.OfType<T>();
         }
 
         /// <summary>
