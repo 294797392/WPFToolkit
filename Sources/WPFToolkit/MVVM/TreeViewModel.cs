@@ -28,6 +28,38 @@ namespace WPFToolkit.MVVM
         #region 属性
 
         /// <summary>
+        /// 获取第一个根节点
+        /// </summary>
+        public TreeNodeViewModel FirstNode 
+        {
+            get
+            {
+                if (this.roots.Count == 0) 
+                {
+                    return null;
+                }
+
+                return this.roots[0];
+            }
+        }
+
+        /// <summary>
+        /// 获取最后一个根节点
+        /// </summary>
+        public TreeNodeViewModel LastNode
+        {
+            get
+            {
+                if (this.roots.Count == 0) 
+                {
+                    return null;
+                }
+
+                return this.roots[this.roots.Count - 1];
+            }
+        }
+
+        /// <summary>
         /// 树形列表的根节点
         /// </summary>
         public IReadOnlyList<TreeNodeViewModel> Roots { get { return this.roots; } }
@@ -128,6 +160,32 @@ namespace WPFToolkit.MVVM
             }
 
             this.roots[index].Remove();
+        }
+
+        /// <summary>
+        /// 移除最后一个元素
+        /// </summary>
+        public void RemoveLast()
+        {
+            TreeNodeViewModel toRemove = this.LastNode;
+
+            if (toRemove != null)
+            {
+                toRemove.Remove();
+            }
+        }
+
+        /// <summary>
+        /// 移除第一个元素
+        /// </summary>
+        public void RemoveFirst()
+        {
+            TreeNodeViewModel toRemove = this.FirstNode;
+
+            if (toRemove != null)
+            {
+                toRemove.Remove();
+            }
         }
 
         /// <summary>

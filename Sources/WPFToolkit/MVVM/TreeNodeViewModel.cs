@@ -23,6 +23,38 @@ namespace WPFToolkit.MVVM
         #region 属性
 
         /// <summary>
+        /// 获取第一个根节点
+        /// </summary>
+        public TreeNodeViewModel FirstNode
+        {
+            get
+            {
+                if (this.children.Count == 0)
+                {
+                    return null;
+                }
+
+                return this.children[0];
+            }
+        }
+
+        /// <summary>
+        /// 获取最后一个根节点
+        /// </summary>
+        public TreeNodeViewModel LastNode
+        {
+            get
+            {
+                if (this.children.Count == 0)
+                {
+                    return null;
+                }
+
+                return this.children[this.children.Count - 1];
+            }
+        }
+
+        /// <summary>
         /// 父节点
         /// </summary>
         public TreeNodeViewModel Parent { get; private set; }
@@ -224,6 +256,33 @@ namespace WPFToolkit.MVVM
 
             this.children[index].Remove();
         }
+
+        /// <summary>
+        /// 移除最后一个元素
+        /// </summary>
+        public void RemoveLast()
+        {
+            TreeNodeViewModel toRemove = this.LastNode;
+
+            if (toRemove != null) 
+            {
+                toRemove.Remove();
+            }
+        }
+
+        /// <summary>
+        /// 移除第一个元素
+        /// </summary>
+        public void RemoveFirst()
+        {
+            TreeNodeViewModel toRemove = this.FirstNode;
+
+            if (toRemove != null) 
+            {
+                toRemove.Remove();
+            }
+        }
+
 
         /// <summary>
         /// 从node处开始删除后面的所有元素（包含node）
