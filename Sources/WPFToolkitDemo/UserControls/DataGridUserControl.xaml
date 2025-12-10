@@ -81,6 +81,43 @@
         <TabItem Header="CustomEditing">
             <local1:CustomEditingUserControl/>
         </TabItem>
+
+        <TabItem Header="绑定TreeViewModel">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <Button Content="获取选中项" Click="ButtonGetSelectedItem_Click"/>
+                </StackPanel>
+
+                <DataGrid Grid.Row="1" x:Name="DataGridBindTreeViewModel" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+
+                    <DataGrid.ItemContainerStyle>
+                        <Style TargetType="{x:Type DataGridRow}">
+                            <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Style>
+                    </DataGrid.ItemContainerStyle>
+
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="名称" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Path=Name}" Margin="5,0,0,0" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+            </Grid>
+
+        </TabItem>
         
     </TabControl>
 

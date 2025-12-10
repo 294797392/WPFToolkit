@@ -284,8 +284,14 @@ namespace WPFToolkit.DragDrop
 
                 if (selectedItems.Cast<object>().Contains(m_DragInfo.SourceItem))
                 {
+                    Console.WriteLine("当前拖拽的元素包含在选中项里面");
+
                     // TODO: Re-raise the supressed event if the user didn't initiate a drag.
                     if ((itemsControl is ListBox) && (itemsControl as ListBox).SelectionMode == SelectionMode.Extended)
+                    {
+                        e.Handled = false;
+                    }
+                    if ((itemsControl is DataGrid) && (itemsControl as DataGrid).SelectionMode == DataGridSelectionMode.Extended)
                     {
                         e.Handled = false;
                     }
@@ -293,6 +299,10 @@ namespace WPFToolkit.DragDrop
                     {
                         e.Handled = true;
                     }
+                }
+                else 
+                {
+                    Console.WriteLine("当前拖拽的元素没有包含在选中项里面");
                 }
             }
         }

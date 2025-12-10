@@ -14,18 +14,6 @@ using System.Windows.Media;
 
 namespace WPFToolkit.Controls
 {
-    public delegate void SelectionChangingEventHandler(object sender, SelectionChangingEventArgs e);
-
-    public class SelectionChangingEventArgs : RoutedEventArgs
-    {
-        public Brush SelectedBrush { get; internal set; }
-
-        public SelectionChangingEventArgs()
-        {
-            this.RoutedEvent = ColorPicker.SelectionChangingEvent;
-        }
-    }
-
     /// <summary>
     /// 颜色选择器
     /// 
@@ -48,9 +36,7 @@ namespace WPFToolkit.Controls
     [TemplatePart(Name = "PART_Ball", Type = typeof(Border))]
     [TemplatePart(Name = "PART_OKButton", Type = typeof(Button))]
     [TemplatePart(Name = "PART_ClearButton", Type = typeof(Button))]
-    [ContentProperty("Content")]
-    [DefaultProperty("Content")]
-    public class ColorPicker : ContentControl
+    public class ColorPicker : Control
     {
         #region 类变量
 
@@ -109,25 +95,6 @@ namespace WPFToolkit.Controls
         // Using a DependencyProperty as the backing store for SelectedColor.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SelectedColorProperty =
             DependencyProperty.Register("SelectedColor", typeof(Color), typeof(ColorPicker), new PropertyMetadata(DefaultColor, SelectedColorPropertyChangedCallback));
-
-        #endregion
-
-        #region 路由事件
-
-        /// <summary>
-        ///     An event fired when the selection changes.
-        /// </summary>
-        public static readonly RoutedEvent SelectionChangingEvent = EventManager.RegisterRoutedEvent(
-            "SelectionChanging", RoutingStrategy.Bubble, typeof(SelectionChangingEventHandler), typeof(ColorPicker));
-
-        /// <summary>
-        ///     An event fired when the selection changes.
-        /// </summary>
-        public event SelectionChangingEventHandler SelectionChanging
-        {
-            add { AddHandler(SelectionChangingEvent, value); }
-            remove { RemoveHandler(SelectionChangingEvent, value); }
-        }
 
         #endregion
 
@@ -230,12 +197,6 @@ namespace WPFToolkit.Controls
                 this.SelectedColor = color;
 
                 this.ResetBallPosition(this.s, this.b);
-
-                SelectionChangingEventArgs selectionChanging = new SelectionChangingEventArgs();
-                selectionChanging.Source = this;
-                selectionChanging.SelectedBrush = this.SelectedBrush;
-
-                this.RaiseEvent(selectionChanging);
             }
         }
 

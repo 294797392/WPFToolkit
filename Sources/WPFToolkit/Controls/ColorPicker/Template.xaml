@@ -2,12 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:toolkitcontrols="clr-namespace:WPFToolkit.Controls">
 
-    <!-- 
-    关键属性： 
-    GridViewRowPresenter.Columns
-    GridViewHeaderRowPresenter.Columns
-    -->
-
     <toolkitcontrols:ColorTextConverter x:Key="ColorTextConverter"/>
 
     <Style x:Key="StyleColorPicker" TargetType="{x:Type toolkitcontrols:ColorPicker}">
@@ -23,14 +17,29 @@
 
                     <ControlTemplate.Resources>
 
+                        <Style x:Key="StyleToggleButtonLocal" TargetType="{x:Type ToggleButton}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+
+                                        <Grid>
+                                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}" UseLayoutRounding="True" SnapsToDevicePixels="True"/>
+                                            <ContentPresenter/>
+                                        </Grid>
+                                        
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+
                     </ControlTemplate.Resources>
 
                     <Grid>
-                        <ToggleButton IsChecked="{Binding Path=IsOpened, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="0"
-                                      Background="Transparent" Content="{TemplateBinding Content}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                        <ToggleButton IsChecked="{Binding Path=IsOpened, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                      Background="{TemplateBinding SelectedBrush}" Style="{StaticResource ResourceKey=StyleToggleButtonLocal}"/>
 
-                        <Popup IsOpen="{TemplateBinding IsOpened}" Placement="Bottom" x:Name="Popup" Focusable="False" AllowsTransparency="True" PopupAnimation="Fade" StaysOpen="False">
+                        <Popup IsOpen="{TemplateBinding IsOpened}" Placement="Bottom" x:Name="Popup" Focusable="False" AllowsTransparency="True" PopupAnimation="None" StaysOpen="False">
                             <Grid Width="320" Height="220">
                                 <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
                                         Margin="4"/>
@@ -100,10 +109,11 @@
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <TextBox Grid.Column="0" x:Name="PART_ColorText" Height="27" IsReadOnly="True" Text="{TemplateBinding SelectedColor, Converter={StaticResource ResourceKey=ColorTextConverter}}"/>
+                                        <TextBox Grid.Column="0" x:Name="PART_ColorText" Height="25" IsReadOnly="True" VerticalContentAlignment="Center" Padding="3,0,3,0"
+                                                 Text="{TemplateBinding SelectedColor, Converter={StaticResource ResourceKey=ColorTextConverter}}"/>
 
-                                        <Button Grid.Column="1" x:Name="PART_ClearButton" Content="清空" Height="27" Width="60"/>
-                                        <Button Grid.Column="2" x:Name="PART_OKButton" Content="确定" Height="27" Width="60" Margin="3,3,0,3"/>
+                                        <Button Grid.Column="1" x:Name="PART_ClearButton" Content="清空" Height="25" Width="60" Margin="3,0,0,0"/>
+                                        <Button Grid.Column="2" x:Name="PART_OKButton" Content="确定" Height="25" Width="60" Margin="3,0,0,0"/>
 
                                     </Grid>
 

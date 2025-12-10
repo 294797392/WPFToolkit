@@ -14,10 +14,18 @@
 
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <Button x:Name="PostOrderTraversal" Content="后序遍历" Click="PostOrderTraversal_Click"/>
+            <Button x:Name="ButtonGetSelectedItem" Content="获取选中的节点" Click="ButtonGetSelectedItem_Click"/>
         </StackPanel>
         
         
         <TreeView Grid.Row="1" x:Name="TreeView1">
+
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </Style>
+            </TreeView.ItemContainerStyle>
+            
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}">
                     <TextBlock Text="{Binding Path=Name}"/>

@@ -130,7 +130,7 @@ namespace WPFToolkit.MVVM
                     }
                     else
                     {
-                        if(this.Context != null) 
+                        if(this.Context != null && this.Context.SelectedItem == this)
                         {
                             this.Context.SelectedItem = null;
                             this.Context.SelectedItems.Remove(this);
@@ -241,6 +241,8 @@ namespace WPFToolkit.MVVM
         public void Insert(int index, TreeNodeViewModel node)
         {
             this.children.Insert(index, node);
+
+            node.Parent = this;
         }
 
         /// <summary>
@@ -312,6 +314,8 @@ namespace WPFToolkit.MVVM
                 this.context.nodeMap.Remove(child.ID.ToString());
 
                 child.Clear();
+
+                child.Parent = null;
             }
 
             this.children.Clear();
@@ -338,6 +342,8 @@ namespace WPFToolkit.MVVM
             }
 
             this.context.nodeMap.Remove(this.ID.ToString());
+
+            this.Parent = null;
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using WPFToolkit.Attributes;
 using WPFToolkit.DragDrop;
+using WPFToolkit.MVVM;
 
 namespace WPFToolkitDemo.UserControls
 {
@@ -29,6 +30,8 @@ namespace WPFToolkitDemo.UserControls
 
     public partial class DataGridUserControl : UserControl
     {
+        private TreeViewModel<TreeViewModelContext> treeViewModel;
+
         public DataGridUserControl()
         {
             InitializeComponent();
@@ -47,6 +50,8 @@ namespace WPFToolkitDemo.UserControls
 
             DataGrid1.ItemsSource = items;
             DataGridEditing.ItemsSource = items;
+
+            DataGridBindTreeViewModel.ItemsSource = DataSource.TreeVM.Roots;
         }
 
         private void DataGridEditing_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
@@ -141,6 +146,13 @@ namespace WPFToolkitDemo.UserControls
             {
                 MessageBox.Show(textBox.Text);
             }
+        }
+
+        private void ButtonGetSelectedItem_Click(object sender, RoutedEventArgs e)
+        {
+            TreeNodeViewModel selectedItem = DataSource.TreeVM.SelectedItem;
+
+            Console.WriteLine();
         }
     }
 }

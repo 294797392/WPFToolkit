@@ -60,7 +60,6 @@ namespace WPFToolkitDemo.UserControls
                 this.treeViewModel.Add(node);
             }
 
-
             TreeView1.ItemsSource = this.treeViewModel.Roots;
         }
 
@@ -84,6 +83,13 @@ namespace WPFToolkitDemo.UserControls
             }, false);
 
             Console.WriteLine("遍历结束, {0}", success);
+        }
+
+        private void ButtonGetSelectedItem_Click(object sender, RoutedEventArgs e)
+        {
+            TreeNodeViewModel selectedItem = this.treeViewModel.SelectedItem;
+
+            Console.WriteLine();
         }
     }
 }
