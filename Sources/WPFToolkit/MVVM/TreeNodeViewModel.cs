@@ -130,10 +130,13 @@ namespace WPFToolkit.MVVM
                     }
                     else
                     {
-                        if(this.Context != null && this.Context.SelectedItem == this)
+                        // 如果控件可以多选，那么this.Context.SelectedItem可能不是this
+                        this.Context.SelectedItems.Remove(this);
+
+                        if (this.Context != null && this.Context.SelectedItem == this)
                         {
-                            this.Context.SelectedItem = null;
-                            this.Context.SelectedItems.Remove(this);
+                            // 设置选中列表里的第一个项为选中项
+                            this.Context.SelectedItem = this.Context.SelectedItems.FirstOrDefault();
                         }
                     }
                 }
@@ -342,6 +345,8 @@ namespace WPFToolkit.MVVM
             }
 
             this.context.nodeMap.Remove(this.ID.ToString());
+
+            this.IsSelected = false;
 
             this.Parent = null;
         }
