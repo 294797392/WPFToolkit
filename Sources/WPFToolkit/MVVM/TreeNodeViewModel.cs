@@ -67,6 +67,24 @@ namespace WPFToolkit.MVVM
         public IReadOnlyList<TreeNodeViewModel> Children { get { return this.children; } }
 
         /// <summary>
+        /// 获取和该节点同级的节点列表
+        /// </summary>
+        public IReadOnlyList<TreeNodeViewModel> Slibings
+        {
+            get
+            {
+                if (this.Parent == null)
+                {
+                    return this.context.roots;
+                }
+                else
+                {
+                    return this.Parent.children;
+                }
+            }
+        }
+
+        /// <summary>
         /// 存储该节点的用户自定义数据模型
         /// </summary>
         public object Data { get; private set; }
@@ -179,11 +197,11 @@ namespace WPFToolkit.MVVM
         /// </summary>
         public override bool IsVisible
         {
-            get 
+            get
             {
                 return this.isVisible;
             }
-            set 
+            set
             {
                 if (this.isVisible != value)
                 {
@@ -269,7 +287,7 @@ namespace WPFToolkit.MVVM
         {
             TreeNodeViewModel toRemove = this.LastNode;
 
-            if (toRemove != null) 
+            if (toRemove != null)
             {
                 toRemove.Remove();
             }
@@ -282,7 +300,7 @@ namespace WPFToolkit.MVVM
         {
             TreeNodeViewModel toRemove = this.FirstNode;
 
-            if (toRemove != null) 
+            if (toRemove != null)
             {
                 toRemove.Remove();
             }
@@ -310,7 +328,7 @@ namespace WPFToolkit.MVVM
         /// <summary>
         /// 清除所有子节点
         /// </summary>
-        public void Clear() 
+        public void Clear()
         {
             foreach (TreeNodeViewModel child in this.Children)
             {
